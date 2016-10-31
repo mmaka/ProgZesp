@@ -325,7 +325,7 @@ namespace Prog_Zesp
         }
 
 
-        public bool Przeszukaj_tablice(int start_x, int start_y, int zakres_x, int zakres_y, float dlugosc_x, float dlugosc_y)
+        public bool Przeszukaj_tablice(int start_x, int start_y, int zakres_x, int zakres_y, int dlugosc_x, int dlugosc_y)
         {
 
             if (start_x + zakres_x > dlugosc_x || start_y + zakres_y > dlugosc_y)
@@ -386,14 +386,16 @@ namespace Prog_Zesp
          for(int i = 0; i< tmp.Count; i++) { 
 
                 int zakres1 = (int)(-0.1 + (tmp[i].obj).dlugosc_wzdluz_x() / dokladnosc) + 1;
-                int zakres2 = (int)(-0.1 + ((tmp[i].obj)).dlugosc_wzdluz_y() / dokladnosc) + 1;
-                
-                if (((tmp[i].obj).dlugosc_wzdluz_x()<= mat.dlugosc_x_do_konca()) && (Przeszukaj_tablice(aktualny_x, aktualny_y,zakres1,zakres2,mat.calkowita_dlugosc_x(),mat.calkowita_dlugosc_y())==true)){
+                int zakres2 = (int)(-0.1 + (tmp[i].obj).dlugosc_wzdluz_y() / dokladnosc) + 1;
+                int mat_granica_x = (int)(-0.1 + (mat.calkowita_dlugosc_x() / dokladnosc)) + 1;
+                int mat_granica_y = (int)(-0.1 + (mat.calkowita_dlugosc_y() / dokladnosc)) + 1;
+
+                if (((tmp[i].obj).dlugosc_wzdluz_x()<= mat.dlugosc_x_do_konca()) && (Przeszukaj_tablice(aktualny_x, aktualny_y,zakres1,zakres2,mat_granica_x,mat_granica_y)==true)){
 
                     Wypelnij_tablice(aktualny_x, aktualny_y,zakres1,zakres2,tmp[i].id+1);			
 		           	mat.ustaw_biezacy_x(mat.biezacy_x+(tmp[i].obj).dlugosc_wzdluz_x());
                     
-                } else	if(((tmp[i].obj).dlugosc_wzdluz_y()<= mat.dlugosc_x_do_konca()) && (Przeszukaj_tablice(aktualny_x, aktualny_y,zakres2,zakres1,mat.calkowita_dlugosc_x(),mat.calkowita_dlugosc_y())==true)){
+                } else	if(((tmp[i].obj).dlugosc_wzdluz_y()<= mat.dlugosc_x_do_konca()) && (Przeszukaj_tablice(aktualny_x, aktualny_y,zakres2,zakres1,mat_granica_x,mat_granica_y)==true)){
 
                     Wypelnij_tablice(aktualny_x, aktualny_y,zakres2,zakres1,tmp[i].id+1);
 			        mat.ustaw_biezacy_x(mat.biezacy_x+(tmp[i].obj).dlugosc_wzdluz_y());
