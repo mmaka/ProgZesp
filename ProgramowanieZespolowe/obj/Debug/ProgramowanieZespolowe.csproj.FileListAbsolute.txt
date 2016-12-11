@@ -1,0 +1,12 @@
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\bin\Debug\ProgramowanieZespolowe.exe.config
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\bin\Debug\ProgramowanieZespolowe.exe.config
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\bin\Debug\ProgramowanieZespolowe.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\bin\Debug\ProgramowanieZespolowe.pdb
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.csprojResolveAssemblyReference.cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\obj\Debug\dodawanie_figur1.Form1.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\obj\Debug\dodawanie_figur1.Form_matryca.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\obj\Debug\dodawanie_figur1.Form_prostokat.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.Properties.Resources.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.csproj.GenerateResource.Cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.pdb
