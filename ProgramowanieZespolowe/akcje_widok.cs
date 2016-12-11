@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Globalization;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 
 namespace dodawanie_figur1
 {
@@ -50,6 +51,24 @@ namespace dodawanie_figur1
             okno.button_rozmiesc.Enabled = true;
             matrycaPBox.Location = new Point(okno.Location.X + okno.Width, okno.Location.Y);
             matrycaPBox.Refresh();
+        }
+
+       public void zapiszObraz()
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.FileName = "pB";
+            dialog.Filter = "png files (*.png) | *.png | jpg files (*.jpg)|*.jpg|All files (*.*)|*.*";
+            dialog.FilterIndex = 1;
+            dialog.RestoreDirectory = true;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+               
+                int width = Convert.ToInt32(matrycaPBox.pictureBox1.Width);
+                int height = Convert.ToInt32(matrycaPBox.pictureBox1.Height);
+                Bitmap bmp = new Bitmap(width, height);
+                matrycaPBox.pictureBox1.DrawToBitmap(bmp, new Rectangle(0, 0, width, height));
+                bmp.Save(dialog.FileName, ImageFormat.Jpeg);
+            }
         }
 
         internal void klikniecie_ktora_figura(MouseEventArgs e)

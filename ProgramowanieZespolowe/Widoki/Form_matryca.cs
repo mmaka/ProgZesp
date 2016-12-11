@@ -44,7 +44,7 @@ namespace dodawanie_figur1
 
         private void button_zapisz_Click(object sender, EventArgs e)
         {
-
+            AW.zapiszObraz();
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)

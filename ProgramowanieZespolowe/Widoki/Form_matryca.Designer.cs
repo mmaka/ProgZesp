@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_matryca));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button_drukuj = new System.Windows.Forms.Button();
-            this.button_zapisz = new System.Windows.Forms.Button();
+            this.button_zapiszOb = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,17 +59,16 @@
             this.button_drukuj.Text = "Drukuj";
             this.button_drukuj.UseVisualStyleBackColor = true;
             // 
-            // button_zapisz
+            // button_zapiszOb
             // 
-            this.button_zapisz.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_zapisz.Enabled = false;
-            this.button_zapisz.Location = new System.Drawing.Point(93, 257);
-            this.button_zapisz.Name = "button_zapisz";
-            this.button_zapisz.Size = new System.Drawing.Size(75, 23);
-            this.button_zapisz.TabIndex = 3;
-            this.button_zapisz.Text = "Zapisz";
-            this.button_zapisz.UseVisualStyleBackColor = true;
-            this.button_zapisz.Click += new System.EventHandler(this.button_zapisz_Click);
+            this.button_zapiszOb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_zapiszOb.Location = new System.Drawing.Point(93, 257);
+            this.button_zapiszOb.Name = "button_zapiszOb";
+            this.button_zapiszOb.Size = new System.Drawing.Size(99, 23);
+            this.button_zapiszOb.TabIndex = 3;
+            this.button_zapiszOb.Text = "Zapisz Obraz";
+            this.button_zapiszOb.UseVisualStyleBackColor = true;
+            this.button_zapiszOb.Click += new System.EventHandler(this.button_zapisz_Click);
             // 
             // Form_matryca
             // 
@@ -80,7 +79,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(284, 290);
-            this.Controls.Add(this.button_zapisz);
+            this.Controls.Add(this.button_zapiszOb);
             this.Controls.Add(this.button_drukuj);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
@@ -97,6 +96,6 @@
 
        public System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Button button_drukuj;
-        public System.Windows.Forms.Button button_zapisz;
+        public System.Windows.Forms.Button button_zapiszOb;
     }
 }
