@@ -34,11 +34,8 @@
             this.button_Rysuj = new System.Windows.Forms.Button();
             this.checkedBox_LISTA = new System.Windows.Forms.CheckedListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox_matrycaW = new System.Windows.Forms.TextBox();
-            this.textBox_matrycaH = new System.Windows.Forms.TextBox();
-            this.button_nowa = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.richTextBoxChmurka = new System.Windows.Forms.RichTextBox();
             this.button_usun = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Figura = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,10 +46,13 @@
             this.Szer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Wysok = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_rozmiesc = new System.Windows.Forms.Button();
-            this.button_unSel = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nowaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zakończToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_dodaj
@@ -89,7 +89,7 @@
             "Niestandardowe",
             "Prostokąt ",
             "Trójkąt"});
-            this.checkedBox_LISTA.Location = new System.Drawing.Point(246, 22);
+            this.checkedBox_LISTA.Location = new System.Drawing.Point(6, 422);
             this.checkedBox_LISTA.Name = "checkedBox_LISTA";
             this.checkedBox_LISTA.Size = new System.Drawing.Size(112, 79);
             this.checkedBox_LISTA.Sorted = true;
@@ -98,63 +98,35 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 311);
+            this.textBox1.Location = new System.Drawing.Point(6, 375);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(376, 20);
             this.textBox1.TabIndex = 5;
             // 
-            // textBox_matrycaW
-            // 
-            this.textBox_matrycaW.Location = new System.Drawing.Point(6, 48);
-            this.textBox_matrycaW.Name = "textBox_matrycaW";
-            this.textBox_matrycaW.Size = new System.Drawing.Size(100, 20);
-            this.textBox_matrycaW.TabIndex = 7;
-            this.textBox_matrycaW.Text = "1200";
-            // 
-            // textBox_matrycaH
-            // 
-            this.textBox_matrycaH.Location = new System.Drawing.Point(118, 48);
-            this.textBox_matrycaH.Name = "textBox_matrycaH";
-            this.textBox_matrycaH.Size = new System.Drawing.Size(100, 20);
-            this.textBox_matrycaH.TabIndex = 8;
-            this.textBox_matrycaH.Text = "800";
-            // 
-            // button_nowa
-            // 
-            this.button_nowa.Location = new System.Drawing.Point(6, 19);
-            this.button_nowa.Name = "button_nowa";
-            this.button_nowa.Size = new System.Drawing.Size(212, 23);
-            this.button_nowa.TabIndex = 9;
-            this.button_nowa.Text = "Nowa matryca";
-            this.button_nowa.UseVisualStyleBackColor = true;
-            this.button_nowa.Click += new System.EventHandler(this.button_nowa_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.textBox_matrycaW);
-            this.groupBox1.Controls.Add(this.button_nowa);
-            this.groupBox1.Controls.Add(this.textBox_matrycaH);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(228, 90);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.richTextBoxChmurka);
+            this.groupBox2.Controls.Add(this.checkedBox_LISTA);
             this.groupBox2.Controls.Add(this.button_usun);
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Controls.Add(this.button_rozmiesc);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.button_Rysuj);
             this.groupBox2.Controls.Add(this.button_dodaj);
-            this.groupBox2.Location = new System.Drawing.Point(12, 108);
+            this.groupBox2.Location = new System.Drawing.Point(12, 42);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(391, 337);
+            this.groupBox2.Size = new System.Drawing.Size(391, 507);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
+            // 
+            // richTextBoxChmurka
+            // 
+            this.richTextBoxChmurka.Location = new System.Drawing.Point(226, 401);
+            this.richTextBoxChmurka.Name = "richTextBoxChmurka";
+            this.richTextBoxChmurka.Size = new System.Drawing.Size(156, 100);
+            this.richTextBoxChmurka.TabIndex = 14;
+            this.richTextBoxChmurka.Text = "";
             // 
             // button_usun
             // 
@@ -189,7 +161,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(376, 257);
+            this.dataGridView1.Size = new System.Drawing.Size(376, 321);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -265,15 +237,38 @@
             this.button_rozmiesc.UseVisualStyleBackColor = true;
             this.button_rozmiesc.Click += new System.EventHandler(this.button_rozmiesc_Click);
             // 
-            // button_unSel
+            // menuStrip1
             // 
-            this.button_unSel.Location = new System.Drawing.Point(72, 478);
-            this.button_unSel.Name = "button_unSel";
-            this.button_unSel.Size = new System.Drawing.Size(75, 23);
-            this.button_unSel.TabIndex = 14;
-            this.button_unSel.Text = "Unselect";
-            this.button_unSel.UseVisualStyleBackColor = true;
-            this.button_unSel.Click += new System.EventHandler(this.button_unSel_Click);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.plikToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(418, 24);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // plikToolStripMenuItem
+            // 
+            this.plikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nowaToolStripMenuItem,
+            this.zakończToolStripMenuItem});
+            this.plikToolStripMenuItem.Name = "plikToolStripMenuItem";
+            this.plikToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.plikToolStripMenuItem.Text = "Plik";
+            // 
+            // nowaToolStripMenuItem
+            // 
+            this.nowaToolStripMenuItem.Name = "nowaToolStripMenuItem";
+            this.nowaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nowaToolStripMenuItem.Text = "Nowa matryca";
+            this.nowaToolStripMenuItem.Click += new System.EventHandler(this.nowaToolStripMenuItem_Click);
+            // 
+            // zakończToolStripMenuItem
+            // 
+            this.zakończToolStripMenuItem.Name = "zakończToolStripMenuItem";
+            this.zakończToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zakończToolStripMenuItem.Text = "Zakończ";
+            this.zakończToolStripMenuItem.Click += new System.EventHandler(this.zakończToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -282,20 +277,19 @@
             this.BackColor = System.Drawing.Color.DarkOrange;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(418, 561);
-            this.Controls.Add(this.button_unSel);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.checkedBox_LISTA);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Location = new System.Drawing.Point(100, 100);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Rozmiesczanie figur v1";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -308,10 +302,6 @@
         public System.Windows.Forms.Button button_Rysuj;
         public System.Windows.Forms.CheckedListBox checkedBox_LISTA;
         public System.Windows.Forms.TextBox textBox1;
-        public System.Windows.Forms.TextBox textBox_matrycaW;
-        public System.Windows.Forms.TextBox textBox_matrycaH;
-        public System.Windows.Forms.Button button_nowa;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.Button button_rozmiesc;
         public System.Windows.Forms.DataGridView dataGridView1;
@@ -323,7 +313,11 @@
         public System.Windows.Forms.DataGridViewTextBoxColumn Y;
         public System.Windows.Forms.DataGridViewTextBoxColumn Szer;
         public System.Windows.Forms.DataGridViewTextBoxColumn Wysok;
-        public System.Windows.Forms.Button button_unSel;
+        public System.Windows.Forms.RichTextBox richTextBoxChmurka;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nowaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zakończToolStripMenuItem;
     }
 }
 

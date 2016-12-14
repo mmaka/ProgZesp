@@ -34,13 +34,7 @@ namespace dodawanie_figur1
 
       
 
-        private void button_nowa_Click(object sender, EventArgs e)
-        {
-            if (textBox_matrycaH.Text == "" || textBox_matrycaW.Text == "")
-                AW.MBNull();
-            else
-                AW.nowa();
-        }
+        
 
         private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -70,6 +64,17 @@ namespace dodawanie_figur1
         private void button_unSel_Click(object sender, EventArgs e)
         {
             AW.unselect();
+        }
+
+        private void zakończToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void nowaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AW.nowaM();
+
         }
     }
 }

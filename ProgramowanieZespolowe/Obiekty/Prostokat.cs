@@ -1,11 +1,5 @@
 ﻿using dodawanie_figur1.Obiekty;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace dodawanie_figur1
@@ -107,10 +101,15 @@ namespace dodawanie_figur1
             e.Graphics.FillRectangle(Brushes.BurlyWood, rect);
             e.Graphics.DrawRectangle(Pens.Black, rect);
 
-            e.Graphics.DrawString("ID: "+ID+"\n"+name, drawFont, 
-                Brushes.Black, 
-                (int)(punkt_zaczepienia.x+2), punkt_zaczepienia.y+2);
-         }
+            if (w > 80)
+                e.Graphics.DrawString("ID: " + ID + "\n" + name, drawFont,
+                    Brushes.Black,
+                    (int)(punkt_zaczepienia.x + 2), punkt_zaczepienia.y + 2);
+            else
+                e.Graphics.DrawString("" + ID, drawFont,
+                   Brushes.Black,
+                   (int)(punkt_zaczepienia.x + 2), punkt_zaczepienia.y + 2);
+        }
 
         public override void rysujOB(object sender, PaintEventArgs e)
         {
@@ -121,8 +120,12 @@ namespace dodawanie_figur1
             e.Graphics.FillRectangle(Brushes.LightSalmon, rect);
             e.Graphics.DrawRectangle(Pens.Red, rect);
            
-
-            e.Graphics.DrawString("ID: " + ID + "\n" + name, drawFont,
+            if(w>80)
+                e.Graphics.DrawString("ID: " + ID + "\n" + name, drawFont,               
+                    Brushes.Black,
+                    (int)(punkt_zaczepienia.x + 2), punkt_zaczepienia.y + 2);
+            else             
+            e.Graphics.DrawString(""+ID, drawFont,
                Brushes.Black,
                (int)(punkt_zaczepienia.x+2), punkt_zaczepienia.y+2);
 

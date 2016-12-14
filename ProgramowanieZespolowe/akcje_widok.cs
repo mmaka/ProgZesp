@@ -13,13 +13,10 @@ namespace dodawanie_figur1
         Form1 okno;
         Form_prostokat prost;
         Form_matryca matrycaPBox;
+        ProgramowanieZespolowe.Form_Nowa_Matryca nowaMatryca;
         int licznik = 0;
 
-        public void MBNull()           
-            {
-                MessageBox.Show("Żadna z wartości nie może być pusta!", "Błąd",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);                
-            }  
+       
 
         public Akcje_widok(Form1 _okno)
         {
@@ -29,31 +26,34 @@ namespace dodawanie_figur1
         public void nowa()
         {
             M = new Matryca(            
-             int.Parse(okno.textBox_matrycaW.Text, CultureInfo.InvariantCulture.NumberFormat),
-             int.Parse(okno.textBox_matrycaH.Text, CultureInfo.InvariantCulture.NumberFormat)
+             int.Parse(nowaMatryca.textBox_matrycaW.Text, CultureInfo.InvariantCulture.NumberFormat),
+             int.Parse(nowaMatryca.textBox_matrycaH.Text, CultureInfo.InvariantCulture.NumberFormat)
              );
 
             matrycaPBox = new Form_matryca(M.VX, M.VY, this);
             matrycaPBox.pictureBox1.Paint += new PaintEventHandler(clear);
             matrycaPBox.pictureBox1.Paint += new PaintEventHandler(M.rysuj);
             matrycaPBox.pictureBox1.Paint += new PaintEventHandler(rysujOBWODKE);
+            //matrycaPBox.pictureBox1.Paint += new PaintEventHandler(rysujChmurka);
 
             matrycaPBox.Show();
 
             okno.button_dodaj.Enabled = true;
             okno.button_Rysuj.Enabled = true;
-            okno.checkedBox_LISTA.Enabled = true;
-            okno.textBox_matrycaH.ReadOnly = true;
-            okno.textBox_matrycaW.ReadOnly = true;
+            okno.checkedBox_LISTA.Enabled = true;            
             okno.dataGridView1.Enabled = true;
-            okno.button_usun.Enabled = true;
-            okno.button_nowa.Enabled = false;
+            okno.button_usun.Enabled = true;            
             okno.button_rozmiesc.Enabled = true;
             matrycaPBox.Location = new Point(okno.Location.X + okno.Width, okno.Location.Y);
             matrycaPBox.Refresh();
         }
 
-       public void zapiszObraz()
+        internal void Drukuj()
+        {           
+
+        }
+
+        public void zapiszObraz()
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = "pB";
@@ -69,6 +69,12 @@ namespace dodawanie_figur1
                 matrycaPBox.pictureBox1.DrawToBitmap(bmp, new Rectangle(0, 0, width, height));
                 bmp.Save(dialog.FileName, ImageFormat.Jpeg);
             }
+        }
+
+        internal void nowaM()
+        {
+            nowaMatryca = new ProgramowanieZespolowe.Form_Nowa_Matryca(this);
+            nowaMatryca.Show();
         }
 
         internal void klikniecie_ktora_figura(MouseEventArgs e)
@@ -96,35 +102,7 @@ namespace dodawanie_figur1
             }
         }
 
-        internal void unselect()
-        {
-            if(okno.dataGridView1.SelectedRows.Count>0)
-            okno.dataGridView1.SelectedRows[0].Selected = false;
-        }
-
-        internal void rysujOBWODKE(object sender, PaintEventArgs e)
-        {
-            if (okno.dataGridView1.SelectedRows.Count != 0)
-            {
-                if (okno.dataGridView1.SelectedRows[0].Cells[okno.ID.Index].Value != null)
-                {
-                    int index = (int)okno.dataGridView1.SelectedRows[0].Cells[okno.ID.Index].Value;
-                    okno.textBox1.Text = index.ToString() + " RysujOB";
-
-                    rysuj();
-
-                    foreach (Obiekt O in M.lista)
-                    {
-                        if (O.ID == index)
-                        {
-                            O.rysujOB(sender, e);
-                            break;
-                        }
-                    }        
-                
-                }
-            }
-        }
+       
 
         internal void rozmiesc()
         {
@@ -229,7 +207,7 @@ namespace dodawanie_figur1
                  okno.dataGridView1[okno.Wysok.Index, i].Value = O.H;
                  okno.dataGridView1[okno.Szer.Index, i].Value = O.W;
                  i++;
-             }          
+             }           
        }
 
 
@@ -283,11 +261,23 @@ namespace dodawanie_figur1
         }
 
 
-        private void clear(object sender, PaintEventArgs e)
+        //INNE FUNKCJE POMOCNICZE
+
+        internal void unselect()
         {
-            e.Graphics.FillRectangle(Brushes.White, 
-                new Rectangle((int)0, (int)0, (int)matrycaPBox.pictureBox1.Width, (int)matrycaPBox.pictureBox1.Height));
+            if (okno.dataGridView1.SelectedRows.Count > 0)
+                okno.dataGridView1.SelectedRows[0].Selected = false;
         }
+
+
+        public void MBNull()
+        {
+            MessageBox.Show("Żadna z wartości nie może być pusta!", "Błąd",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+
+        //FUNKCJE RYSUJACE, DZIAŁAJĄCE NA PBOX
 
         public void rysuj()
         {           
@@ -295,7 +285,72 @@ namespace dodawanie_figur1
             matrycaPBox.pictureBox1.Show(); 
             wyp_tabele();
         }
-        
+
+        internal void rysujOBWODKE(object sender, PaintEventArgs e)
+        {
+            if (okno.dataGridView1.SelectedRows.Count != 0)
+            {
+                if (okno.dataGridView1.SelectedRows[0].Cells[okno.ID.Index].Value != null)
+                {
+                    int index = (int)okno.dataGridView1.SelectedRows[0].Cells[okno.ID.Index].Value;
+                    okno.textBox1.Text = index.ToString() + " RysujOB";
+
+                    rysuj();
+
+                    foreach (Obiekt O in M.lista)
+                    {
+                        if (O.ID == index)
+                        {
+                            O.rysujOB(sender, e);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+        private void clear(object sender, PaintEventArgs e)
+        {
+            e.Graphics.FillRectangle(Brushes.White,
+                new Rectangle((int)0, (int)0, (int)matrycaPBox.pictureBox1.Width, (int)matrycaPBox.pictureBox1.Height));
+        }
+
+
+        internal void Chmurka(MouseEventArgs e)
+        {
+            int x = e.X;
+            int y = e.Y;
+
+
+            okno.textBox1.Text = "Chmurka" + x + " " + y;
+            //matrycaPBox.richTextBox_Dymek.Visible = false;            
+            Prostokat szukany = M.szukaj_obiektuXY(x, y);
+            if (szukany != null)
+            {
+
+                int id = szukany.ID;
+                okno.textBox1.Text = szukany.ID.ToString();
+                okno.richTextBoxChmurka.Text =
+                   "ID: " + id + "\tNazwa: " + szukany.Name
+                  + "\tPunkt zaczepienia. \tX: " + szukany.punkt_zaczepienia.x
+                  + "\tY: " + szukany.punkt_zaczepienia.y + "\tW: " + szukany.W
+                  + "\tH: " + szukany.H;
+                matrycaPBox.richTextBox_Dymek.Text = okno.richTextBoxChmurka.Text;
+
+                /*  matrycaPBox.richTextBox_Dymek.Location = new Point(szukany.X, szukany.Y);                
+                  matrycaPBox.richTextBox_Dymek.Text = "ID:" + id + "\nNazwa: " + szukany.Name;
+                  matrycaPBox.richTextBox_Dymek.Invalidate();
+                  matrycaPBox.richTextBox_Dymek.Visible = true; */
+            }
+            else
+            {
+                okno.richTextBoxChmurka.Text = "";
+                matrycaPBox.richTextBox_Dymek.Text = "";
+            }
+            //matrycaPBox.Refresh();
+        }
 
     }
 }

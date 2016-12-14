@@ -26,6 +26,7 @@ namespace dodawanie_figur1
                 AW.klikniecie_ktora_figura(e);
                 AW.przemiesc(e);
             }
+           
         }
 
         private void Form_matryca_Load(object sender, EventArgs e)
@@ -38,8 +39,13 @@ namespace dodawanie_figur1
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (czy_Przesuwać)
-                AW.przemiesc(e);       
-            
+                AW.przemiesc(e);
+            else
+            {
+                
+                AW.Chmurka(e);
+            }
+
         }
 
         private void button_zapisz_Click(object sender, EventArgs e)
@@ -52,6 +58,11 @@ namespace dodawanie_figur1
             czy_Przesuwać = false;
             AW.unselect();
 
+        }
+
+        private void button_drukuj_Click(object sender, EventArgs e)
+        {
+            AW.Drukuj();
         }
     }
 }
