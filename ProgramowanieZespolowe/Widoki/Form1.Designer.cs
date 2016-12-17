@@ -49,7 +49,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nowaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zapiszToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.obrazToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.drukujToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zakończToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabelaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -251,6 +255,8 @@
             // 
             this.plikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nowaToolStripMenuItem,
+            this.zapiszToolStripMenuItem,
+            this.drukujToolStripMenuItem,
             this.zakończToolStripMenuItem});
             this.plikToolStripMenuItem.Name = "plikToolStripMenuItem";
             this.plikToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
@@ -263,12 +269,41 @@
             this.nowaToolStripMenuItem.Text = "Nowa matryca";
             this.nowaToolStripMenuItem.Click += new System.EventHandler(this.nowaToolStripMenuItem_Click);
             // 
+            // zapiszToolStripMenuItem
+            // 
+            this.zapiszToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.obrazToolStripMenuItem,
+            this.tabelaToolStripMenuItem});
+            this.zapiszToolStripMenuItem.Name = "zapiszToolStripMenuItem";
+            this.zapiszToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zapiszToolStripMenuItem.Text = "Zapisz";
+            // 
+            // obrazToolStripMenuItem
+            // 
+            this.obrazToolStripMenuItem.Name = "obrazToolStripMenuItem";
+            this.obrazToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.obrazToolStripMenuItem.Text = "Obraz";
+            this.obrazToolStripMenuItem.Click += new System.EventHandler(this.obrazToolStripMenuItem_Click);
+            // 
+            // drukujToolStripMenuItem
+            // 
+            this.drukujToolStripMenuItem.Name = "drukujToolStripMenuItem";
+            this.drukujToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.drukujToolStripMenuItem.Text = "Drukuj";
+            this.drukujToolStripMenuItem.Click += new System.EventHandler(this.drukujToolStripMenuItem_Click);
+            // 
             // zakończToolStripMenuItem
             // 
             this.zakończToolStripMenuItem.Name = "zakończToolStripMenuItem";
             this.zakończToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.zakończToolStripMenuItem.Text = "Zakończ";
             this.zakończToolStripMenuItem.Click += new System.EventHandler(this.zakończToolStripMenuItem_Click);
+            // 
+            // tabelaToolStripMenuItem
+            // 
+            this.tabelaToolStripMenuItem.Name = "tabelaToolStripMenuItem";
+            this.tabelaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tabelaToolStripMenuItem.Text = "Tabela";
             // 
             // Form1
             // 
@@ -318,6 +353,10 @@
         private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nowaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zakończToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zapiszToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem obrazToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem drukujToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tabelaToolStripMenuItem;
     }
 }
 

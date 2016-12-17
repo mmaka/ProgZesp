@@ -32,3 +32,5 @@ E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\ProgZesp-Kuba\ProgZesp-
 E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\ProgZesp-Kuba\ProgZesp-Kuba\ProgramowanieZespolowe\bin\Debug\ProgramowanieZespolowe.pdb
 E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\ProgZesp-Kuba\ProgZesp-Kuba\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.exe
 E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\ProgZesp-Kuba\ProgZesp-Kuba\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.pdb
+D:\kuba\Studia\rok_3\ProgZesp-Kuba\ProgZesp-Kuba\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.Form_Nowa_Matryca.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\ProgZesp-Kuba\ProgZesp-Kuba\ProgramowanieZespolowe\obj\Debug\ProgramowanieZespolowe.csprojResolveAssemblyReference.cache

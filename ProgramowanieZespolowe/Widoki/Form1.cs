@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace dodawanie_figur1
@@ -75,6 +68,16 @@ namespace dodawanie_figur1
         {
             AW.nowaM();
 
+        }
+
+        private void obrazToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AW.zapiszObraz();
+        }
+
+        private void drukujToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AW.Drukuj();
         }
     }
 }

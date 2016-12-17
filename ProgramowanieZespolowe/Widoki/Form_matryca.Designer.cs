@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_matryca));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button_drukuj = new System.Windows.Forms.Button();
-            this.button_zapiszOb = new System.Windows.Forms.Button();
             this.richTextBox_Dymek = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -49,35 +47,12 @@
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
-            // button_drukuj
-            // 
-            this.button_drukuj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_drukuj.Enabled = false;
-            this.button_drukuj.Location = new System.Drawing.Point(12, 259);
-            this.button_drukuj.Name = "button_drukuj";
-            this.button_drukuj.Size = new System.Drawing.Size(75, 23);
-            this.button_drukuj.TabIndex = 2;
-            this.button_drukuj.Text = "Drukuj";
-            this.button_drukuj.UseVisualStyleBackColor = true;
-            this.button_drukuj.Click += new System.EventHandler(this.button_drukuj_Click);
-            // 
-            // button_zapiszOb
-            // 
-            this.button_zapiszOb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_zapiszOb.Location = new System.Drawing.Point(93, 259);
-            this.button_zapiszOb.Name = "button_zapiszOb";
-            this.button_zapiszOb.Size = new System.Drawing.Size(99, 23);
-            this.button_zapiszOb.TabIndex = 3;
-            this.button_zapiszOb.Text = "Zapisz Obraz";
-            this.button_zapiszOb.UseVisualStyleBackColor = true;
-            this.button_zapiszOb.Click += new System.EventHandler(this.button_zapisz_Click);
-            // 
             // richTextBox_Dymek
             // 
             this.richTextBox_Dymek.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.richTextBox_Dymek.DetectUrls = false;
             this.richTextBox_Dymek.HideSelection = false;
-            this.richTextBox_Dymek.Location = new System.Drawing.Point(198, 259);
+            this.richTextBox_Dymek.Location = new System.Drawing.Point(12, 259);
             this.richTextBox_Dymek.Multiline = false;
             this.richTextBox_Dymek.Name = "richTextBox_Dymek";
             this.richTextBox_Dymek.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -96,8 +71,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(827, 290);
             this.Controls.Add(this.richTextBox_Dymek);
-            this.Controls.Add(this.button_zapiszOb);
-            this.Controls.Add(this.button_drukuj);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(439, 0);
@@ -113,8 +86,6 @@
         #endregion
 
        public System.Windows.Forms.PictureBox pictureBox1;
-        public System.Windows.Forms.Button button_drukuj;
-        public System.Windows.Forms.Button button_zapiszOb;
         public System.Windows.Forms.RichTextBox richTextBox_Dymek;
     }
 }
