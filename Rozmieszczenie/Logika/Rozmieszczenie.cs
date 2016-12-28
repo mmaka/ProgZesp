@@ -2,6 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Shapes;
+using System.Drawing;
+using System.Windows.Media;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace Rozmieszczenie
 {
@@ -9,9 +14,9 @@ namespace Rozmieszczenie
     public class MatrycaFiguraPunkt
     {
         public int nr_matrycy;
-        public IFigura figura;
+        public Prostokat figura;
         public Punkt p;
-        public MatrycaFiguraPunkt(int nr,IFigura fig,Punkt punkt)
+        public MatrycaFiguraPunkt(int nr,Prostokat fig,Punkt punkt)
         {
             nr_matrycy = nr;
             figura = fig;
@@ -41,13 +46,33 @@ namespace Rozmieszczenie
                 indeksy[i] = tab_indeksow[i];
             }
         }
+        //jako ze wspolrzedne figur posiada tylko klasa rozmieszczenie to wypisuje przez rozmieszczenie
+        public void rysuj(object o)                     
+        {
+            Canvas C=(Canvas)o;
+            C.Children.Clear();
+            for (int i = 0; i < lokalizacja_figur.Count(); i++)
+            {
+                Rectangle rect = new Rectangle();
+                rect.Fill = Brushes.BurlyWood;
+                rect.Stroke = new SolidColorBrush(Colors.Black);
+                rect.Width = lokalizacja_figur[i].figura.W;
+                rect.Height = lokalizacja_figur[i].figura.H;             
+                Canvas.SetTop(rect, lokalizacja_figur[i].p.y);
+                Canvas.SetLeft(rect, lokalizacja_figur[i].p.x);
+                C.Children.Add(rect);
+            }
+        }
+
+
         //wypisywanie na potrzeby testów
         public string wypisz()
         {
             string s="";
             for (int i = 0; i < lokalizacja_figur.Count(); i++)
             {
-                s=(lokalizacja_figur[i].nr_matrycy+ lokalizacja_figur[i].p.wypisz()+lokalizacja_figur[i].figura.przedstaw_sie());
+                s+=("\nNr. matrycy: "+lokalizacja_figur[i].nr_matrycy+ "\tPunkt: "+lokalizacja_figur[i].p.wypisz()+
+                    lokalizacja_figur[i].figura.przedstaw_sie());
                 
             }
             return s;

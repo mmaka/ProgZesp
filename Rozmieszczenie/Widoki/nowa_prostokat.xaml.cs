@@ -17,6 +17,8 @@ namespace Rozmieszczenie.Widoki
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            if(Sprawdz.CzyNull(textBox_ilosc_prostokat,textBox_nazwa_prostokat,
+                textBox_szerokosc_prostokat, textBox_wysokosc_prostokat))
             J.dodaj_prostokat();
         }
 

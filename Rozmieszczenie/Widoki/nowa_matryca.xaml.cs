@@ -16,6 +16,7 @@ namespace Rozmieszczenie.Widoki
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            if(Sprawdz.CzyNull(textBox_matryca_szerokość,textBox_matryca_wysokość))
             J.dodaj_matryce();
         }
 

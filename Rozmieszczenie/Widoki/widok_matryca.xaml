@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="widok_matryca" Height="529" d:DesignWidth="563">
+        Title="widok_matryca" Height="529" d:DesignWidth="563" SizeToContent="WidthAndHeight" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
     <Grid>
-        <Grid x:Name="imageGrid" Background="LightBlue" Margin="0,0,0,50" >
-            <Image x:Name="image" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" />
-        </Grid>
+        
+        <ScrollViewer x:Name="imageGrid" Background="LightBlue" Margin="0,0,0,50"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+
+            <Canvas x:Name="canvas" VerticalAlignment="Center" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        </ScrollViewer>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="535"/>
 
     </Grid>

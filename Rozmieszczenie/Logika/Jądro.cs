@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using Rozmieszczenie.Widoki;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Shapes;
 
 namespace Rozmieszczenie.Logika
 {
@@ -12,14 +14,13 @@ namespace Rozmieszczenie.Logika
         widok_matryca wm;
         MainWindow MW;
         Matryca Matka;
-        NarzędziaInne NI;
+  
         public List<Prostokat> lista_obiektow;
         public List<Rozmieszczenia> lista_rozmieszczen = new List<Rozmieszczenia>();
         //Konstruktor
         public Jądro(MainWindow _mw)
         {
-            MW = _mw;
-            NI = new NarzędziaInne(this);
+            MW = _mw;           
             lista_obiektow = new List<Prostokat>();
            
         }
@@ -35,17 +36,7 @@ namespace Rozmieszczenie.Logika
         public void dodaj_matryce()
         {
             Matka = new Matryca(nm);
-            wm = new widok_matryca(this);
-            {
-                wm.imageGrid.Width = Matka.rozmiar_x;
-                wm.imageGrid.Height = Matka.rozmiar_y;
-                wm.image.Width = Matka.rozmiar_x;
-                wm.image.Height = Matka.rozmiar_y;
-                wm.image.MinHeight = wm.image.Height;
-                wm.image.MinWidth = wm.image.Width;
-                wm.InvalidateVisual();
-                wm.UpdateLayout();
-            }        
+            wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);                  
             wm.Show();           
         }
 
@@ -64,12 +55,15 @@ namespace Rozmieszczenie.Logika
                 lista_obiektow.Add(new Prostokat(np));
                 MW.dataGrid.DataContext = lista_obiektow;
                 MW.dataGrid.Items.Refresh();
-            }
+            }           
         }
+
+
 
         //miksowanko
         public void miksuj()
         {
+           
             int m_x = Matka.rozmiar_x;
             int m_y = Matka.rozmiar_y;
             int liczba_indeksowan = 30;
@@ -88,25 +82,16 @@ namespace Rozmieszczenie.Logika
                 List<Rozmieszczenia> lista_roz2 = new List<Rozmieszczenia>();
                 miksowanie_indeksow(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                 generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y);
-
-                if (w + 1 == liczba_indeksowan)
-                {
-                    for (int i = 0; i < lista_roz2.Count; i++)
-                       MW.textBox_rozmieszczenia.Text +=("\nRozmieszczenie"+ (i + 1) +":  Prostokatna powierzchnia: "+lista_roz2[i].NajPowPro / 2001+", wolna powierzchnia: "+  lista_roz2[i].WolPowNrMat);
-
-                    for (int i = 0; i < lista_roz2.Count; i++)
-                    {
-                        MW.textBox_rozmieszczenia.Text+=("********************************************************************\n");
-                        MW.textBox_rozmieszczenia.Text+=("Rozmieszczenie nr "+ (i+1));
-                        MW.textBox_rozmieszczenia.Text+=lista_roz2[i].wypisz()+"\n";
-                        
-                    }
-
-                }
-
                 w++;
 
             } while (w < liczba_indeksowan);
+
+
+            lista_rozmieszczen[0].rysuj(wm.canvas);
+            MW.textBox_rozmieszczenia.Text = ("\nRozmieszczenie, szczegóły: \n" + 
+                "Prostokatna powierzchnia: " + lista_rozmieszczen[0].NajPowPro + "\n Wolna powierzchnia: " + lista_rozmieszczen[0].WolPowNrMat);
+            MW.textBox_rozmieszczenia.Text += ("\n********************************************************************\n ");            
+            MW.textBox_rozmieszczenia.Text += lista_rozmieszczen[0].wypisz() + "\n";
         }
 
 
