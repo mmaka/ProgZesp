@@ -75,7 +75,7 @@ namespace Rozmieszczenie
         public string przedstaw_sie()
         {
            // Console.WriteLine("Prostokat o szerokosci {0} i wysokosci {1}", szerokosc, wysokosc);
-           return "\tNazwa: "+nazwa+ " Szerokość: " + szerokosc + " Wysokość: " + wysokosc+" ";
+           return "\tID: " + ID+"\tNazwa: " +nazwa+ "\tSzerokość: " + szerokosc + "\tWysokość: " + wysokosc;
         }
         //przekazujemy punkt i otrzymujemy minimalną wartość x danego prostokąta
         public int min_x(Punkt p)

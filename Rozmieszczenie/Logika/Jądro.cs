@@ -1,9 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using Rozmieszczenie.Widoki;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Shapes;
 
 namespace Rozmieszczenie.Logika
 {
@@ -14,6 +11,8 @@ namespace Rozmieszczenie.Logika
         widok_matryca wm;
         MainWindow MW;
         Matryca Matka;
+        informacyjne InfoOkno;
+        public Rysowanie R;
   
         public List<Prostokat> lista_obiektow;
         public List<Rozmieszczenia> lista_rozmieszczen = new List<Rozmieszczenia>();
@@ -63,10 +62,12 @@ namespace Rozmieszczenie.Logika
         //miksowanko
         public void miksuj()
         {
-           
+            InfoOkno = new informacyjne();
+
+
             int m_x = Matka.rozmiar_x;
             int m_y = Matka.rozmiar_y;
-            int liczba_indeksowan = 30;
+            int liczba_indeksowan = 45;
             List<int[]> lista_indeksow = new List<int[]>();
 
             wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan);
@@ -77,21 +78,33 @@ namespace Rozmieszczenie.Logika
             int w = 0;
             do
             {
-                selekcja(lista_rozmieszczen, 15);
+               // selekcja(lista_rozmieszczen, 15);
                 List<int[]> lista_ind = new List<int[]>();
                 List<Rozmieszczenia> lista_roz2 = new List<Rozmieszczenia>();
-                miksowanie_indeksow(lista_rozmieszczen, lista_ind, liczba_indeksowan);
+                //miksowanie_indeksow(lista_rozmieszczen, lista_ind, liczba_indeksowan);
+                miksowanie_indeksow2(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                 generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y);
                 w++;
 
             } while (w < liczba_indeksowan);
 
+            Rozmieszczenia NAJLEPSZE=lista_rozmieszczen[0];
+            for (int i = 0; i < lista_rozmieszczen.Count; i++)
+            {
+                if (NAJLEPSZE.NajPowPro2 < lista_rozmieszczen[i].NajPowPro2)
+                    NAJLEPSZE = lista_rozmieszczen[i];
+            }
 
-            lista_rozmieszczen[0].rysuj(wm.canvas);
-            MW.textBox_rozmieszczenia.Text = ("\nRozmieszczenie, szczegóły: \n" + 
-                "Prostokatna powierzchnia: " + lista_rozmieszczen[0].NajPowPro + "\n Wolna powierzchnia: " + lista_rozmieszczen[0].WolPowNrMat);
-            MW.textBox_rozmieszczenia.Text += ("\n********************************************************************\n ");            
-            MW.textBox_rozmieszczenia.Text += lista_rozmieszczen[0].wypisz() + "\n";
+            {             
+                InfoOkno.textBox.Text = ("\nRozmieszczenie, szczegóły: \n" +
+                    "Liczba wykorzystanych matryc: "+ NAJLEPSZE.Liczba_wykorzystanych_matryc+
+                    "\nNajwiększa wolna prostokatna powierzchnia: " + NAJLEPSZE.NajPowPro2 );
+                InfoOkno.textBox.Text += ("\n********************************************************************\n ");
+                InfoOkno.textBox.Text += NAJLEPSZE.wypisz() + "\n";
+                InfoOkno.Show();
+                R = new Rysowanie(wm);
+                R.Rysuj(wm, NAJLEPSZE);
+            }
         }
 
 
@@ -132,7 +145,43 @@ namespace Rozmieszczenie.Logika
             }
 
         }
+        public static void miksowanie_indeksow2(List<Rozmieszczenia> lista_roz, List<int[]> lista_ind, int liczba_nowych_indeksowan)
+        {
+            int liczba_rozmieszczen = lista_roz.Count;
+            Random rand = new Random();
+            int[] prob_choice = new int[lista_roz.Count];
+            int j, k, suma = 0;
 
+            for (int i = 0; i < lista_roz.Count; i++)
+            {
+                suma += lista_roz[i].NajPowPro2;
+                prob_choice[i] = suma;
+            }
+
+            for (int i = 0; i < liczba_nowych_indeksowan; i++)
+            {
+                lista_ind.Add(new int[liczba_rozmieszczen]);
+
+                do
+                {
+                    j = (rand.Next() % suma) + 1;
+                    k = (rand.Next() % suma) + 1;
+
+                } while (j == k);
+
+                int l = 0;
+                while (prob_choice[l] < j)
+                    l++;
+
+                int m = 0;
+                while (prob_choice[m] < k)
+                    m++;
+
+                lista_ind[i] = miksuj_dwa_roz(lista_roz[l], lista_roz[m]);
+
+            }
+        }
+        
         public static void selekcja(List<Rozmieszczenia> lista, int liczba_wybieranych)
         {
             Rozmieszczenia tmp;
@@ -262,16 +311,19 @@ namespace Rozmieszczenie.Logika
 
                 roz.wolna_powierzchnia_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
                 roz.najwieksza_prostokatna_powierzchnia();
+                roz.nowe_naj_prost_pole();
             }
         }
-        
+    
 
-        //Inne
 
-        //zamkniecie programu
-        internal void zamknij()
+    //Inne
+    //zamkniecie programu
+    internal void zamknij()
         {
+            
             wm.Close();
+            
         }
 
 

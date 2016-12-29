@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="widok_matryca" Height="529" d:DesignWidth="563" SizeToContent="WidthAndHeight" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        Title="Matryca- podgląd" Height="529" d:DesignWidth="563" SizeToContent="WidthAndHeight" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
     <Grid>
         
         <ScrollViewer x:Name="imageGrid" Background="LightBlue" Margin="0,0,0,50"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
 
             <Canvas x:Name="canvas" VerticalAlignment="Center" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
         </ScrollViewer>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="535"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="0,0,0,29" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="535"/>
+        <Button x:Name="button_kolejna" Content="Kolejna" HorizontalAlignment="Left" Margin="85,0,0,4" VerticalAlignment="Bottom" Width="75" Click="button_kolejna_Click"/>
+        <Button x:Name="button_poprzednia" Content="Poprzednia" HorizontalAlignment="Left" Margin="5,0,0,4" VerticalAlignment="Bottom" Width="75" Click="button_poprzednia_Click"/>
 
     </Grid>
 </Window>

@@ -35,8 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,6 +65,9 @@
     <Compile Include="Obiekty\Matryca.cs" />
     <Compile Include="Obiekty\Prostokąt.cs" />
     <Compile Include="Obiekty\Punkt.cs" />
+    <Compile Include="Widoki\informacyjne.xaml.cs">
+      <DependentUpon>informacyjne.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widoki\nowa_matryca.xaml.cs">
       <DependentUpon>nowa_matryca.xaml</DependentUpon>
     </Compile>
@@ -84,6 +89,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Widoki\informacyjne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Widoki\nowa_matryca.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

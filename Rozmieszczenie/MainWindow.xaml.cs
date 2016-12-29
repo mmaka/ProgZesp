@@ -37,5 +37,10 @@ namespace Rozmieszczenie
         {
             J.miksuj();
         }
+
+        private void dataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

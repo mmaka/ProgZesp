@@ -30,7 +30,13 @@ namespace Rozmieszczenie
         public List<Matryca> lista_matryc;
         public int[] indeksy;
         public int NajPowPro;
+        public int NajPowPro2;
         public int WolPowNrMat;
+        public int Liczba_wykorzystanych_matryc
+        {
+            get { return lista_matryc.Count; }
+        }
+        //KONSTRUKTOR
         public Rozmieszczenia(int liczba_figur,Matryca m,int[] tab_indeksow)
         {
             lista_matryc = new List<Matryca>();
@@ -46,25 +52,7 @@ namespace Rozmieszczenie
                 indeksy[i] = tab_indeksow[i];
             }
         }
-        //jako ze wspolrzedne figur posiada tylko klasa rozmieszczenie to wypisuje przez rozmieszczenie
-        public void rysuj(object o)                     
-        {
-            Canvas C=(Canvas)o;
-            C.Children.Clear();
-            for (int i = 0; i < lokalizacja_figur.Count(); i++)
-            {
-                Rectangle rect = new Rectangle();
-                rect.Fill = Brushes.BurlyWood;
-                rect.Stroke = new SolidColorBrush(Colors.Black);
-                rect.Width = lokalizacja_figur[i].figura.W;
-                rect.Height = lokalizacja_figur[i].figura.H;             
-                Canvas.SetTop(rect, lokalizacja_figur[i].p.y);
-                Canvas.SetLeft(rect, lokalizacja_figur[i].p.x);
-                C.Children.Add(rect);
-            }
-        }
-
-
+        
         //wypisywanie na potrzeby testów
         public string wypisz()
         {
@@ -76,19 +64,14 @@ namespace Rozmieszczenie
                 
             }
             return s;
-        }
-
-        public int Liczba_wykorzystanych_matryc
-        {
-            get { return lista_matryc.Count; }
-        }
+        }      
 
         public void wolna_powierzchnia_matrycy(int nr_matrycy)
         {
-            int j = 0,suma = 0;
+            int j = 0, suma = 0;
             int tmp = lista_matryc[nr_matrycy].zajetosc_x[0];
 
-            for(int i = 0; i < lista_matryc[nr_matrycy].zajetosc_x.Count(); i++)
+            for (int i = 0; i < lista_matryc[nr_matrycy].zajetosc_x.Count(); i++)
             {
                 if (tmp == lista_matryc[nr_matrycy].zajetosc_x[i])
                 {
@@ -102,34 +85,72 @@ namespace Rozmieszczenie
                 }
             }
 
-            WolPowNrMat=suma;
+            WolPowNrMat = suma;
         }
 
         public void najwieksza_prostokatna_powierzchnia()
         {
-             int tmp_najwieksza = 0;
+            int tmp_najwieksza = 0;
 
-            foreach(Matryca m in lista_matryc)
+            foreach (Matryca m in lista_matryc)
             {
                 int tmp_x = 0, tmp_y = 0, tmp_y_min = m.zajetosc_x[0], tmp_pole = 0;
 
                 for (int i = 0; i < m.zajetosc_x.Length; i++)
                 {
-                    if(tmp_y != m.zajetosc_x[i])
+                    if (tmp_y != m.zajetosc_x[i])
                     {
                         tmp_x = i - tmp_x;
                         tmp_pole = tmp_y * tmp_x;
                         if (tmp_pole > tmp_najwieksza) tmp_najwieksza = tmp_pole;
                         tmp_y = m.zajetosc_x[i];
-                        if(tmp_y_min > tmp_y) tmp_y_min = tmp_y;
+                        if (tmp_y_min > tmp_y) tmp_y_min = tmp_y;
                     }
-                   
+
                 }
-                tmp_pole = tmp_y_min * m.zajetosc_x.Length;
+                tmp_pole = tmp_y_min * (m.zajetosc_x.Length - 1);
                 if (tmp_pole > tmp_najwieksza) tmp_najwieksza = tmp_pole;
             }
 
-            NajPowPro=tmp_najwieksza;
+            NajPowPro = tmp_najwieksza;
+        }
+        public int max_prostokat(int[] tab_zaj, int poczatek)
+        {
+
+            int tmp_suma = 0, biezacy_y = tab_zaj[poczatek], max_powierzchnia = 0, suma_rek = 0;
+            bool reaguj_na_wyzsze = true;
+
+            for (int i = poczatek; i < tab_zaj.Length; i++)
+            {
+                if (biezacy_y > tab_zaj[i] || i == tab_zaj.Length - 1)
+                {
+                    tmp_suma = biezacy_y * (i - poczatek);
+                    biezacy_y = tab_zaj[i];
+                    if (tmp_suma > max_powierzchnia) max_powierzchnia = tmp_suma;
+                }
+                else if (biezacy_y < tab_zaj[i] && reaguj_na_wyzsze == true)
+                {
+                    reaguj_na_wyzsze = false;
+                    suma_rek = max_prostokat(tab_zaj, i);
+                }
+            }
+
+            if (suma_rek > max_powierzchnia) max_powierzchnia = suma_rek;
+
+
+            return max_powierzchnia;
+        }
+        public void nowe_naj_prost_pole()
+        {
+            int tmp_najwieksza = 0;
+
+            foreach (Matryca m in lista_matryc)
+            {
+                int tmp = max_prostokat(m.zajetosc_x, 0);
+                if (tmp_najwieksza < tmp) tmp_najwieksza = tmp;
+            }
+
+            NajPowPro2 = tmp_najwieksza;
         }
 
     }
