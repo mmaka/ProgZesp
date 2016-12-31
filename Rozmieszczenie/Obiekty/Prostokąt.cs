@@ -185,7 +185,7 @@ namespace Rozmieszczenie
             int koniec_x = max_x(p);
             int koniec_y = max_y(p);
 
-            for (int i = poczatek_x; i < koniec_x; i++)
+            for (int i = poczatek_x; i <= koniec_x; i++)
                 zajetosc_x[i] = p.y;
 
         }

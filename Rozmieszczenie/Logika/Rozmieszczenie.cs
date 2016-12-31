@@ -70,50 +70,50 @@ namespace Rozmieszczenie
         {
             int j = 0, suma = 0;
             int tmp = lista_matryc[nr_matrycy].zajetosc_x[0];
-            
+
             for (int i = 0; i < lista_matryc[nr_matrycy].zajetosc_x.Count(); i++)
             {
-                if (tmp != lista_matryc[nr_matrycy].zajetosc_x[i] || i == lista_matryc[nr_matrycy].zajetosc_x.Length - 1)
+                if (tmp == lista_matryc[nr_matrycy].zajetosc_x[i])
+                {
+                    j++;
+                }
+                else
                 {
                     suma += j * tmp;
                     tmp = lista_matryc[nr_matrycy].zajetosc_x[i];
                     j = 0;
                 }
-                j++;
             }
 
             WolPowNrMat = suma;
         }
 
-        //ta metoda niech jeszcze zostanie - miała długą historię ;) była błędna, ale udało mi się ją poprawić - teraz można z niej korzystać do celów kontrolnych: tzn. mamy dwie metody, które liczą to samo - łatwiej jest kontrolować poprawne wyniki
-        /*     public void najwieksza_prostokatna_powierzchnia()
-             {
-                 int tmp_najwieksza = 0;
+        public void najwieksza_prostokatna_powierzchnia()
+        {
+            int tmp_najwieksza = 0;
 
-                 foreach (Matryca m in lista_matryc)
-                 {
-                     int tmp_x = 0, tmp_y = 0, tmp_y_min = m.zajetosc_x[0], tmp_pole = 0;
+            foreach (Matryca m in lista_matryc)
+            {
+                int tmp_x = 0, tmp_y = 0, tmp_y_min = m.zajetosc_x[0], tmp_pole = 0;
 
-                     for (int i = 0; i < m.zajetosc_x.Length; i++)
-                     {
-                         if (tmp_y != m.zajetosc_x[i] || i == m.zajetosc_x.Length-1)
-                         {
-                             tmp_x = i - tmp_x;
-                             tmp_pole = tmp_y * tmp_x;
-                             if (tmp_pole > tmp_najwieksza) tmp_najwieksza = tmp_pole;
-                             tmp_y = m.zajetosc_x[i];
-                             if (tmp_y_min > tmp_y) tmp_y_min = tmp_y;
-                         }
+                for (int i = 0; i < m.zajetosc_x.Length; i++)
+                {
+                    if (tmp_y != m.zajetosc_x[i])
+                    {
+                        tmp_x = i - tmp_x;
+                        tmp_pole = tmp_y * tmp_x;
+                        if (tmp_pole > tmp_najwieksza) tmp_najwieksza = tmp_pole;
+                        tmp_y = m.zajetosc_x[i];
+                        if (tmp_y_min > tmp_y) tmp_y_min = tmp_y;
+                    }
 
-                     }
-                     tmp_pole = tmp_y_min * (m.zajetosc_x.Length - 1);
-                     if (tmp_pole > tmp_najwieksza) tmp_najwieksza = tmp_pole;
-                 }
+                }
+                tmp_pole = tmp_y_min * (m.zajetosc_x.Length - 1);
+                if (tmp_pole > tmp_najwieksza) tmp_najwieksza = tmp_pole;
+            }
 
-                 NajPowPro = tmp_najwieksza;
-             }
-             */
-
+            NajPowPro = tmp_najwieksza;
+        }
         public int max_prostokat(int[] tab_zaj, int poczatek)
         {
 
@@ -140,7 +140,7 @@ namespace Rozmieszczenie
 
             return max_powierzchnia;
         }
-        public void najwieksza_prostokatna_powierzchnia()
+        public void nowe_naj_prost_pole()
         {
             int tmp_najwieksza = 0;
 

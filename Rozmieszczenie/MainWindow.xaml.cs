@@ -35,7 +35,8 @@ namespace Rozmieszczenie
 
         private void button_rozmiesc_Click(object sender, RoutedEventArgs e)
         {
-            J.miksuj();
+            J.rozmiesc();
+            
         }
 
         private void dataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

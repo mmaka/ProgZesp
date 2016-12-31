@@ -118,10 +118,10 @@ namespace Rozmieszczenie.Logika
                         Canvas.SetLeft(rect, R.lokalizacja_figur[i].p.x);
                         C.Children.Add(rect);
 
-                    if (W > 30 && H > 30)
+                    //if (W > 30 && H > 30)
                     {
                         TextBlock textBlock = new TextBlock();
-                        textBlock.FontSize = Math.Min(W / 3, H / 3);
+                        textBlock.FontSize = Math.Min(W / 2, H / 2);
                         Canvas.SetTop(textBlock, R.lokalizacja_figur[i].p.y + 1);
                         Canvas.SetLeft(textBlock, R.lokalizacja_figur[i].p.x + 1);
                         textBlock.Text = R.lokalizacja_figur[i].figura.ID.ToString();
