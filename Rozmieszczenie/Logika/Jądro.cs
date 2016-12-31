@@ -70,7 +70,7 @@ namespace Rozmieszczenie.Logika
             int liczba_indeksowan = 45;
             List<int[]> lista_indeksow = new List<int[]>();
 
-            wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan);
+            wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan, indeksowania_poczatkowe(lista_obiektow));
             generuj_rozmieszczenia(lista_obiektow, lista_indeksow, lista_rozmieszczen, lista_obiektow.Count, m_x, m_y);
 
             //    foreach (Rozmieszczenie roz in lista_rozmieszczen)
@@ -111,16 +111,55 @@ namespace Rozmieszczenie.Logika
 
         //Metody Michała służące całej logice rozmieszczania i wszystkiego innego narazie tutaj ale nie na zawsze
 
-        public static void wygeneruj_indeksy(List<int[]> li, int liczba_figur, int liczba_indeksowan)
+        /*      public static void wygeneruj_indeksy(List<int[]> li, int liczba_figur, int liczba_indeksowan)
+              {
+                  Random rand = new Random();
+                  int j, k;
+                  int i = 1;
+
+                  li.Add(new int[liczba_figur]);
+                  for (int x = 0; x < liczba_figur; x++)
+                      li[0][x] = x;
+
+
+                  while (i < liczba_indeksowan)
+                  {
+                      li.Add(new int[liczba_figur]);
+                      do
+                      {
+                          j = rand.Next() % liczba_figur;
+                          k = rand.Next() % liczba_figur;
+
+                      } while (j == k);
+
+                      li[i][j] = li[0][k];
+                      li[i][k] = li[0][j];
+
+                      for (int w = 0; w < liczba_figur; w++)
+                      {
+                          if (w != j && w != k)
+                              li[i][w] = li[0][w];
+                      }
+
+                      i++;
+                  }
+
+              }*/
+
+        public static void wygeneruj_indeksy(List<int[]> li, int liczba_figur, int liczba_indeksowan, List<int[]> proponowane)
         {
             Random rand = new Random();
             int j, k;
-            int i = 1;
+            int i = proponowane.Count + 1; //indeks 0 jest zajęty przez indeksowanie zgodne z wprowadzoną kolejnością a następne proponowane.Count to indeksowania mające szanse być dobrymi, czyli łacznie losowe generowanie zaczynamy od indeksu proponowane.Count+1
 
             li.Add(new int[liczba_figur]);
             for (int x = 0; x < liczba_figur; x++)
                 li[0][x] = x;
 
+            for (int x = 0; x < proponowane.Count; x++)
+            {
+                li.Add(proponowane[x]);
+            }
 
             while (i < liczba_indeksowan)
             {
@@ -145,6 +184,38 @@ namespace Rozmieszczenie.Logika
             }
 
         }
+
+        //tutaj możemy ustalać indeksowania, które mają szanse być dobrymi
+        //zwracana jest lista, więc można dodawać jakiś kod wyliczający indeksowanie, a potem zwyczajnie dodać go do listy
+        //metoda generująca indeksowania kontroluje liczbę dodawanych ustalonych indeksowań, więc o nic więcej nie trzeba się martwić
+        public static List<int[]> indeksowania_poczatkowe(List<Prostokat> lp)
+        {
+            List<int[]> tmp_tab = new List<int[]>();
+
+            int[] tab = new int[lp.Count];
+            int tmp;
+
+            for (int i = 0; i < lp.Count; i++)
+                tab[i] = i;
+
+            for (int i = 0; i < lp.Count; i++)
+            {
+                for (int j = lp.Count - 1; j > i; j--)
+                {
+                    if (lp[j].Pole > lp[j - 1].Pole)
+                    {
+                        tmp = tab[j];
+                        tab[j] = tab[j - 1];
+                        tab[j - 1] = tmp;
+                    }
+                }
+            }
+            
+            tmp_tab.Add(tab);
+            return tmp_tab;
+        }
+
+
         public static void miksowanie_indeksow2(List<Rozmieszczenia> lista_roz, List<int[]> lista_ind, int liczba_nowych_indeksowan)
         {
             int liczba_rozmieszczen = lista_roz.Count;
@@ -311,7 +382,6 @@ namespace Rozmieszczenie.Logika
 
                 roz.wolna_powierzchnia_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
                 roz.najwieksza_prostokatna_powierzchnia();
-                roz.nowe_naj_prost_pole();
             }
         }
     
