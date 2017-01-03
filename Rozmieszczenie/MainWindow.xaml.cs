@@ -75,5 +75,10 @@ namespace Rozmieszczenie
         {
 
         }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            J.test();
+        }
     }
 }

@@ -18,8 +18,8 @@ namespace Rozmieszczenie.Logika
         public Rysowanie R;
         
         public static List<Prostokat> lista_obiektow;
-       
-        public List<Rozmieszczenia> lista_rozmieszczen = new List<Rozmieszczenia>();
+
+        public List<Rozmieszczenia> lista_rozmieszczen;
         //Konstruktor
         public Jądro(MainWindow _mw)
         {
@@ -96,6 +96,11 @@ namespace Rozmieszczenie.Logika
             return 0;
         }
 
+        internal void test()
+        {
+            MW.textBox_komunikat.Text = ""+lista_obiektow.Count();
+        }
+
 
         //Dodawanie prostokątów
         public void nowy_prostokat()
@@ -141,14 +146,15 @@ namespace Rozmieszczenie.Logika
             
             {
 
-                InfoOkno = new informacyjne();
-
+                InfoOkno = new informacyjne(); //okno informacyjne
 
                 int m_x = Matka.rozmiar_x;
                 int m_y = Matka.rozmiar_y;
+
+
                 int liczba_indeksowan = 45;
                 List<int[]> lista_indeksow = new List<int[]>();
-
+                lista_rozmieszczen = new List<Rozmieszczenia>();
                 wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan, indeksowania_poczatkowe(lista_obiektow));
                 generuj_rozmieszczenia(lista_obiektow, lista_indeksow, lista_rozmieszczen, lista_obiektow.Count, m_x, m_y);
 
@@ -160,6 +166,7 @@ namespace Rozmieszczenie.Logika
                     // selekcja(lista_rozmieszczen, 15);
                     List<int[]> lista_ind = new List<int[]>();
                     List<Rozmieszczenia> lista_roz2 = new List<Rozmieszczenia>();
+                    
                     //miksowanie_indeksow(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                     miksowanie_indeksow2(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                     generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y);
@@ -191,42 +198,7 @@ namespace Rozmieszczenie.Logika
 
         //Metody Michała służące całej logice rozmieszczania i wszystkiego innego narazie tutaj ale nie na zawsze
 
-        /*       public static void wygeneruj_indeksy(List<int[]> li, int liczba_figur, int liczba_indeksowan)
-               {
-                   Random rand = new Random();
-                   int j, k;
-                   int i = 1;
-
-                   li.Add(new int[liczba_figur]);
-                   for (int x = 0; x < liczba_figur; x++)
-                       li[0][x] = x;
-
-
-                   while (i < liczba_indeksowan)
-                   {
-                       li.Add(new int[liczba_figur]);
-                       do
-                       {
-                           j = rand.Next() % liczba_figur;
-                           k = rand.Next() % liczba_figur;
-
-                       } while (j == k);
-
-                       li[i][j] = li[0][k];
-                       li[i][k] = li[0][j];
-
-                       for (int w = 0; w < liczba_figur; w++)
-                       {
-                           if (w != j && w != k)
-                               li[i][w] = li[0][w];
-                       }
-
-                       i++;
-                   }
-
-               }
-               */
-
+       
         public static void wygeneruj_indeksy(List<int[]> li, int liczba_figur, int liczba_indeksowan, List<int[]> proponowane)
         {
             Random rand = new Random();

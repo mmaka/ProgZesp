@@ -7,14 +7,17 @@
         mc:Ignorable="d"
         Title="Matryca- podgląd" Height="529" d:DesignWidth="563" SizeToContent="WidthAndHeight" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
     <Grid>
-        
-        <ScrollViewer x:Name="imageGrid" Background="LightBlue" Margin="0,0,0,50"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+        <Viewbox Margin="5,5,5,50" IsHitTestVisible="False" StretchDirection="DownOnly">
+            <Canvas x:Name="canvas" VerticalAlignment="Center" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5">
 
-            <Canvas x:Name="canvas" VerticalAlignment="Center" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
-        </ScrollViewer>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="0,0,0,29" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="535"/>
+            </Canvas>
+        </Viewbox>
+
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="5,0,5,29" TextWrapping="Wrap" Text="Witaj!" VerticalAlignment="Bottom" IsHyphenationEnabled="True" Width="545" OverridesDefaultStyle="True"/>
         <Button x:Name="button_kolejna" Content="Kolejna" HorizontalAlignment="Left" Margin="85,0,0,4" VerticalAlignment="Bottom" Width="75" Click="button_kolejna_Click"/>
         <Button x:Name="button_poprzednia" Content="Poprzednia" HorizontalAlignment="Left" Margin="5,0,0,4" VerticalAlignment="Bottom" Width="75" Click="button_poprzednia_Click"/>
+        <Button x:Name="button_zapisz_te" Content="Do obrazu (wszystkie)" HorizontalAlignment="Right" Margin="0,0,5,4" VerticalAlignment="Bottom" Width="121" Click="button_zapisz_te_Click" />
+        <Button x:Name="button_zapisz_all" Content="Do obrazu (ta)" HorizontalAlignment="Right" Margin="0,0,131,4" VerticalAlignment="Bottom" Width="90" Click="button_zapisz_all_Click" />
 
     </Grid>
 </Window>
