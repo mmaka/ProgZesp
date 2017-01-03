@@ -29,7 +29,14 @@
             </MenuItem>
         </Menu>
         <DataGrid x:Name="dataGrid" Margin="136,46,10,105" ItemsSource="{Binding}" SelectionChanged="dataGrid_SelectionChanged">
-
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="_Dodaj prostokąt" Click="button_Click"/>
+                    <MenuItem Header="_Usuń prostokąt" Click="_Usuń_prostokąt_Click"/>
+                    <MenuItem Header="_Usuń wszystkie" Click="_Usuń_wszystkie_Click"/>
+                    <MenuItem Header="_Odwróć prostokąt" Click="_Odwróć_prostokąt_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
         <Button x:Name="button" Content="Dodaj prostokat" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="115" Click="button_Click"/>
         <TextBox x:Name="textBox_komunikat" TextWrapping="Wrap" Text="Witaj!" Margin="10,0,10,82" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom"/>
@@ -37,6 +44,11 @@
 
         <Button x:Name="button_usuń" Content="Usun prostokat" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="115" Click="button_usuń_Click"/>
         <Button x:Name="button1" Content="Test" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,165,0,0" Click="button1_Click"/>
+        <Label x:Name="label" Content="Rozmiar matrycy: nie określony" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,16,0,0" Height="25" Width="296"/>
+
+        
+          
+         
 
     </Grid>
 </Window>

@@ -40,7 +40,9 @@ namespace Rozmieszczenie.Logika
         {
             Matka = new Matryca(nm);
             wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);                  
-            wm.Show();           
+            wm.Show();
+            MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y;
+              
         }
         public void zmień_matryce(int x, int y)
         {
@@ -48,6 +50,7 @@ namespace Rozmieszczenie.Logika
             wm.Close();
             wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);
             wm.Show();
+            MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y;
         }
 
         internal int rozmiesc()

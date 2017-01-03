@@ -1,5 +1,6 @@
 ﻿using Rozmieszczenie.Logika;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Rozmieszczenie.Widoki
 {
@@ -33,5 +34,39 @@ namespace Rozmieszczenie.Widoki
         {
             Close();
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Enter)
+            {
+                button_Click(null, null);
+            }
+            else if (e.Key == Key.Escape) Close();
+        }
+
+
+        private void Zaznacz(object sender, RoutedEventArgs e)
+        {
+
+            var textBox = sender as System.Windows.Controls.TextBox;
+            textBox.SelectAll();
+
+        }
+
+        private void Zaznacz(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+            textBox.SelectAll();
+        }
+
+        private void Zaznacz(object sender, System.EventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+            textBox.SelectAll();
+        }
+
+
+
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Rozmieszczenie.Logika;
+using System;
+using System.Media;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Rozmieszczenie.Widoki
 {
@@ -14,6 +17,9 @@ namespace Rozmieszczenie.Widoki
         {
             J = j;
             InitializeComponent();
+
+            
+
             if (prostokat != null)
             {
 
@@ -23,6 +29,8 @@ namespace Rozmieszczenie.Widoki
                 textBox_szerokosc_prostokat.Text = prostokat.W.ToString();
                 textBox_wysokosc_prostokat.Text = prostokat.H.ToString();
             }
+           
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -50,13 +58,63 @@ namespace Rozmieszczenie.Widoki
             Close();
         }
 
-        
+
         private void OdwóćButton_Click(object sender, RoutedEventArgs e)
         {
 
             var tmp = textBox_szerokosc_prostokat.Text;
             textBox_szerokosc_prostokat.Text = textBox_wysokosc_prostokat.Text;
             textBox_wysokosc_prostokat.Text = tmp;
+        }
+
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Enter)
+            {
+                button_Click(null, null);
+            }
+            else if (e.Key == Key.Escape) Close();
+        }
+
+        private void Zaznacz(object sender, RoutedEventArgs e)
+        {
+          
+            var textBox = sender as System.Windows.Controls.TextBox;
+            textBox.SelectAll();
+
+        }
+
+        private void Zaznacz(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+            textBox.SelectAll();
+        }
+
+        private void Zaznacz(object sender, System.EventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+            textBox.SelectAll();
+        }
+         
+
+        //Zmniejsz ilosc
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            int i = Convert.ToInt32(textBox_ilosc_prostokat.Text);
+            if (i > 0) i--;
+            else SystemSounds.Beep.Play();
+            textBox_ilosc_prostokat.Text = i.ToString();
+
+        }
+
+        //Zwieksz ilosc
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            int i = Convert.ToInt32(textBox_ilosc_prostokat.Text);
+            i++;
+            textBox_ilosc_prostokat.Text = i.ToString();
         }
     }
 }
