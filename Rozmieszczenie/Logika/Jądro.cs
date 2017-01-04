@@ -15,7 +15,7 @@ namespace Rozmieszczenie.Logika
         MainWindow MW;
         Zła_MatrycaFigura zMF;
         public Matryca Matka;
-        informacyjne InfoOkno;
+        public informacyjne InfoOkno;
         public Rysowanie R;
         public Rozmieszczenia NAJLEPSZE;
 
@@ -127,6 +127,18 @@ namespace Rozmieszczenie.Logika
         public void usuń_prostokąt(Prostokat prostokat)
         {
             lista_obiektow.Remove(prostokat);
+            MW.dataGrid.DataContext = lista_obiektow;
+            MW.dataGrid.Items.Refresh();
+
+        }
+        public void usuń_prostokąt(int id)
+        {
+            var obiektDoUsunięcia = (from figura in lista_obiektow
+                                    where figura.ID == id
+                                    select figura).First<Prostokat>();
+
+            
+            lista_obiektow.Remove(obiektDoUsunięcia);
             MW.dataGrid.DataContext = lista_obiektow;
             MW.dataGrid.Items.Refresh();
 

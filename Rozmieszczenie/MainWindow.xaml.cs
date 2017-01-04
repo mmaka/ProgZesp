@@ -44,8 +44,20 @@ namespace Rozmieszczenie
        
         private void _Usuń_prostokąt_Click(object sender, RoutedEventArgs e)
         {
-            if ((dataGrid.SelectedItem is Prostokat) && dataGrid.SelectedItem != null )
-                J.usuń_prostokąt((Prostokat)dataGrid.SelectedItem);
+            if ((dataGrid.SelectedItem is Prostokat) && dataGrid.SelectedItem != null)
+            {
+                List<int> listaIdDoUsunięcia = new List<int>();
+                foreach (Prostokat item in dataGrid.SelectedItems)
+                {
+
+                    listaIdDoUsunięcia.Add(item.ID);
+                }
+
+                foreach (var item in listaIdDoUsunięcia)
+                {
+                    J.usuń_prostokąt(item);
+                }
+            }
 
         }
        private void _Usuń_wszystkie_Click(object sender, RoutedEventArgs e)
@@ -64,10 +76,13 @@ namespace Rozmieszczenie
         {
             if ((dataGrid.SelectedItem is Prostokat) && dataGrid.SelectedItem != null)
             {
-
-                int tmp = ((Prostokat)dataGrid.SelectedItem).W;
-                ((Prostokat)dataGrid.SelectedItem).W = ((Prostokat)dataGrid.SelectedItem).H;
-                ((Prostokat)dataGrid.SelectedItem).H = tmp;
+                foreach (Prostokat item in dataGrid.SelectedItems)
+                {
+                    int tmp = item.W;
+                    item.W = item.H;
+                   item.H = tmp;
+                }
+               
                 dataGrid.DataContext = Jądro.lista_obiektow;
                 dataGrid.Items.Refresh();
 
@@ -180,7 +195,7 @@ namespace Rozmieszczenie
                     {
                         XElement LiczbaFigur = new XElement("LiczbaFigur", J.NAJLEPSZE.lokalizacja_figur.Length);
                         Rozmieszczenia.Add(LiczbaFigur);
-
+                      
 
                         Projekt.Add(Rozmieszczenia);
 
@@ -211,6 +226,8 @@ namespace Rozmieszczenie
                             ListaFigur.Add(Figura);
 
                         }
+                        XElement Info = new XElement("Info", J.InfoOkno.textBox);
+                        Projekt.Add(Info);
                     }
                     catch
                     {
@@ -341,6 +358,10 @@ namespace Rozmieszczenie
                         }
 
                         J.R.Rysuj(J.wm, roz, int.Parse(xml.Root.Element("Matryca").Element("Liczba").Value) - 1);
+
+                        J.InfoOkno = new Widoki.informacyjne();
+                        J.InfoOkno.textBox.Text = xml.Root.Element("Info").Value;
+                        J.InfoOkno.Show();
                     }
                     catch { }
 
