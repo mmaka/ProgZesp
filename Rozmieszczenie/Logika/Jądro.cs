@@ -349,7 +349,7 @@ namespace Rozmieszczenie.Logika
 
             }
         }
-
+        //lalalala
         public static void miksowanie_indeksow(List<Rozmieszczenia> lista_roz, List<int[]> lista_ind, int liczba_nowych_indeksowan)
         {
             int liczba_rozmieszczen = lista_roz.Count;
