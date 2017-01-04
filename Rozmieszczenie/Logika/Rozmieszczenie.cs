@@ -37,7 +37,7 @@ namespace Rozmieszczenie
             get { return lista_matryc.Count; }
         }
         //KONSTRUKTOR
-        public Rozmieszczenia(int liczba_figur,Matryca m,int[] tab_indeksow)
+        public Rozmieszczenia(int liczba_figur,Matryca m,int[] tab_indeksow=null)
         {
             lista_matryc = new List<Matryca>();
             lista_matryc.Add(m);

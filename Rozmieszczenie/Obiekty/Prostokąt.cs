@@ -28,10 +28,12 @@ namespace Rozmieszczenie
             wysokosc = 0;
         }
 
-        public Prostokat(int s, int w)
+        public Prostokat(int s, int w, int id = 0, string nazwa = "")
         {
             szerokosc = s;
             wysokosc = w;
+            this.id = id;
+            this.nazwa = nazwa;
         }
         public Prostokat(nowa_prostokat NP)
         {

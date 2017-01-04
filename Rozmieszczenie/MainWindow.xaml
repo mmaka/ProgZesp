@@ -13,6 +13,10 @@
             <MenuItem Header="_Plik">
                 <MenuItem Header="_Określ matryce" Click="MenuItem_Click"/>
                 <MenuItem Header="_Rozmieść" Click="button_rozmiesc_Click"/>
+                <MenuItem Header="_Zapisz do Pliku Figury" Click="ZapiszFiguryClick"/>
+                <MenuItem Header="_Wczytaj Listę Figur" Click="WczytajListęFigur"/>
+                <MenuItem Header="_Zapisz Projekt" Click="ZapiszProjektClick"/>
+                <MenuItem Header="_Wczytaj Projekt" Click="WczytajProjektClick"/>
                 <MenuItem Header="_Drukuj"/>
                 <MenuItem Header="_Zamknij" Click="MenuItem_Click_1" />
             </MenuItem>

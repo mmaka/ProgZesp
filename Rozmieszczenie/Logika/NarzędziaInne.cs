@@ -173,12 +173,15 @@ namespace Rozmieszczenie.Logika
 
         public Rysowanie(Widoki.widok_matryca w) { W = w;  }
 
-        public void Rysuj(object o, Rozmieszczenia R_)
+        public void Rysuj(object o, Rozmieszczenia R_, int liczbamatryc=0)
             {
                 R = R_;
                 W = (Widoki.widok_matryca)o;
-                liczba_matryc = R.Liczba_wykorzystanych_matryc-1;
-                Rysuj();            
+            if (liczbamatryc == 0)
+                liczba_matryc = R.Liczba_wykorzystanych_matryc - 1;
+            else
+                liczba_matryc = liczbamatryc;
+            Rysuj();            
             }
 
 

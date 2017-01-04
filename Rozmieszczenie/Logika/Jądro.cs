@@ -3,6 +3,7 @@ using Rozmieszczenie.Widoki;
 using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rozmieszczenie.Logika
 {
@@ -13,10 +14,12 @@ namespace Rozmieszczenie.Logika
         public widok_matryca wm;
         MainWindow MW;
         Zła_MatrycaFigura zMF;
-        Matryca Matka;
+        public Matryca Matka;
         informacyjne InfoOkno;
         public Rysowanie R;
-        
+        public Rozmieszczenia NAJLEPSZE;
+
+
         public static List<Prostokat> lista_obiektow;
 
         public List<Rozmieszczenia> lista_rozmieszczen;
@@ -177,7 +180,7 @@ namespace Rozmieszczenie.Logika
 
                 } while (w < liczba_indeksowan);
 
-                Rozmieszczenia NAJLEPSZE = lista_rozmieszczen[0];
+                 NAJLEPSZE = lista_rozmieszczen[0];
                 for (int i = 0; i < lista_rozmieszczen.Count; i++)
                 {
                     if (NAJLEPSZE.NajPowPro2 < lista_rozmieszczen[i].NajPowPro2)
@@ -416,29 +419,29 @@ namespace Rozmieszczenie.Logika
 
         public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y)
         {
-            for (int k = 0; k < lista_indeksow.Count; k++)
-            {
-                Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y), lista_indeksow[k]);
-                lista_rozmieszczen.Add(roz);
+            Parallel.For(0, lista_indeksow.Count, (int k) =>
+           {
+               Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y), lista_indeksow[k]);
+               lista_rozmieszczen.Add(roz);
 
-                for (int i = 0; i < liczba_figur; i++)
-                {
-                    int j = 0;
-                    roz.lokalizacja_figur[i] = new MatrycaFiguraPunkt(j, lista_figur[lista_indeksow[k][i]], new Punkt());
+               for (int i = 0; i < liczba_figur; i++)
+               {
+                   int j = 0;
+                   roz.lokalizacja_figur[i] = new MatrycaFiguraPunkt(j, lista_figur[lista_indeksow[k][i]], new Punkt());
 
-                    while (!lista_figur[lista_indeksow[k][i]].ustal_pozycje(roz.lokalizacja_figur[i].p, roz.lista_matryc[j]))
-                    {
-                        if (j == roz.lista_matryc.Count - 1) roz.lista_matryc.Add(new Matryca(m_rozmiar_x, m_rozmiar_y));
+                   while (!lista_figur[lista_indeksow[k][i]].ustal_pozycje(roz.lokalizacja_figur[i].p, roz.lista_matryc[j]))
+                   {
+                       if (j == roz.lista_matryc.Count - 1) roz.lista_matryc.Add(new Matryca(m_rozmiar_x, m_rozmiar_y));
 
-                        j++;
-                    }
+                       j++;
+                   }
 
-                    roz.lokalizacja_figur[i].nr_matrycy = j;
-                }
+                   roz.lokalizacja_figur[i].nr_matrycy = j;
+               }
 
-                roz.wolna_powierzchnia_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
-                roz.najwieksza_prostokatna_powierzchnia();
-            }
+               roz.wolna_powierzchnia_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
+               roz.najwieksza_prostokatna_powierzchnia();
+           }) ;
         }
     
 
