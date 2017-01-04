@@ -45,7 +45,7 @@ namespace Rozmieszczenie
             indeksy = new int[liczba_figur];
             NajPowPro = 0;
             WolPowNrMat = 0;
-
+            if(tab_indeksow!=null)
             for (int i = 0; i < liczba_figur; i++)
             {
                 lokalizacja_figur[i] = new MatrycaFiguraPunkt(1, null, new Punkt());
