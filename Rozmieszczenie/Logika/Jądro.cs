@@ -139,6 +139,11 @@ namespace Rozmieszczenie.Logika
 
             
             lista_obiektow.Remove(obiektDoUsunięcia);
+            foreach (var item in lista_obiektow)
+            {
+                if (item.ID > id)
+                    item.ID = item.ID - 1;
+            }
             MW.dataGrid.DataContext = lista_obiektow;
             MW.dataGrid.Items.Refresh();
 

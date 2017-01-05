@@ -8,13 +8,13 @@ namespace Rozmieszczenie
 {
     public class Prostokat : IFigura
     {
-        static int licznik=0;
+        public static int licznik=0;
         int szerokosc;
         int wysokosc;
         string nazwa;
         int id;
 
-        public int ID { get { return id; } } 
+        public int ID { get { return id; } set { id = value; } } 
         public string Nazwa {   get { return nazwa; }  }
         public int W { get { return szerokosc; } set { szerokosc = value; } } 
         public int H { get { return wysokosc; } set { wysokosc = value; } }        

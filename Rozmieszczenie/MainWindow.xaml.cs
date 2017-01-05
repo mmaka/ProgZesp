@@ -290,12 +290,17 @@ namespace Rozmieszczenie
 
 
                     IEnumerable<XElement> listaWczytanychElementów = xml.Root.Element("ListaFigur").Elements();
-                    Jądro.lista_obiektow.Clear();
+                    int maxID=0;
+                    if (Jądro.lista_obiektow.Count > 0)
+                        maxID = Jądro.lista_obiektow[Jądro.lista_obiektow.Count - 1].ID;
+                       
+                
 
                     foreach (var item in listaWczytanychElementów)
                     {
 
-                        Jądro.lista_obiektow.Add(new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), int.Parse(item.Element("ID").Value), item.Element("Nazwa").Value));
+                        Jądro.lista_obiektow.Add(new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), int.Parse(item.Element("ID").Value)+maxID, item.Element("Nazwa").Value));
+                        Prostokat.licznik = int.Parse(item.Element("ID").Value) + maxID;
                     }
                     dataGrid.DataContext = Jądro.lista_obiektow;
                     dataGrid.Items.Refresh();
