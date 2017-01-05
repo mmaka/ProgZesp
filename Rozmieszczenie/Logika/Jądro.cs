@@ -169,12 +169,12 @@ namespace Rozmieszczenie.Logika
                 int m_x = Matka.rozmiar_x;
                 int m_y = Matka.rozmiar_y;
 
-
+                int odstep = 5; //tutaj ręcznie możemy ustawić rozmiar odstępu
                 int liczba_indeksowan = 45;
                 List<int[]> lista_indeksow = new List<int[]>();
                 lista_rozmieszczen = new List<Rozmieszczenia>();
                 wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan, indeksowania_poczatkowe(lista_obiektow));
-                generuj_rozmieszczenia(lista_obiektow, lista_indeksow, lista_rozmieszczen, lista_obiektow.Count, m_x, m_y);
+                generuj_rozmieszczenia(lista_obiektow, lista_indeksow, lista_rozmieszczen, lista_obiektow.Count, m_x, m_y,odstep);
 
                 //    foreach (Rozmieszczenie roz in lista_rozmieszczen)
                 //      roz.wypisz();
@@ -187,7 +187,7 @@ namespace Rozmieszczenie.Logika
                     
                     //miksowanie_indeksow(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                     miksowanie_indeksow2(lista_rozmieszczen, lista_ind, liczba_indeksowan);
-                    generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y);
+                    generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y,odstep);
                     w++;
 
                 } while (w < liczba_indeksowan);
@@ -429,11 +429,11 @@ namespace Rozmieszczenie.Logika
             indeksowanie[y] = tmp;
         }
 
-        public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y)
+        public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y,int odstep)
         {
             Parallel.For(0, lista_indeksow.Count, (int k) =>
            {
-               Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y), lista_indeksow[k]);
+               Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y),odstep,lista_indeksow[k]);
                lista_rozmieszczen.Add(roz);
 
                for (int i = 0; i < liczba_figur; i++)
@@ -441,7 +441,7 @@ namespace Rozmieszczenie.Logika
                    int j = 0;
                    roz.lokalizacja_figur[i] = new MatrycaFiguraPunkt(j, lista_figur[lista_indeksow[k][i]], new Punkt());
 
-                   while (!lista_figur[lista_indeksow[k][i]].ustal_pozycje(roz.lokalizacja_figur[i].p, roz.lista_matryc[j]))
+                   while (!lista_figur[lista_indeksow[k][i]].ustal_pozycje(roz.lokalizacja_figur[i].p, roz.lista_matryc[j],odstep))
                    {
                        if (j == roz.lista_matryc.Count - 1) roz.lista_matryc.Add(new Matryca(m_rozmiar_x, m_rozmiar_y));
 

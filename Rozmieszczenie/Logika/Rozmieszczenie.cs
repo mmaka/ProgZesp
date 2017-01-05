@@ -29,6 +29,7 @@ namespace Rozmieszczenie
         public MatrycaFiguraPunkt[] lokalizacja_figur; //dla danego rozmieszczenia potrzebujemy tablicę z lokalizacjami prostokątów
         public List<Matryca> lista_matryc;
         public int[] indeksy;
+        public int odstep;
         public int NajPowPro;
         public int NajPowPro2;
         public int WolPowNrMat;
@@ -37,12 +38,13 @@ namespace Rozmieszczenie
             get { return lista_matryc.Count; }
         }
         //KONSTRUKTOR
-        public Rozmieszczenia(int liczba_figur,Matryca m,int[] tab_indeksow=null)
+        public Rozmieszczenia(int liczba_figur,Matryca m,int odleglosc,int[] tab_indeksow=null)
         {
             lista_matryc = new List<Matryca>();
             lista_matryc.Add(m);
             lokalizacja_figur = new MatrycaFiguraPunkt[liczba_figur];
             indeksy = new int[liczba_figur];
+            odstep = odleglosc;
             NajPowPro = 0;
             WolPowNrMat = 0;
             if(tab_indeksow!=null)

@@ -347,7 +347,7 @@ namespace Rozmieszczenie
                     catch { }
                     try
                     {
-                        Rozmieszczenia roz = new Rozmieszczenia(int.Parse(xml.Root.Element("Rozmieszczenia").Element("LiczbaFigur").Value), new Matryca(int.Parse(xml.Root.Element("Matryca").Element("W").Value), int.Parse(xml.Root.Element("Matryca").Element("H").Value)));
+                        Rozmieszczenia roz = new Rozmieszczenia(int.Parse(xml.Root.Element("Rozmieszczenia").Element("LiczbaFigur").Value), new Matryca(int.Parse(xml.Root.Element("Matryca").Element("W").Value), int.Parse(xml.Root.Element("Matryca").Element("H").Value)), int.Parse(xml.Root.Element("Odstep").Element("odst").Value));
 
                         var zapytanie = xml.Root.Element("ListaFigur").Elements();
                         int iterator = 0;
