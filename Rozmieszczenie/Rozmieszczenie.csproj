@@ -68,6 +68,9 @@
     <Compile Include="Widoki\informacyjne.xaml.cs">
       <DependentUpon>informacyjne.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\manualna_edycja_okno_info.xaml.cs">
+      <DependentUpon>manualna_edycja_okno_info.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widoki\nowa_matryca.xaml.cs">
       <DependentUpon>nowa_matryca.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widoki\manualna_edycja_okno_info.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Widoki\nowa_matryca.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,8 +112,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\widok_matryca.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Widoki\Zła_MatrycaFigura.xaml">
       <SubType>Designer</SubType>
