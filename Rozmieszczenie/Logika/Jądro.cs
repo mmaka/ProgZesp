@@ -144,6 +144,7 @@ namespace Rozmieszczenie.Logika
                 if (item.ID > id)
                     item.ID = item.ID - 1;
             }
+            Prostokat.licznik = lista_obiektow.Count;
             MW.dataGrid.DataContext = lista_obiektow;
             MW.dataGrid.Items.Refresh();
 

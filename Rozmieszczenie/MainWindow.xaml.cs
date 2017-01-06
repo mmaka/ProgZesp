@@ -2,6 +2,7 @@
 using Rozmieszczenie.Logika;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Input;
 using System.Xml.Linq;
 
 namespace Rozmieszczenie
@@ -16,6 +17,7 @@ namespace Rozmieszczenie
         {
             J = new Jądro(this);
             InitializeComponent();
+           
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -66,12 +68,7 @@ namespace Rozmieszczenie
 
         }
         
-          private void button_usuń_Click(object sender, RoutedEventArgs e)
-        {
-            if ((dataGrid.SelectedItem is Prostokat) && dataGrid.SelectedItem != null)
-                J.usuń_prostokąt((Prostokat)dataGrid.SelectedItem);
-
-        }
+     
         private void _Odwróć_prostokąt_Click(object sender, RoutedEventArgs e)
         {
             if ((dataGrid.SelectedItem is Prostokat) && dataGrid.SelectedItem != null)
@@ -386,6 +383,27 @@ namespace Rozmieszczenie
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             J.test();
+        }
+        private void DataGridPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                if ((dataGrid.SelectedItem is Prostokat) && dataGrid.SelectedItem != null)
+                {
+                    List<int> listaIdDoUsunięcia = new List<int>();
+                    foreach (Prostokat item in dataGrid.SelectedItems)
+                    {
+
+                        listaIdDoUsunięcia.Add(item.ID);
+                    }
+
+                    foreach (var item in listaIdDoUsunięcia)
+                    {
+                        J.usuń_prostokąt(item);
+                    }
+                }
+            }
+
         }
     }
 }
