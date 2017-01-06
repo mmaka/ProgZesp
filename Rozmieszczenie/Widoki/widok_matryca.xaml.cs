@@ -1,6 +1,7 @@
 ﻿using Rozmieszczenie.Logika;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -10,9 +11,9 @@ namespace Rozmieszczenie.Widoki
     {
         Jądro J;        
         int X;
-        int Y;        
-      
-
+        int Y;
+        bool czy_Przesuwać = false;
+        MatrycaFiguraPunkt p = null;
         private void button_kolejna_Click(object sender, RoutedEventArgs e)
         {
             J.R.Aktualna_Matryca++;
@@ -66,6 +67,44 @@ namespace Rozmieszczenie.Widoki
         private void button_zapisz_all_Click(object sender, RoutedEventArgs e)
         {
             ZapiszObrazMatrycy.Jedna(this);
+        }
+
+        
+
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (J.prz != null)
+            {
+                Cursor = Cursors.Hand;
+                czy_Przesuwać = true;
+                p=J.prz.Znajdz(e.GetPosition(canvas));
+               // J.prz.Rusz(p, e.GetPosition(canvas));
+                textBlock.Text = e.GetPosition(canvas).X + "";
+            }
+        }
+
+        private void Window_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            czy_Przesuwać = false;
+            Cursor = Cursors.Arrow;
+            p = null;
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            
+            
+                if (czy_Przesuwać)
+                {
+                    if (J.prz != null)
+                    {
+                        Cursor = Cursors.Hand;
+                        J.prz.Rusz(p, e.GetPosition(canvas));
+                        // textBlock.Text = e.GetPosition(canvas).X + "";
+                    }
+                }
+                //else J.prz.Znajdz(e.GetPosition(canvas));
+            
         }
     }
 }

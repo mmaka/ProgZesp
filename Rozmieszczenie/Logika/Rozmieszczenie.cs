@@ -1,12 +1,5 @@
-﻿using Rozmieszczenie;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Shapes;
-using System.Drawing;
-using System.Windows.Media;
-using System.Windows.Controls;
-using System.Windows;
 
 namespace Rozmieszczenie
 {
@@ -33,6 +26,7 @@ namespace Rozmieszczenie
         public int NajPowPro;
         public int NajPowPro2;
         public int WolPowNrMat;
+        public bool czyZmienaneRecznie = false;
         public int Liczba_wykorzystanych_matryc
         {
             get { return lista_matryc.Count; }

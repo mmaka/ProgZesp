@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Media;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
+using Rozmieszczenie.Widoki;
 
 namespace Rozmieszczenie.Logika
 {
@@ -315,18 +316,206 @@ namespace Rozmieszczenie.Logika
             }
         }
 
+        public void Rysuj(Rozmieszczenia RR) //wersja dla przeciagania
+        {
+
+            Canvas C = W.canvas;
+            C.Children.Clear();
+
+            {
+                Rectangle rect = new Rectangle();
+                rect.Fill = Brushes.LightCyan;
+                rect.Stroke = new SolidColorBrush(Colors.Black);
+                rect.Width = C.Width;
+                rect.Height = C.Height;
+                Canvas.SetTop(rect, 0);
+                Canvas.SetLeft(rect, 0);
+                C.Children.Add(rect);
+
+            }
 
 
+            for (int i = 0; i < RR.lokalizacja_figur.Length; i++)
+            {
+                if (RR.lokalizacja_figur[i].nr_matrycy == aktualna_matryca)
+                {
+                    int W = RR.lokalizacja_figur[i].figura.W;
+                    int H = RR.lokalizacja_figur[i].figura.H;
+
+                    Rectangle rect = new Rectangle();
+                    rect.Fill = Brushes.BurlyWood;
+                    rect.Stroke = new SolidColorBrush(Colors.Black);
+                    rect.Width = W;
+                    rect.Height = H;
+                    Canvas.SetTop(rect, RR.lokalizacja_figur[i].p.y);
+                    Canvas.SetLeft(rect, RR.lokalizacja_figur[i].p.x);
+                    C.Children.Add(rect);
+
+
+                    {
+                        TextBlock textBlock = new TextBlock();
+                        textBlock.FontSize = Math.Min(W / 2, H / 2);
+                        Canvas.SetTop(textBlock, RR.lokalizacja_figur[i].p.y + 1);
+                        Canvas.SetLeft(textBlock, RR.lokalizacja_figur[i].p.x + 1);
+                        textBlock.Text = RR.lokalizacja_figur[i].figura.ID.ToString();
+                        textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                        C.Children.Add(textBlock);
+                    }
+                }
 
 
 
             }
-      
+        }
 
 
 
 
     }
+
+
+
+    public class Przeciaganie
+    {
+        Rozmieszczenia R, kopiaR;
+        manualna_edycja_okno_info Okno;
+        widok_matryca WM;
+        Jądro J;
+        public bool czyEdytowac;
+       
+
+        int am;
+
+        public Przeciaganie(Rozmieszczenia _R, widok_matryca _WM, Jądro _J)
+        {
+            R = _R; WM = _WM; J = _J; kopiaR = _R;
+            MessageBoxResult result = MessageBox.Show("Rozmieszczono figury. \nCzy chesz poprawićrozmieszczenie ręcznie?", "Rozmieszczanie manualne",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                _R.czyZmienaneRecznie = true;
+                Okno = new manualna_edycja_okno_info(this);
+                Okno.Show();
+                czyEdytowac = true;
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                czyEdytowac = false;
+            }
+
+        }
+
+        public void Gotowe()
+        {
+            R = kopiaR;
+            Okno.Close();
+            J.R.Rysuj();
+            J.InfoBox();
+        }
+
+        public void Przywroc() //nie dizala bo tu wszystko jest reerencją...
+        {
+            kopiaR = R;
+            J.R.Rysuj(kopiaR);
+        }
+
+        public MatrycaFiguraPunkt Znajdz(Point P)
+        {
+            am = J.R.Aktualna_Matryca;
+            MatrycaFiguraPunkt p = null;
+            foreach (MatrycaFiguraPunkt O in kopiaR.lokalizacja_figur)
+            {
+                if (O.nr_matrycy == am)
+                {
+                    //jezeli to ten to biore figure
+                    if (P.X <= O.p.x + O.figura.W)
+                        if (P.X >= O.p.x)
+                            if (P.Y < O.p.y + O.figura.H)
+                                if (P.Y > O.p.y)
+                                {
+                                    p = O;
+                                    J.wm.textBlock.Text = "Nazwa: " + p.figura.Nazwa + "   ID: " + p.figura.ID;
+                                    break;
+                                }
+                }
+            }
+            return p;
+        }
+        public void Rusz(MatrycaFiguraPunkt p, Point P)
+        {
+
+            if (p != null && czyEdytowac)
+            {
+                bool czyMogeX = true;
+                bool czyMogeY = true;
+
+                double RX = 0, RY = 0;
+
+                //RX = (P.X - (P.X- p.p.x));
+                //RY = (P.Y - (P.Y- p.p.y));
+
+                RX = P.X;
+                RY = P.Y;
+
+
+
+                J.wm.textBlock.Text = "spr";
+                foreach (MatrycaFiguraPunkt O in kopiaR.lokalizacja_figur)
+                {
+                    if (O != p && O.nr_matrycy == am)
+                    {
+
+                        if (RX < 0 || RX + p.figura.W > J.Matka.rozmiar_x)
+                        {
+                            czyMogeX = false;
+                            J.wm.textBlock.Text = "   nie można tu przesunąć X (" + RX + "," + RY + ")";
+                        }
+                        if (RY < 0 || RY + p.figura.H > J.Matka.rozmiar_y)
+                        {
+                            czyMogeY = false;
+                            J.wm.textBlock.Text = "   nie można tu przesunąć Y (" + RX + "," + RY + ")";
+                        }
+
+                        if (RX < O.p.x + O.figura.W)
+                            if (RX + p.figura.W > O.p.x)
+                                if (p.p.y < O.p.y + O.figura.H)
+                                    if (p.p.y + p.figura.H > O.p.y)
+                                    {
+                                        czyMogeX = false;
+                                        J.wm.textBlock.Text = "   nie można tu przesunąć X (" + RX + "," + RY + ")";
+                                    }
+                        if (p.p.x < O.p.x + O.figura.W)
+                            if (p.p.x + p.figura.W > O.p.x)
+                                if (RY < O.p.y + O.figura.H)
+                                    if (RY + p.figura.H > O.p.y)
+                                    {
+                                        czyMogeY = false;
+                                        J.wm.textBlock.Text = "   nie można tu przesunąć Y (" + RX + "," + RY + ")";
+
+                                    }
+                    }
+                }
+
+
+                if (czyMogeX)
+                { p.p.x = (int)RX; J.wm.textBlock.Text += " przesunietoX"; }
+                if (czyMogeY)
+                { p.p.y = (int)RY; J.wm.textBlock.Text += " przesunietoY"; }
+
+
+                if (czyMogeX || czyMogeY)
+                {
+                    J.R.Rysuj(kopiaR);
+                    J.wm.textBlock.Text = "Nazwa: " + p.figura.Nazwa + "   ID: " + p.figura.ID + "  " + P.X + " " + P.Y;
+                }
+            }
+
+
+
+        }
+    }
+
+}
 
 
 

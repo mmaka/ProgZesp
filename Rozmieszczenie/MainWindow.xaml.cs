@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Rozmieszczenie.Logika;
 using System.Collections.Generic;
+using System.Media;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -349,6 +350,7 @@ namespace Rozmieszczenie
                     catch { }
                     try
                     {
+                        //SystemSounds.Beep.Play();
                         Rozmieszczenia roz = new Rozmieszczenia(int.Parse(xml.Root.Element("Rozmieszczenia").Element("LiczbaFigur").Value), new Matryca(int.Parse(xml.Root.Element("Matryca").Element("W").Value), int.Parse(xml.Root.Element("Matryca").Element("H").Value)), int.Parse(xml.Root.Element("Odstep").Element("odst").Value));
 
                         var zapytanie = xml.Root.Element("ListaFigur").Elements();
@@ -359,11 +361,8 @@ namespace Rozmieszczenie
                             iterator++;
                         }
 
-                        J.R.Rysuj(J.wm, roz, int.Parse(xml.Root.Element("Matryca").Element("Liczba").Value) - 1);
-
-                        J.InfoOkno = new Widoki.informacyjne();
-                        J.InfoOkno.textBox.Text = xml.Root.Element("Info").Value;
-                        J.InfoOkno.Show();
+                        J.R.Rysuj(J.wm, roz, int.Parse(xml.Root.Element("Matryca").Element("Liczba").Value) - 1);                                     
+                        J.InfoBox();
                     }
                     catch { }
 
@@ -374,6 +373,9 @@ namespace Rozmieszczenie
                 MessageBox.Show("Błąd podczas wczytywania Projektu!", "Błąd",
                         MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             }
+
+
+
         }
         private void dataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {

@@ -10,16 +10,16 @@ namespace Rozmieszczenie.Logika
     public class Jądro
     {
         nowa_prostokat np;
-        nowa_matryca nm;
-        public widok_matryca wm;
+        nowa_matryca nm;        
         MainWindow MW;
         Zła_MatrycaFigura zMF;
+
+        public widok_matryca wm;
         public Matryca Matka;
         public informacyjne InfoOkno;
         public Rysowanie R;
         public Rozmieszczenia NAJLEPSZE;
-
-
+        public Przeciaganie prz; 
         public static List<Prostokat> lista_obiektow;
 
         public List<Rozmieszczenia> lista_rozmieszczen;
@@ -43,7 +43,7 @@ namespace Rozmieszczenie.Logika
         {
             Matka = new Matryca(nm);
             wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);                  
-            wm.Show();
+            
             MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y;
               
         }
@@ -52,7 +52,7 @@ namespace Rozmieszczenie.Logika
             Matka.EdytujMatrycę(x, y);
             wm.Close();
             wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);
-            wm.Show();
+           
             MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y;
         }
 
@@ -167,10 +167,8 @@ namespace Rozmieszczenie.Logika
         //miksowanko
         public void miksuj()
         {
-            
-            {
 
-                InfoOkno = new informacyjne(); //okno informacyjne
+            {
 
                 int m_x = Matka.rozmiar_x;
                 int m_y = Matka.rozmiar_y;
@@ -180,7 +178,7 @@ namespace Rozmieszczenie.Logika
                 List<int[]> lista_indeksow = new List<int[]>();
                 lista_rozmieszczen = new List<Rozmieszczenia>();
                 wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan, indeksowania_poczatkowe(lista_obiektow));
-                generuj_rozmieszczenia(lista_obiektow, lista_indeksow, lista_rozmieszczen, lista_obiektow.Count, m_x, m_y,odstep);
+                generuj_rozmieszczenia(lista_obiektow, lista_indeksow, lista_rozmieszczen, lista_obiektow.Count, m_x, m_y, odstep);
 
                 //    foreach (Rozmieszczenie roz in lista_rozmieszczen)
                 //      roz.wypisz();
@@ -190,39 +188,49 @@ namespace Rozmieszczenie.Logika
                     // selekcja(lista_rozmieszczen, 15);
                     List<int[]> lista_ind = new List<int[]>();
                     List<Rozmieszczenia> lista_roz2 = new List<Rozmieszczenia>();
-                    
+
                     //miksowanie_indeksow(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                     miksowanie_indeksow2(lista_rozmieszczen, lista_ind, liczba_indeksowan);
-                    generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y,odstep);
+                    generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y, odstep);
                     w++;
 
                 } while (w < liczba_indeksowan);
 
-                 NAJLEPSZE = lista_rozmieszczen[0];
+                NAJLEPSZE = lista_rozmieszczen[0];
                 for (int i = 0; i < lista_rozmieszczen.Count; i++)
                 {
                     if (NAJLEPSZE.NajPowPro2 < lista_rozmieszczen[i].NajPowPro2)
                         NAJLEPSZE = lista_rozmieszczen[i];
                 }
-
                 {
-                    InfoOkno.textBox.Text = ("\nRozmieszczenie, szczegóły: \n" +
-                        "Liczba wykorzystanych matryc: " + NAJLEPSZE.Liczba_wykorzystanych_matryc +
-                        "\nNajwiększa wolna prostokatna powierzchnia: " + NAJLEPSZE.NajPowPro2);
-                    InfoOkno.textBox.Text += ("\n********************************************************************\n ");
-                    InfoOkno.textBox.Text += NAJLEPSZE.wypisz() + "\n";
-                    InfoOkno.Show();
+
                     R = new Rysowanie(wm);
                     R.Rysuj(wm, NAJLEPSZE);
                 }
+                InfoBox();
             }
+            wm.Show();
+            prz = new Przeciaganie(NAJLEPSZE, wm, this);
+            
         }
 
+        
+        public void InfoBox()
+        {
+            InfoOkno = new informacyjne();
+            InfoOkno.textBox.Text = ("\nRozmieszczenie, szczegóły: \n" +
+                        "Liczba wykorzystanych matryc: " + NAJLEPSZE.Liczba_wykorzystanych_matryc +
+                        "\nNajwiększa wolna prostokatna powierzchnia: " + NAJLEPSZE.NajPowPro2 +
+                        "\nEdytowane manualnie: " + NAJLEPSZE.czyZmienaneRecznie);
+            InfoOkno.textBox.Text += ("\n********************************************************************\n ");
+            InfoOkno.textBox.Text += NAJLEPSZE.wypisz() + "\n";
+            InfoOkno.Show();
+        }
 
 
         //Metody Michała służące całej logice rozmieszczania i wszystkiego innego narazie tutaj ale nie na zawsze
 
-       
+
         public static void wygeneruj_indeksy(List<int[]> li, int liczba_figur, int liczba_indeksowan, List<int[]> proponowane)
         {
             Random rand = new Random();

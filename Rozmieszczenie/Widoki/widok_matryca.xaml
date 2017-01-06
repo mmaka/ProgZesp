@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="Matryca- podgląd" Height="529" d:DesignWidth="563" SizeToContent="WidthAndHeight" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="450" MinWidth="450">
+        Title="Matryca- podgląd" Height="529" d:DesignWidth="563" SizeToContent="WidthAndHeight" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="450" MinWidth="450" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp" MouseMove="Window_MouseMove">
     <Grid>
         <Viewbox Margin="5,5,5,50" IsHitTestVisible="False" StretchDirection="DownOnly">
-            <Canvas x:Name="canvas" VerticalAlignment="Center" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5">
+            <Canvas x:Name="canvas" VerticalAlignment="Center" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5" >
 
             </Canvas>
         </Viewbox>
