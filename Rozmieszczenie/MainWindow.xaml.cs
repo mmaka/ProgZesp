@@ -181,6 +181,8 @@ namespace Rozmieszczenie
                     {
                         XElement Liczba = new XElement("Liczba", J.NAJLEPSZE.lista_matryc.Count);
                         Matryca.Add(Liczba);
+                        XElement Odstęp = new XElement("Odstęp", J.NAJLEPSZE.odstep);
+                        Matryca.Add(Odstęp);
                     }
                     catch { }
 
@@ -351,7 +353,7 @@ namespace Rozmieszczenie
                     try
                     {
                         //SystemSounds.Beep.Play();
-                        Rozmieszczenia roz = new Rozmieszczenia(int.Parse(xml.Root.Element("Rozmieszczenia").Element("LiczbaFigur").Value), new Matryca(int.Parse(xml.Root.Element("Matryca").Element("W").Value), int.Parse(xml.Root.Element("Matryca").Element("H").Value)), int.Parse(xml.Root.Element("Odstep").Element("odst").Value));
+                        Rozmieszczenia roz = new Rozmieszczenia(int.Parse(xml.Root.Element("Rozmieszczenia").Element("LiczbaFigur").Value), new Matryca(int.Parse(xml.Root.Element("Matryca").Element("W").Value), int.Parse(xml.Root.Element("Matryca").Element("H").Value)), int.Parse(xml.Root.Element("Matryca").Element("Odstęp").Value));
 
                         var zapytanie = xml.Root.Element("ListaFigur").Elements();
                         int iterator = 0;
@@ -361,8 +363,10 @@ namespace Rozmieszczenie
                             iterator++;
                         }
 
-                        J.R.Rysuj(J.wm, roz, int.Parse(xml.Root.Element("Matryca").Element("Liczba").Value) - 1);                                     
-                        J.InfoBox();
+                        J.R.Rysuj(J.wm, roz, int.Parse(xml.Root.Element("Matryca").Element("Liczba").Value) - 1);
+                        J.InfoOkno = new Widoki.informacyjne();
+                         J.InfoOkno.textBox.Text = xml.Root.Element("Info").Value;
+                        J.InfoOkno.Show();
                     }
                     catch { }
 

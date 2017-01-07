@@ -3,6 +3,7 @@ using Rozmieszczenie.Widoki;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Drawing;
+using Rozmieszczenie.Logika;
 
 namespace Rozmieszczenie
 {
@@ -40,7 +41,7 @@ namespace Rozmieszczenie
 
             int tmp_szerokosc = Convert.ToInt32(NP.textBox_szerokosc_prostokat.Text);
             int tmp_wysokosc = Convert.ToInt32(NP.textBox_wysokosc_prostokat.Text);
-           
+            licznik = Jądro.lista_obiektow.Count;
             if (tmp_szerokosc != 0 && tmp_wysokosc != 0)
             {
 

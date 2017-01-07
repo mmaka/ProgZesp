@@ -152,6 +152,7 @@ namespace Rozmieszczenie.Logika
         public void usuń_wszystkie()
         {
             lista_obiektow.Clear();
+            Prostokat.licznik = 0;
             MW.dataGrid.DataContext = lista_obiektow;
             MW.dataGrid.Items.Refresh();
 
