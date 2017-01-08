@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Rozmieszczenie.Logika
 {
@@ -13,6 +14,7 @@ namespace Rozmieszczenie.Logika
         nowa_matryca nm;        
         MainWindow MW;
         Zła_MatrycaFigura zMF;
+        
 
         public widok_matryca wm;
         public Matryca Matka;
@@ -42,8 +44,9 @@ namespace Rozmieszczenie.Logika
         public void dodaj_matryce()
         {
             Matka = new Matryca(nm);
-            wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);                  
-            
+            wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);
+            if(lista_obiektow.Count>0)
+            Sprawdź1();
             MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y;
               
         }
@@ -55,24 +58,17 @@ namespace Rozmieszczenie.Logika
            
             MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y;
         }
-
-        internal int rozmiesc()
+        public void Sprawdź1()
         {
-            if (Matka == null)
-            {
-                MessageBox.Show("Najpierw należy określić matryce.\nOkreśl matrycę, a następnie ponownie wciśnij 'Rozmieść'", "Uwaga",
-                            MessageBoxButton.OK, MessageBoxImage.Information);
-                nowy_matryca();
-            }
-            else
-            {
-                List<Prostokat> listaObiektówKtóreMieszcząSieNaMatrycach = new List<Prostokat>();
+            MW.button_rozmiesc.IsEnabled = false;
+            MW.RozmieśćMenu.IsEnabled = false;
+            List<Prostokat> listaObiektówKtóreMieszcząSieNaMatrycach = new List<Prostokat>();
                 foreach (var item in lista_obiektow)                             //sprawdzanie czy obiekt zmieści sie na matrycy, jesli tak dodajemy do listy
                 {
-                   
 
-                        if (item.W <= Matka.rozmiar_x && item.H <= Matka.rozmiar_y)
-                            listaObiektówKtóreMieszcząSieNaMatrycach.Add(item);
+
+                    if (item.W <= Matka.rozmiar_x && item.H <= Matka.rozmiar_y)
+                        listaObiektówKtóreMieszcząSieNaMatrycach.Add(item);
 
                 }
 
@@ -88,18 +84,43 @@ namespace Rozmieszczenie.Logika
                     {
                         foreach (var item in listaIDdoUsunięcia)
                         {
-                            zMF = new Zła_MatrycaFigura(item, this, "Figura " + item + " nie zmieści się \n na matrycy. Co chcesz zrobić?", MW);
+                            zMF = new Zła_MatrycaFigura(item, this, "Figura " + item + " o wymiarach "+lista_obiektow[item-1].W+"x"+ lista_obiektow[item-1].H + " nie zmieści się \n na matrycy (" +Matka.rozmiar_x+"x"+Matka.rozmiar_y+")."+" Co chcesz zrobić?", MW);
                             zMF.ShowDialog();
 
-                            
+
                         }
-                        return -1;
+                       
                     }
                 }
+            if (sprawdź2()==1)
+            {
+                MW.button_rozmiesc.IsEnabled = true;
+                MW.RozmieśćMenu.IsEnabled = true;
+                MW.InfoButton.Visibility = Visibility.Hidden;
+            }
+        }
+        int sprawdź2()
+        {
+            
+            List<Prostokat> listaObiektówKtóreMieszcząSieNaMatrycach = new List<Prostokat>();
+            foreach (var item in lista_obiektow)                           
+            {
 
-                    miksuj();
-                  }
-            return 0;
+
+                if (item.W <= Matka.rozmiar_x && item.H <= Matka.rozmiar_y)
+                    listaObiektówKtóreMieszcząSieNaMatrycach.Add(item);
+
+            }
+            if (listaObiektówKtóreMieszcząSieNaMatrycach.Count != lista_obiektow.Count)
+            {
+                MW.InfoButton.Visibility = Visibility.Visible;
+                return 0;
+            }
+            return 1;
+        }
+        internal void rozmiesc()
+        {
+                    miksuj();   
         }
 
         internal void test()
@@ -116,13 +137,16 @@ namespace Rozmieszczenie.Logika
         }
         public void dodaj_prostokat()
         {
+            
             int tmp_ile = Convert.ToInt32(np.textBox_ilosc_prostokat.Text);
             for (int i = 0; i < tmp_ile; i++)
             {
                 lista_obiektow.Add(new Prostokat(np));
                 MW.dataGrid.DataContext = lista_obiektow;
                 MW.dataGrid.Items.Refresh();
-            }           
+            }
+            if (Matka != null)
+                Sprawdź1();
         }
         public void usuń_prostokąt(Prostokat prostokat)
         {
@@ -147,6 +171,13 @@ namespace Rozmieszczenie.Logika
             Prostokat.licznik = lista_obiektow.Count;
             MW.dataGrid.DataContext = lista_obiektow;
             MW.dataGrid.Items.Refresh();
+            if(Matka !=null)
+            if (sprawdź2() == 1)
+            {
+                MW.button_rozmiesc.IsEnabled = true;
+                MW.RozmieśćMenu.IsEnabled = true;
+                MW.InfoButton.Visibility = Visibility.Hidden;
+            }
 
         }
         public void usuń_wszystkie()

@@ -32,6 +32,10 @@ namespace Rozmieszczenie
         {
             J.nowy_matryca();
         }
+        private void InfoButtonClick(object sender, RoutedEventArgs e)
+        {
+            J.Sprawdź1();
+        }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
@@ -305,8 +309,8 @@ namespace Rozmieszczenie
                     dataGrid.DataContext = Jądro.lista_obiektow;
                     dataGrid.Items.Refresh();
 
-
-
+                    if(J.Matka!=null)
+                    J.Sprawdź1();
                 }
             }
             catch
@@ -369,6 +373,7 @@ namespace Rozmieszczenie
                         J.InfoOkno.Show();
                     }
                     catch { }
+                    J.Sprawdź1();
 
                 }
             }

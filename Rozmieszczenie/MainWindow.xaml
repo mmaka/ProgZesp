@@ -12,7 +12,7 @@
         <Menu Grid.ColumnSpan="2">
             <MenuItem Header="_Plik">
                 <MenuItem Header="_Określ matryce" Click="MenuItem_Click"/>
-                <MenuItem Header="_Rozmieść" Click="button_rozmiesc_Click"/>
+                <MenuItem x:Name="RozmieśćMenu" Header="_Rozmieść" Click="button_rozmiesc_Click" IsEnabled="False"/>
                 <MenuItem Header="_Zapisz do Pliku Figury" Click="ZapiszFiguryClick"/>
                 <MenuItem Header="_Wczytaj Listę Figur" Click="WczytajListęFigur"/>
                 <MenuItem Header="_Zapisz Projekt" Click="ZapiszProjektClick"/>
@@ -44,15 +44,19 @@
         </DataGrid>
         <Button x:Name="button" Content="Dodaj prostokat" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="115" Click="button_Click"/>
         <TextBox x:Name="textBox_komunikat" TextWrapping="Wrap" Text="Witaj!" Margin="10,0,10,82" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom"/>
-        <Button x:Name="button_rozmiesc" Content="Rozmieść" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Click" />
+        <Button x:Name="button_rozmiesc" Content="Rozmieść" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Click" IsEnabled="False" />
 
         <Button x:Name="button_usuń" Content="Usun prostokat" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="115" Click="_Usuń_prostokąt_Click"/>
         <Button x:Name="button1" Content="Test" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,165,0,0" Click="button1_Click"/>
         <Label x:Name="label" Content="Rozmiar matrycy: nie określony" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,16,0,0" Height="25" Width="296"/>
+        <Button x:Name="InfoButton" Visibility="Hidden"  BorderThickness="0" HorizontalAlignment="Left" Margin="386,0,0,0" VerticalAlignment="Top" Width="46" Click="InfoButtonClick" Height="26" Background="#FFF0F0F0">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Resources/warning.jpg" Height="24" Width="46" Stretch="Uniform"/>
+            </StackPanel>
+        </Button>
 
-        
-          
-         
+
+
 
     </Grid>
 </Window>
