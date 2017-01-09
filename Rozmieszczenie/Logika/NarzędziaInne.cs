@@ -451,11 +451,11 @@ namespace Rozmieszczenie.Logika
 
                 double RX = 0, RY = 0;
 
-                //RX = (P.X - (P.X- p.p.x));
-                //RY = (P.Y - (P.Y- p.p.y));
+                //RX = (P.X - ( p.p.x -P.X));
+              //  RY = (P.Y - ( p.p.y- P.Y ));
 
-                RX = P.X;
-                RY = P.Y;
+               RX = P.X;
+               RY = P.Y;
 
 
 

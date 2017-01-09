@@ -1,0 +1,15 @@
+﻿<Window x:Class="Rozmieszczenie.Widoki.pasek"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
+        mc:Ignorable="d"
+        Title="Postęp" Height="120" Width="360" ResizeMode="NoResize">
+    <Grid>
+        <Label x:Name="label" Content="Trwa rozmieszczanie." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="status" HorizontalAlignment="Left" Height="16" Margin="10,40,10,0" VerticalAlignment="Top" Width="332"/>
+
+
+    </Grid>
+</Window>

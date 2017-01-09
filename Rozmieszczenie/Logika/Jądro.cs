@@ -5,6 +5,7 @@ using System.Windows;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Rozmieszczenie.Logika
 {
@@ -14,8 +15,8 @@ namespace Rozmieszczenie.Logika
         nowa_matryca nm;        
         MainWindow MW;
         Zła_MatrycaFigura zMF;
-        
 
+        public int odstep = 5; //tutaj ręcznie możemy ustawić rozmiar odstępu
         public widok_matryca wm;
         public Matryca Matka;
         public informacyjne InfoOkno;
@@ -43,7 +44,7 @@ namespace Rozmieszczenie.Logika
 
         public void dodaj_matryce()
         {
-            Matka = new Matryca(nm);
+            Matka = new Matryca(nm);            
             wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);
             if(lista_obiektow.Count>0)
             Sprawdź1();
@@ -201,12 +202,17 @@ namespace Rozmieszczenie.Logika
         {
 
             {
+                pasek Pasek = new Widoki.pasek();
+                Pasek.Show();
+                Pasek.status.Value = 0;
+               
 
                 int m_x = Matka.rozmiar_x;
                 int m_y = Matka.rozmiar_y;
 
-                int odstep = 5; //tutaj ręcznie możemy ustawić rozmiar odstępu
+                
                 int liczba_indeksowan = 45;
+                Pasek.status.Maximum = liczba_indeksowan;
                 List<int[]> lista_indeksow = new List<int[]>();
                 lista_rozmieszczen = new List<Rozmieszczenia>();
                 wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan, indeksowania_poczatkowe(lista_obiektow));
@@ -225,6 +231,7 @@ namespace Rozmieszczenie.Logika
                     miksowanie_indeksow2(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                     generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y, odstep);
                     w++;
+                    Pasek.status.Dispatcher.Invoke(() => Pasek.status.Value = w, DispatcherPriority.Background);
 
                 } while (w < liczba_indeksowan);
 
@@ -239,6 +246,7 @@ namespace Rozmieszczenie.Logika
                     R = new Rysowanie(wm);
                     R.Rysuj(wm, NAJLEPSZE);
                 }
+                Pasek.Close();
                 InfoBox();
             }
             wm.Show();

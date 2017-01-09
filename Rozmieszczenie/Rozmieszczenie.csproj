@@ -77,6 +77,9 @@
     <Compile Include="Widoki\nowa_prostokat.xaml.cs">
       <DependentUpon>nowa_prostokat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\pasek.xaml.cs">
+      <DependentUpon>pasek.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widoki\widok_matryca.xaml.cs">
       <DependentUpon>widok_matryca.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\nowa_prostokat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\pasek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

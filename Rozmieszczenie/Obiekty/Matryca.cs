@@ -33,6 +33,7 @@ namespace Rozmieszczenie
             int tmp_wysokosc = Convert.ToInt32(NP.textBox_matryca_wysokość.Text);
             if (tmp_szerokosc != 0 && tmp_wysokosc != 0)
             {
+                
                 rozmiar_x = tmp_szerokosc;
                 rozmiar_y = tmp_wysokosc;
             }

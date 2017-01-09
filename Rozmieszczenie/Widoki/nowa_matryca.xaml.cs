@@ -1,4 +1,5 @@
 ﻿using Rozmieszczenie.Logika;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,7 +19,7 @@ namespace Rozmieszczenie.Widoki
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if (Sprawdz.CzyNull(textBox_matryca_szerokość, textBox_matryca_wysokość))
+            if (Sprawdz.CzyNull(textBox_matryca_szerokość, textBox_matryca_wysokość, textBox_matryca_odstep))
             {
                 if (nm != 0)
                 {
@@ -26,7 +27,10 @@ namespace Rozmieszczenie.Widoki
                     Close();
                 }
                 else
+                {
+                    J.odstep = Convert.ToInt32(textBox_matryca_odstep.Text);
                     J.dodaj_matryce();
+                }
             }
         }
 
