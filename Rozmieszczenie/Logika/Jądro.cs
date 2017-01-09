@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Rozmieszczenie.Logika

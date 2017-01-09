@@ -60,7 +60,6 @@
     <Compile Include="Logika\Jądro.cs" />
     <Compile Include="Logika\NarzędziaInne.cs" />
     <Compile Include="Logika\Rozmieszczenie.cs" />
-    <Compile Include="Logika\sprawdz.cs" />
     <Compile Include="Obiekty\Figura.cs" />
     <Compile Include="Obiekty\Matryca.cs" />
     <Compile Include="Obiekty\Prostokąt.cs" />

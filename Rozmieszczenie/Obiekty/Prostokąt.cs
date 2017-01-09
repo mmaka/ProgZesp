@@ -1,8 +1,5 @@
 ﻿using System;
 using Rozmieszczenie.Widoki;
-using System.Windows.Shapes;
-using System.Windows.Media;
-using System.Drawing;
 using Rozmieszczenie.Logika;
 
 namespace Rozmieszczenie

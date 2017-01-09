@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Drawing;
-using System.Printing;
 using System.IO;
 using System.Windows.Shapes;
-using System.Windows.Xps;
 using System.Windows.Media;
 using System.Media;
-using Microsoft.Win32;
 using System.Windows.Media.Imaging;
 using Rozmieszczenie.Widoki;
 
@@ -451,8 +446,8 @@ namespace Rozmieszczenie.Logika
 
                 double RX = 0, RY = 0;
 
-                //RX = (P.X - ( p.p.x -P.X));
-              //  RY = (P.Y - ( p.p.y- P.Y ));
+              //RX = (P.X - ( p.p.x -P.X));
+              //RY = (P.Y - ( p.p.y- P.Y ));
 
                RX = P.X;
                RY = P.Y;
@@ -475,24 +470,25 @@ namespace Rozmieszczenie.Logika
                             czyMogeY = false;
                             J.wm.textBlock.Text = "   nie można tu przesunąć Y (" + RX + "," + RY + ")";
                         }
+                        if(czyMogeX || czyMogeY){
+                            if (RX < O.p.x + O.figura.W)
+                                if (RX + p.figura.W > O.p.x)
+                                    if (p.p.y < O.p.y + O.figura.H)
+                                        if (p.p.y + p.figura.H > O.p.y)
+                                        {
+                                            czyMogeX = false;
+                                            J.wm.textBlock.Text = "   nie można tu przesunąć X (" + RX + "," + RY + ")";
+                                        }
+                            if (p.p.x < O.p.x + O.figura.W)
+                                if (p.p.x + p.figura.W > O.p.x)
+                                    if (RY < O.p.y + O.figura.H)
+                                        if (RY + p.figura.H > O.p.y)
+                                        {
+                                            czyMogeY = false;
+                                            J.wm.textBlock.Text = "   nie można tu przesunąć Y (" + RX + "," + RY + ")";
 
-                        if (RX < O.p.x + O.figura.W)
-                            if (RX + p.figura.W > O.p.x)
-                                if (p.p.y < O.p.y + O.figura.H)
-                                    if (p.p.y + p.figura.H > O.p.y)
-                                    {
-                                        czyMogeX = false;
-                                        J.wm.textBlock.Text = "   nie można tu przesunąć X (" + RX + "," + RY + ")";
-                                    }
-                        if (p.p.x < O.p.x + O.figura.W)
-                            if (p.p.x + p.figura.W > O.p.x)
-                                if (RY < O.p.y + O.figura.H)
-                                    if (RY + p.figura.H > O.p.y)
-                                    {
-                                        czyMogeY = false;
-                                        J.wm.textBlock.Text = "   nie można tu przesunąć Y (" + RX + "," + RY + ")";
-
-                                    }
+                                        }
+                        }
                     }
                 }
 
