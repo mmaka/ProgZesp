@@ -1,10 +1,14 @@
 ﻿using Microsoft.Win32;
 using Rozmieszczenie.Logika;
 using System.Collections.Generic;
+using System.Linq;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Rozmieszczenie
 {
@@ -91,6 +95,23 @@ namespace Rozmieszczenie
             }
 
         }
+        public void ZapiszDoPDFClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+
+                Document doc = new Document(iTextSharp.text.PageSize.A4);
+                PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(saveFileDialog.FileName, FileMode.Create));
+                doc.Open();
+                Paragraph paragraf1 = new Paragraph(J.InfoOkno.textBox.Text);
+               // Image obraz  = Image.GetInstance(image, ImageFormat.Jpeg);
+                doc.Add(paragraf1);
+                doc.Close();
+            }
+
+        }
         public void ZapiszFiguryClick(object sender, RoutedEventArgs e)
         {
 
@@ -123,12 +144,12 @@ namespace Rozmieszczenie
                             XElement nazwa = new XElement("Nazwa", item.Nazwa);
                             XElement X = new XElement("W", item.W);
                             XElement Y = new XElement("H", item.H);
-                            XElement ID = new XElement("ID", item.ID);
+                            
 
                             Figura.Add(nazwa);
                             Figura.Add(X);
                             Figura.Add(Y);
-                            Figura.Add(ID);
+                            
 
                             ListaFigur.Add(Figura);
 
@@ -213,13 +234,12 @@ namespace Rozmieszczenie
                             XElement Y = new XElement("H", item.figura.H);
                             XElement Figura = new XElement("Figura" + item.figura.ID);
                             XElement nazwa = new XElement("Nazwa", item.figura.Nazwa);
-                            XElement ID = new XElement("ID", item.figura.ID);
 
                             XElement połX = new XElement("PołożenieX", item.p.x);
                             XElement połY = new XElement("PołożenieY", item.p.y);
 
 
-                            Figura.Add(ID);
+                            
                             Figura.Add(X);
                             Figura.Add(Y);
                             Figura.Add(NumerMatrycy);
@@ -244,12 +264,12 @@ namespace Rozmieszczenie
                                 XElement nazwa = new XElement("Nazwa", item.Nazwa);
                                 XElement X = new XElement("W", item.W);
                                 XElement Y = new XElement("H", item.H);
-                                XElement ID = new XElement("ID", item.ID);
+                               
 
                                 Figura.Add(nazwa);
                                 Figura.Add(X);
                                 Figura.Add(Y);
-                                Figura.Add(ID);
+                                
 
                                 ListaFigur.Add(Figura);
 
@@ -296,15 +316,16 @@ namespace Rozmieszczenie
                     IEnumerable<XElement> listaWczytanychElementów = xml.Root.Element("ListaFigur").Elements();
                     int maxID=0;
                     if (Jądro.lista_obiektow.Count > 0)
-                        maxID = Jądro.lista_obiektow[Jądro.lista_obiektow.Count - 1].ID;
-                       
-                
+                    maxID = Jądro.lista_obiektow.Max(item => item.ID);
 
+
+                    int licznik = 1;
                     foreach (var item in listaWczytanychElementów)
                     {
 
-                        Jądro.lista_obiektow.Add(new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), int.Parse(item.Element("ID").Value)+maxID, item.Element("Nazwa").Value));
-                        Prostokat.licznik = int.Parse(item.Element("ID").Value) + maxID;
+                        Jądro.lista_obiektow.Add(new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), licznik+maxID, item.Element("Nazwa").Value));
+                        Prostokat.licznik = licznik + maxID;
+                        licznik++;
                     }
                     dataGrid.DataContext = Jądro.lista_obiektow;
                     dataGrid.Items.Refresh();
@@ -336,11 +357,12 @@ namespace Rozmieszczenie
                     {
                         IEnumerable<XElement> listaWczytanychElementów = xml.Root.Element("ListaFigur").Elements();
                         Jądro.lista_obiektow.Clear();
-
+                        int it = 1;
                         foreach (var item in listaWczytanychElementów)
                         {
 
-                            Jądro.lista_obiektow.Add(new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), int.Parse(item.Element("ID").Value), item.Element("Nazwa").Value));
+                            Jądro.lista_obiektow.Add(new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), it, item.Element("Nazwa").Value));
+                            it++;
                         }
                         dataGrid.DataContext = Jądro.lista_obiektow;
                         dataGrid.Items.Refresh();
@@ -363,7 +385,7 @@ namespace Rozmieszczenie
                         int iterator = 0;
                         foreach (var item in zapytanie)
                         {
-                            roz.lokalizacja_figur[iterator] = new MatrycaFiguraPunkt(int.Parse(item.Element("NumerMatrycy").Value), new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), int.Parse(item.Element("ID").Value), item.Element("Nazwa").Value), new Punkt(int.Parse(item.Element("PołożenieX").Value), int.Parse(item.Element("PołożenieY").Value)));
+                            roz.lokalizacja_figur[iterator] = new MatrycaFiguraPunkt(int.Parse(item.Element("NumerMatrycy").Value), new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), iterator+1, item.Element("Nazwa").Value), new Punkt(int.Parse(item.Element("PołożenieX").Value), int.Parse(item.Element("PołożenieY").Value)));
                             iterator++;
                         }
 
