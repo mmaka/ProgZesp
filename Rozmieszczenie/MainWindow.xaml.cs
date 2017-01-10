@@ -97,19 +97,9 @@ namespace Rozmieszczenie
         }
         public void ZapiszDoPDFClick(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf";
-            if (saveFileDialog.ShowDialog() == true)
-            {
 
-                Document doc = new Document(iTextSharp.text.PageSize.A4);
-                PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(saveFileDialog.FileName, FileMode.Create));
-                doc.Open();
-                Paragraph paragraf1 = new Paragraph(J.InfoOkno.textBox.Text);
-               // Image obraz  = Image.GetInstance(image, ImageFormat.Jpeg);
-                doc.Add(paragraf1);
-                doc.Close();
-            }
+            Widoki.wybórInfoPDF wPDF = new Widoki.wybórInfoPDF(J, J.wm, J.R);
+            wPDF.Show();
 
         }
         public void ZapiszFiguryClick(object sender, RoutedEventArgs e)
@@ -393,6 +383,7 @@ namespace Rozmieszczenie
                         J.InfoOkno = new Widoki.informacyjne();
                          J.InfoOkno.textBox.Text = xml.Root.Element("Info").Value;
                         J.InfoOkno.Show();
+                        J.prz  = new Przeciaganie(roz,J.wm,J);
                     }
                     catch { }
                     J.Sprawdź1();

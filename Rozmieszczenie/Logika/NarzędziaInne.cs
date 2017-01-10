@@ -7,6 +7,9 @@ using System.Windows.Media;
 using System.Media;
 using System.Windows.Media.Imaging;
 using Rozmieszczenie.Widoki;
+using Microsoft.Win32;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rozmieszczenie.Logika
 {
@@ -93,7 +96,7 @@ namespace Rozmieszczenie.Logika
 
         }
 
-        public static void Wszystkie(Widoki.widok_matryca W,  Rysowanie rys)
+        public static void Wszystkie(Widoki.widok_matryca W,  Rysowanie rys, bool YN = false)
         {         
             Canvas canvas = W.canvas;
 
@@ -103,27 +106,96 @@ namespace Rozmieszczenie.Logika
             dlg.Filter = "Plik png (.png)|*.png"; // Filter files by extension
 
             // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            if (result == true)
+            if (YN == false)
             {
-                string filename = dlg.FileName;
+                Nullable<bool> result = dlg.ShowDialog();
+
+                if (result == true)
+                {
+                    string filename = dlg.FileName;
+                }
+                for (int i = 0; i <= rys.liczba_matryc; i++)
+                {
+                    rys.Rysuj(i);
+
+                    Char delimiter = '.';
+                    String[] substrings = dlg.FileName.Split(delimiter);
+                    String nazwa = substrings[0] + i + "." + substrings[1];
+
+                    _stworz(canvas, nazwa);
+                }
             }
+            else
+            {
+                dlg.FileName = System.AppDomain.CurrentDomain.BaseDirectory + "tmp\\matryca";
+                for (int i = 0; i <= rys.liczba_matryc; i++)
+                {
+                    rys.Rysuj(i);
 
-            for (int i=0; i <= rys.liczba_matryc; i++) {
-                rys.Rysuj(i);
+                   
+                    String nazwa = dlg.FileName + i + ".png";
 
-                Char delimiter = '.';
-                String[] substrings = dlg.FileName.Split(delimiter);
-                String nazwa = substrings[0] + i + "." + substrings[1];              
-
-                _stworz(canvas, nazwa);
+               _stworz(canvas, nazwa,false);
+                }
             }
-            
 
         }
 
-        static void _stworz(Canvas canvas, string nazwa_pliku)
+        public static void PDF(Jądro J, Widoki.widok_matryca W, Rysowanie rys,List<string> listawybranychinformacji)
+        {
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf";
+            try
+            {
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string path = System.AppDomain.CurrentDomain.BaseDirectory + "tmp";
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+
+                    iTextSharp.text.Document doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4);
+                    iTextSharp.text.pdf.PdfWriter wri = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileDialog.FileName, FileMode.Create));
+                    doc.Open();
+                    if (listawybranychinformacji.Where(item => item == "Informacje Dodatkowowe").Count() == 1)
+                    {
+                        iTextSharp.text.Paragraph paragraf1 = new iTextSharp.text.Paragraph(J.InfoOkno.textBox.Text);
+                        doc.Add(paragraf1);
+                    }
+                    Wszystkie(W, rys, true);
+                    doc.NewPage();
+
+                    if(listawybranychinformacji.Where(item=> item == "Matryca").Count() ==1)
+                    for (int i = 0; i <= rys.liczba_matryc; i++)
+                    {
+                       
+                        iTextSharp.text.Image PNG = iTextSharp.text.Image.GetInstance(System.AppDomain.CurrentDomain.BaseDirectory + "tmp\\matryca" + i + ".png");
+
+                        float scaler = ((doc.PageSize.Width - doc.LeftMargin
+                             - doc.RightMargin ) / PNG.Width) * 100;
+
+                        PNG.ScalePercent(scaler);
+
+
+                        doc.Add(PNG);
+                        doc.Add(new iTextSharp.text.Paragraph("Matryca nr: " + (i+1)));
+                    }
+
+                    doc.Close();
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    di.Delete();
+                }
+            }
+            catch {
+                MessageBox.Show("Coś poszło nie tak!","Błąd!", MessageBoxButton.OK,MessageBoxImage.Warning);
+            }
+
+
+        }
+
+        static void _stworz(Canvas canvas, string nazwa_pliku, bool YN = true)
         {
             RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
                 (int)canvas.Width, (int)canvas.Height,
@@ -142,6 +214,7 @@ namespace Rozmieszczenie.Logika
             using (FileStream file = File.Create(nazwa_pliku))
             {
                 encoder.Save(file);
+                if(YN)
                  MessageBox.Show("Plik zapisano pomyślnie", "Zapis pliku",
                             MessageBoxButton.OK, MessageBoxImage.None);               
             }
@@ -363,13 +436,8 @@ namespace Rozmieszczenie.Logika
             }
         }
 
-
-
-
-    }
-
-
-
+        
+        }
     public class Przeciaganie
     {
         Rozmieszczenia R, kopiaR;

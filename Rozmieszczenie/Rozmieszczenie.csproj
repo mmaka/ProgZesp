@@ -85,6 +85,9 @@
     <Compile Include="Widoki\widok_matryca.xaml.cs">
       <DependentUpon>widok_matryca.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\wybórInfoPDF.xaml.cs">
+      <DependentUpon>wybórInfoPDF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widoki\Zła_MatrycaFigura.xaml.cs">
       <DependentUpon>Zła_MatrycaFigura.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
     <Page Include="Widoki\widok_matryca.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Widoki\wybórInfoPDF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\Zła_MatrycaFigura.xaml">
       <SubType>Designer</SubType>
