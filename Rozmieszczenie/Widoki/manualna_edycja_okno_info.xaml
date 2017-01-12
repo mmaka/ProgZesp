@@ -5,11 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="Manualna edycja rozmieszczenia" Height="225.307" Width="269.388">
-    <Grid>
-        <Button x:Name="button" Content="Przywróć" HorizontalAlignment="Left" Margin="86,39,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="button1" Content="Gotowe" HorizontalAlignment="Left" Margin="86,77,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
-        <Button x:Name="button2" Content="Anuluj" HorizontalAlignment="Left" Margin="86,117,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        Title="Manualna edycja rozmieszczenia" Height="225.307" Width="269.388"
+        Style="{StaticResource StylWindow}">
+    <Grid MouseDown="Grid_MouseDown">
+        <Rectangle Style="{StaticResource TemplateRectangle}"/>
+
+        <Border  MouseDown="Grid_MouseDown"  Style="{StaticResource Belka.Pasek}"/>
+        <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
+        <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
+
+        <Button x:Name="button" Content="Przywróć" HorizontalAlignment="Left" Margin="98,58,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Style="{StaticResource StylButton}"/>
+        <Button x:Name="button1" Content="Gotowe" HorizontalAlignment="Left" Margin="98,96,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click" Style="{StaticResource StylButton}"/>
+        <Button x:Name="button2" Content="Anuluj" HorizontalAlignment="Left" Margin="98,136,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click" Style="{StaticResource StylButton}"/>
 
     </Grid>
 </Window>

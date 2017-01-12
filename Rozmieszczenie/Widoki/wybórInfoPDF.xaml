@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="Utwórz PDF" Height="300" Width="312.245">
-    <Grid>
-        <DockPanel>
-            <Label DockPanel.Dock="Top">Wybierz inforamacje które mają zostać dodane do pliku</Label>
-            <Button DockPanel.Dock="Bottom" Click="Button_Click" > OK</Button>
-                <ListBox x:Name="listBox"  SelectionMode="Multiple" Margin="0,28.4,0,0.4">
+        Title="Utwórz PDF" Height="300" Width="312.245"
+        Style="{StaticResource StylWindow}">
+    <Grid MouseDown="Grid_MouseDown">
+        <Rectangle Style="{StaticResource TemplateRectangle}" />
 
+        <Border  Style="{StaticResource Belka.Pasek}"/>
+        <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
+        <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
+        <DockPanel Margin="0,25,0,0">
+            <Label DockPanel.Dock="Top" Foreground="White">Wybierz inforamacje które mają zostać dodane do pliku</Label>
+            <Button DockPanel.Dock="Bottom" Click="Button_Click" Style="{StaticResource StylButton}" > OK</Button>
+                
+            <ListBox x:Name="listBox"  SelectionMode="Multiple" Margin="0,28.4,0,0.4">
                 <ListBoxItem Content="Informacje Dodatkowowe"></ListBoxItem>
                 <ListBoxItem Content="Matryca"></ListBoxItem>
             </ListBox>

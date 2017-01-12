@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="Postęp" Height="120" Width="360" ResizeMode="NoResize">
+        Title="Postęp" Height="120" Width="360" ResizeMode="NoResize" Style="{StaticResource StylWindow}" MouseDown="Window_MouseDown">
     <Grid>
-        <Label x:Name="label" Content="Trwa rozmieszczanie." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ProgressBar x:Name="status" HorizontalAlignment="Left" Height="16" Margin="10,40,10,0" VerticalAlignment="Top" Width="332"/>
+
+        <Border  Style="{StaticResource Belka.Pasek}"/>
+        <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
+        <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
+
+        <Rectangle Style="{StaticResource TemplateRectangle}"/>
+        <Label x:Name="label" Content="Trwa rozmieszczanie." HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Foreground="white" Width="122"/>
+        <ProgressBar x:Name="status" HorizontalAlignment="Left" Height="16" Margin="10,62,0,0" VerticalAlignment="Top" Width="339"/>
 
 
     </Grid>

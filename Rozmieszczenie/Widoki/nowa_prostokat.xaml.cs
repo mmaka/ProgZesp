@@ -17,8 +17,8 @@ namespace Rozmieszczenie.Widoki
         {
             J = j;
             InitializeComponent();
-
             
+
 
             if (prostokat != null)
             {
@@ -29,7 +29,7 @@ namespace Rozmieszczenie.Widoki
                 textBox_szerokosc_prostokat.Text = prostokat.W.ToString();
                 textBox_wysokosc_prostokat.Text = prostokat.H.ToString();
             }
-           
+
 
         }
 
@@ -80,7 +80,7 @@ namespace Rozmieszczenie.Widoki
 
         private void Zaznacz(object sender, RoutedEventArgs e)
         {
-          
+
             var textBox = sender as System.Windows.Controls.TextBox;
             textBox.SelectAll();
 
@@ -97,7 +97,7 @@ namespace Rozmieszczenie.Widoki
             var textBox = sender as System.Windows.Controls.TextBox;
             textBox.SelectAll();
         }
-         
+
 
         //Zmniejsz ilosc
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -116,5 +116,32 @@ namespace Rozmieszczenie.Widoki
             i++;
             textBox_ilosc_prostokat.Text = i.ToString();
         }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed) DragMove();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+
+
+        }
+
+        private void Zamknij(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Minimalizuj(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
     }
 }

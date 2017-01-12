@@ -4,6 +4,194 @@
              xmlns:local="clr-namespace:Rozmieszczenie"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <Style TargetType="Button" x:Key="StylButton" >
+
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="#CC707070" BorderThickness="0">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="Foreground" Value="White"/>                
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <RadialGradientBrush 
+		                    Center="0.5,1" GradientOrigin="0.5,0.95" RadiusX="0.85" RadiusY="0.23" 
+		                    SpreadMethod="Pad" ColorInterpolationMode="SRgbLinearInterpolation" >
+                            <GradientStop Color="#00000000" Offset="0.81" />
+                            <GradientStop Color="#FFA3A3A3" Offset="0" />
+                        </RadialGradientBrush>
+                    </Setter.Value>
+                </Setter>            
+                <Setter Property="BorderBrush" Value="#CC707070"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style.Setters>
+            
+            <Style.Triggers>
+                
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <RadialGradientBrush 
+		                    Center="0.5,1" GradientOrigin="0.5,0.95" RadiusX="0.85" RadiusY="0.8" 
+		                    SpreadMethod="Pad" ColorInterpolationMode="SRgbLinearInterpolation" >
+                                <GradientStop Color="#00000000" Offset="0.81" />
+                                <GradientStop Color="#FFA3A3A3" Offset="0" />
+                            </RadialGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="BorderBrush" Value="#CC707070"/>
+                </Trigger>
+                
+                
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <RadialGradientBrush 
+		                    Center="0.5,0.7" GradientOrigin="0.5,0.95" RadiusX="0.85" RadiusY="0.8" 
+		                    SpreadMethod="Pad" ColorInterpolationMode="SRgbLinearInterpolation" >
+                                <GradientStop Color="#00000000" Offset="0.81" />
+                                <GradientStop Color="#FFA3A3A3" Offset="0" />
+                            </RadialGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="BorderBrush" Value="#CC707070"/>
+                </Trigger>
+                
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <RadialGradientBrush 
+		                    Center="0.5,0.5" GradientOrigin="0.5,0.5" RadiusX="0.5" RadiusY="0.5" 
+		                    SpreadMethod="Pad" ColorInterpolationMode="SRgbLinearInterpolation" >
+                                <GradientStop Color="#00000000" Offset="0.81" />
+                                <GradientStop Color="#FFA3A3A3" Offset="0" />
+                            </RadialGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="BorderBrush" Value="#CC707070"/>
+                </Trigger>
+                
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#FF9B9B9B"/>
+                    <Setter Property="Opacity" Value="0.8"/>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <RadialGradientBrush 
+		                    Center="0.5,1" GradientOrigin="0.5,0.95" RadiusX="0.85" RadiusY="0.8" 
+		                    SpreadMethod="Pad" ColorInterpolationMode="SRgbLinearInterpolation" >
+                                <GradientStop Color="#00000000" Offset="0.81" />
+                                <GradientStop Color="#FFA3A3A3" Offset="0" />
+                            </RadialGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Opacity" Value="0.3"/>
+                    <Setter Property="BorderBrush" Value="#CC707070"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+
+        <Style x:Key="TemplateRectangle" TargetType="{x:Type Rectangle}">
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="Opacity" Value="0.75"/>
+            <Setter Property="Stroke" Value="#FF646464"/>
+            <Setter Property="RadiusX" Value="9" />
+            <Setter Property="RadiusY" Value="9" />
+            <Setter Property="Fill" >
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF3A3939" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="StylWindow" TargetType="{x:Type Window}">
+            <Setter Property="AllowsTransparency" Value="True"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="WindowStyle" Value="None"/>            
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush  Opacity="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="StylTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Foreground" Value="White"/>            
+            <Setter Property="BorderBrush" Value="#CC707070" />
+            <Setter Property="Background" Value="#19FFFFFF" />
+        </Style>
+
+                        <!--  BELKA  -->
+
+        <Style x:Key="Belka.Pasek" TargetType="{x:Type Border}">
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Background" Value="#B2000000" />
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="CornerRadius" Value="9,9,0,0"/>
+            <Setter Property="Opacity" Value="0.7"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+        </Style>
+        
+        
+        <Style x:Key="Belka.ZamknijButton" TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Margin" Value="0,5,9,0"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image Source="/Rozmieszczenie;component/Resources/ikona_zamknij.png"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+        <Style x:Key="Belka.MinimalizujButton" TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Margin" Value="0,5,24,0"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Image Source="/Rozmieszczenie;component/Resources/ikona_minimalizuj.png"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+
+
+
+
+
+
     </Application.Resources>
 </Application>

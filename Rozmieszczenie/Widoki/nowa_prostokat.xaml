@@ -7,23 +7,35 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Określ prostokąt" Height="270.588" Width="299.16"
-        KeyDown="Window_KeyDown">
+        KeyDown="Window_KeyDown"
+        Style="{StaticResource StylWindow}">
 
-    <Grid FocusManager.FocusedElement="{Binding ElementName=textBox_szerokosc_prostokat}">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=textBox_szerokosc_prostokat}" MouseDown="Grid_MouseDown">
 
-        <Label x:Name="label_Copy" Content="Szerokość (W)" HorizontalAlignment="Left" Margin="28,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.035,0.362"/>
-        <Label x:Name="label_Copy1" Content="Wysokość (H)" HorizontalAlignment="Right" Margin="0,96,32,0" VerticalAlignment="Top" RenderTransformOrigin="2.035,0.362"/>
-        <TextBox x:Name="textBox_szerokosc_prostokat"  HorizontalAlignment="Left" Height="23" Margin="28,122,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.21,-0.849" GotFocus="Zaznacz" GotKeyboardFocus="Zaznacz" Initialized="Zaznacz"/>
-        <TextBox x:Name="textBox_wysokosc_prostokat" HorizontalAlignment="Right" Height="23" Margin="0,122,32,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="82" RenderTransformOrigin="0.21,-0.849" GotFocus="Zaznacz" GotKeyboardFocus="Zaznacz"/>
-        <Button x:Name="button" Content="Dodaj" HorizontalAlignment="Left" Margin="18,204,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Focusable="False"/>
-        <Button x:Name="button_Copy" Content="Anuluj" HorizontalAlignment="Left" Margin="198,204,0,0" VerticalAlignment="Top" Width="75" Click="button_Copy_Click" Focusable="False"/>
-        <Label x:Name="label_Copy2" Content="Nazwa" HorizontalAlignment="Left" Margin="28,37,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.035,0.362"/>
-        <TextBox x:Name="textBox_nazwa_prostokat" HorizontalAlignment="Left" Height="23" Margin="28,63,0,0" TextWrapping="Wrap" Text="Prostokąt" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.21,-0.849" GotFocus="Zaznacz" GotKeyboardFocus="Zaznacz"/>
-        <TextBox x:Name="textBox_ilosc_prostokat" HorizontalAlignment="Left" Height="23" Margin="177,63,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.21,-0.849" GotFocus="Zaznacz" GotKeyboardFocus="Zaznacz"/>
+        <Border  Style="{StaticResource Belka.Pasek}"/>
+        <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
+        <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
+        
 
-        <Button x:Name="OdwóćButton" Content="Odwróć" HorizontalAlignment="Left" Margin="107,204,0,0" VerticalAlignment="Top" Width="78" Click="OdwóćButton_Click" Height="20" Focusable="False"/>
-        <Label x:Name="label" Content="Ilość" HorizontalAlignment="Left" Margin="177,37,0,0" VerticalAlignment="Top"/>
-        <Button  VerticalAlignment="Top" Width="24" Click="OdwóćButton_Click" Height="23" Margin="4,122,0,0" Panel.ZIndex="1" Focusable="False">
+
+
+        <Rectangle Style="{StaticResource TemplateRectangle}"/>
+
+        <Label x:Name="label_Copy" Content="Szerokość (W)" HorizontalAlignment="Left" Margin="28,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.035,0.362" Foreground="White"/>
+        <Label x:Name="label_Copy1" Content="Wysokość (H)" HorizontalAlignment="Right" Margin="0,96,32,0" VerticalAlignment="Top" RenderTransformOrigin="2.035,0.362" Foreground="White"/>
+        <Label x:Name="label_Copy2" Content="Nazwa" HorizontalAlignment="Left" Margin="28,37,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.035,0.362" Foreground="White"/>
+        <Label x:Name="label" Content="Ilość" HorizontalAlignment="Left" Margin="177,37,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+        <TextBox x:Name="textBox_szerokosc_prostokat"  HorizontalAlignment="Left" Height="23" Margin="27,122,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.21,-0.849" GotFocus="Zaznacz" GotKeyboardFocus="Zaznacz" Initialized="Zaznacz" Style="{StaticResource StylTextBox}" />
+        <TextBox x:Name="textBox_wysokosc_prostokat" HorizontalAlignment="Right" Height="23" Margin="0,122,32,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="82" RenderTransformOrigin="0.21,-0.849" GotFocus="Zaznacz" GotKeyboardFocus="Zaznacz" Style="{StaticResource StylTextBox}" />
+        <TextBox x:Name="textBox_nazwa_prostokat" HorizontalAlignment="Left" Height="23" Margin="28,63,0,0" TextWrapping="Wrap" Text="Prostokąt" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.21,-0.849" GotFocus="Zaznacz" GotKeyboardFocus="Zaznacz" Style="{StaticResource StylTextBox}"/>
+        <TextBox x:Name="textBox_ilosc_prostokat" HorizontalAlignment="Left" Height="23" Margin="177,63,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.21,-0.849" GotFocus="Zaznacz" GotKeyboardFocus="Zaznacz" Style="{StaticResource StylTextBox}"/>
+
+        <Button x:Name="button" Content="Dodaj" HorizontalAlignment="Left" Margin="18,204,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Focusable="False" Style="{StaticResource StylButton}"/>
+        <Button x:Name="button_Copy" Content="Anuluj" HorizontalAlignment="Left" Margin="198,204,0,0" VerticalAlignment="Top" Width="75" Click="button_Copy_Click" Focusable="False" Style="{StaticResource StylButton}"/>
+        <Button x:Name="OdwóćButton" Content="Odwróć" HorizontalAlignment="Left" Margin="107,204,0,0" VerticalAlignment="Top" Width="78" Click="OdwóćButton_Click" Height="20" Focusable="False" Style="{StaticResource StylButton}"/>
+
+        <Button  VerticalAlignment="Top" Width="24" Click="OdwóćButton_Click" Height="23" Margin="4,122,0,0" Panel.ZIndex="1" Focusable="False" Style="{StaticResource StylButton}">
             <Button.Template>
                 <ControlTemplate>
                     <Image Source="/Rozmieszczenie;component/Resources/ikona_zamien.png"/>
@@ -31,7 +43,7 @@
             </Button.Template>
         </Button>
 
-        <Button  VerticalAlignment="Top" Width="24" Click="Button_Click_2" Height="23" Margin="0,63,51,0" Panel.ZIndex="1" Focusable="False" HorizontalContentAlignment="Left" HorizontalAlignment="Right">
+        <Button  VerticalAlignment="Top" Width="24" Click="Button_Click_2" Height="23" Margin="0,63,51,0" Panel.ZIndex="1" Focusable="False" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Style="{StaticResource StylButton}">
             <Button.Template>
                 <ControlTemplate>
                     <Image Source="/Rozmieszczenie;component/Resources/ikona_strzalka_mala.png"/>

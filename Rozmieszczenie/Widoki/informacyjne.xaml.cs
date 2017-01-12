@@ -29,5 +29,19 @@ namespace Rozmieszczenie.Widoki
         {
             Drukuj.TxtBox(textBox);
         }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed) DragMove();
+        }
+        private void Zamknij(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Minimalizuj(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 }

@@ -248,7 +248,8 @@ namespace Rozmieszczenie.Logika
                 Pasek.Close();
                 InfoBox();
             }
-            wm.Show();
+            try { wm.Show(); }
+            catch { }
             prz = new Przeciaganie(NAJLEPSZE, wm, this);
             
         }
@@ -516,7 +517,7 @@ namespace Rozmieszczenie.Logika
     internal void zamknij()
         {
             
-            wm.Close();
+            //wm.Close();
             
         }
 

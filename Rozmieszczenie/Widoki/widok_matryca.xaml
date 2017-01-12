@@ -5,19 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="Matryca- podgląd" Height="529" d:DesignWidth="563" SizeToContent="WidthAndHeight" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="450" MinWidth="450" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp" MouseMove="Window_MouseMove">
-    <Grid>
-        <Viewbox Margin="5,5,5,50" IsHitTestVisible="False" StretchDirection="DownOnly">
+        Title="Matryca- podgląd" Height="529" d:DesignWidth="563" SizeToContent="WidthAndHeight" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="450" MinWidth="450"
+  
+        Style="{StaticResource StylWindow}">
+    <Grid MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseLeftButtonUp="Window_MouseLeftButtonUp" MouseMove="Window_MouseMove">
+
+        <Border  MouseDown="Grid_MouseDown"  Style="{StaticResource Belka.Pasek}"/>
+        <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
+        <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
+
+        <Rectangle Style="{StaticResource TemplateRectangle}"/>
+        
+        <Viewbox Margin="5,25,5,50" IsHitTestVisible="False" StretchDirection="DownOnly"       >
             <Canvas x:Name="canvas" VerticalAlignment="Center" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="5" >
 
             </Canvas>
         </Viewbox>
 
-        <TextBlock x:Name="textBlock" Margin="5,0,5,29" TextWrapping="Wrap" Text="Witaj!" VerticalAlignment="Bottom" IsHyphenationEnabled="True" Width="545" OverridesDefaultStyle="True"/>
-        <Button x:Name="button_kolejna" Content="Kolejna" HorizontalAlignment="Left" Margin="85,0,0,4" VerticalAlignment="Bottom" Width="75" Click="button_kolejna_Click"/>
-        <Button x:Name="button_poprzednia" Content="Poprzednia" HorizontalAlignment="Left" Margin="5,0,0,4" VerticalAlignment="Bottom" Width="75" Click="button_poprzednia_Click"/>
-        <Button x:Name="button_zapisz_te" Content="Do obrazu (wszystkie)" HorizontalAlignment="Right" Margin="0,0,5,4" VerticalAlignment="Bottom" Width="121" Click="button_zapisz_te_Click" />
-        <Button x:Name="button_zapisz_all" Content="Do obrazu (ta)" HorizontalAlignment="Right" Margin="0,0,131,4" VerticalAlignment="Bottom" Width="90" Click="button_zapisz_all_Click" />
+        <TextBlock x:Name="textBlock" Margin="5,0,5,29" TextWrapping="Wrap" Text="Witaj!" VerticalAlignment="Bottom" IsHyphenationEnabled="True" Width="545" OverridesDefaultStyle="True" Foreground="White"/>
+        <Button x:Name="button_kolejna" Content="Kolejna" HorizontalAlignment="Left" Margin="85,0,0,4" VerticalAlignment="Bottom" Width="75" Click="button_kolejna_Click" Style="{StaticResource StylButton}"/>
+        <Button x:Name="button_poprzednia" Content="Poprzednia" HorizontalAlignment="Left" Margin="5,0,0,4" VerticalAlignment="Bottom" Width="75" Click="button_poprzednia_Click" Style="{StaticResource StylButton}"/>
+        <Button x:Name="button_zapisz_te" Content="Do obrazu (wszystkie)" HorizontalAlignment="Right" Margin="0,0,5,4" VerticalAlignment="Bottom" Width="121" Click="button_zapisz_te_Click" Style="{StaticResource StylButton}"/>
+        <Button x:Name="button_zapisz_all" Content="Do obrazu (ta)" HorizontalAlignment="Right" Margin="0,0,131,4" VerticalAlignment="Bottom" Width="90" Click="button_zapisz_all_Click" Style="{StaticResource StylButton}"/>
 
     </Grid>
 </Window>

@@ -73,6 +73,7 @@ namespace Rozmieszczenie.Widoki
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            
             if (J.prz != null)
             {
                 Cursor = Cursors.Hand;
@@ -105,6 +106,20 @@ namespace Rozmieszczenie.Widoki
                 }
                 //else J.prz.Znajdz(e.GetPosition(canvas));
             
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed) DragMove();
+        }
+        private void Zamknij(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Minimalizuj(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

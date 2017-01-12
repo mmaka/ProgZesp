@@ -5,11 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="Informacje" Height="321.339" Width="600" MinHeight="400" MinWidth="446">
-    <Grid Margin="0,0,2,0">
+        Title="Informacje" Height="321.339" Width="600" MinHeight="400" MinWidth="446"
+        Style="{StaticResource StylWindow}">
+    <Grid Margin="0,0,2,0" MouseDown="Grid_MouseDown">
+        <Rectangle Style="{StaticResource TemplateRectangle}"/>
 
-        <Button x:Name="button_Copy" Content="Drukuj" HorizontalAlignment="Left" Margin="15,0,0,6" VerticalAlignment="Bottom" Width="115" Grid.ColumnSpan="2" Click="button_Copy_Click"/>
-        <TextBox x:Name="textBox" Margin="10,10,10,40" TextWrapping="Wrap" Text="TextBox" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
-        <Button x:Name="button_zapisz" Content="Zapisz do pliku" HorizontalAlignment="Left" Margin="135,0,0,6" VerticalAlignment="Bottom" Width="115"/>
+        <Border  MouseDown="Grid_MouseDown"  Style="{StaticResource Belka.Pasek}"/>
+        <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
+        <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
+
+
+        <TextBox x:Name="textBox" Margin="10,25,10,40" TextWrapping="Wrap" Text="TextBox" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource StylTextBox}"/>
+        
+        <Button x:Name="button_Copy" Content="Drukuj" HorizontalAlignment="Left" Margin="15,0,0,6" VerticalAlignment="Bottom" Width="115" Grid.ColumnSpan="2" Click="button_Copy_Click" Style="{StaticResource  StylButton}"/>
+        <Button x:Name="button_zapisz" Content="Zapisz do pliku" HorizontalAlignment="Left" Margin="135,0,0,6" VerticalAlignment="Bottom" Width="115" Style="{StaticResource StylButton}"/>
     </Grid>
 </Window>
