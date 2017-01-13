@@ -220,6 +220,7 @@ namespace Rozmieszczenie.Logika
                 //    foreach (Rozmieszczenie roz in lista_rozmieszczen)
                 //      roz.wypisz();
                 int w = 0;
+                var startTime = DateTime.UtcNow; //tutaj pobieramy aktualny czas
                 do
                 {
                     // selekcja(lista_rozmieszczen, 15);
@@ -232,7 +233,10 @@ namespace Rozmieszczenie.Logika
                     w++;
                     Pasek.status.Dispatcher.Invoke(() => Pasek.status.Value = w, DispatcherPriority.Background);
 
-                } while (w < liczba_indeksowan);
+                //tutaj jest sprawdzane czy aktualny czas - czas startu jest mniejszy niż ustalona liczba sekund
+                //dobrze by było dać użytkownikowi możliwość ustalenia czasu
+                } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(600)); 
+                //} while (w < liczba_indeksowan);
 
                 NAJLEPSZE = lista_rozmieszczen[0];
                 for (int i = 0; i < lista_rozmieszczen.Count; i++)
