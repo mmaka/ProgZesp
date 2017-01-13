@@ -1,0 +1,58 @@
+﻿<Window x:Class="Rozmieszczenie.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rozmieszczenie"
+        mc:Ignorable="d"
+        Title="Rozmieszczanie figur" Height="450" Width="450" MinHeight="450" MinWidth="450">
+    <Grid>
+       
+
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="_Plik">
+                <MenuItem Header="_Określ matryce" Click="MenuItem_Click"/>
+                <MenuItem Header="_Rozmieść" Click="button_rozmiesc_Click"/>
+                <MenuItem Header="_Zapisz do Pliku Figury" Click="ZapiszFiguryClick"/>
+                <MenuItem Header="_Wczytaj Listę Figur" Click="WczytajListęFigur"/>
+                <MenuItem Header="_Zapisz Projekt" Click="ZapiszProjektClick"/>
+                <MenuItem Header="_Wczytaj Projekt" Click="WczytajProjektClick"/>
+                <MenuItem Header="_Drukuj"/>
+                <MenuItem Header="_Zamknij" Click="MenuItem_Click_1" />
+            </MenuItem>
+            <MenuItem Header="Edycja">                
+                <MenuItem Header="_Dodaj prostokąt" Click="button_Click"/>
+                <MenuItem Header="_Usuń prostokąt" Click="_Usuń_prostokąt_Click"/>
+                <MenuItem Header="_Usuń wszystkie" Click="_Usuń_wszystkie_Click"/>
+                <MenuItem Header="_Odwróć prostokąt" Click="_Odwróć_prostokąt_Click"/>
+            </MenuItem>
+            <MenuItem Header="Pomoc">
+                <MenuItem Header="_O programie"/>
+                <MenuItem Header="_Pomoc"/>
+                <MenuItem Header="_Ustawienia"/>
+            </MenuItem>
+           
+        </Menu>
+        <DataGrid x:Name="dataGrid" Margin="136,46,10,105" ItemsSource="{Binding}" SelectionChanged="dataGrid_SelectionChanged">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="_Dodaj prostokąt" Click="button_Click"/>
+                    <MenuItem Header="_Usuń prostokąt" Click="_Usuń_prostokąt_Click"/>
+                    <MenuItem Header="_Usuń wszystkie" Click="_Usuń_wszystkie_Click"/>
+                    <MenuItem Header="_Odwróć prostokąt" Click="_Odwróć_prostokąt_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Button x:Name="button" Content="Dodaj prostokat" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="115" Click="button_Click"/>
+        <TextBox x:Name="textBox_komunikat" TextWrapping="Wrap" Text="Witaj!" Margin="10,0,10,82" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom"/>
+        <Button x:Name="button_rozmiesc" Content="Rozmieść" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Click" />
+
+        <Button x:Name="button_usuń" Content="Usun prostokat" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="115" Click="button_usuń_Click"/>
+        <Label x:Name="label" Content="Rozmiar matrycy: nie określony" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,16,0,0" Height="25" Width="296"/>
+
+
+
+
+
+    </Grid>
+</Window>
