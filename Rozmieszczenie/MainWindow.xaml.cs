@@ -434,5 +434,14 @@ namespace Rozmieszczenie
         {
             if (e.LeftButton == MouseButtonState.Pressed) DragMove();
         }
+        private void Zamknij(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Minimalizuj(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 }

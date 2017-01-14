@@ -7,11 +7,13 @@
         mc:Ignorable="d"
         Title="Rozmieszczanie figur"  Height="450" Width="450" MinHeight="450" MinWidth="450" Style="{StaticResource StylWindow}">
 
-
-
     <Grid  MouseDown="Grid_MouseDown_1"  >
 
         <Rectangle Style="{StaticResource TemplateRectangle }"/>
+
+        <Border  Style="{StaticResource Belka.Pasek}" Panel.ZIndex="0"/>
+        <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
+        <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
 
         <DataGrid x:Name="dataGrid" Margin="136,67,10,84" ItemsSource="{Binding}" SelectionChanged="dataGrid_SelectionChanged" PreviewKeyDown="DataGridPreviewKeyDown" Background="{x:Null}" BorderBrush="#CC707070" Foreground="Black">
             <DataGrid.ContextMenu>
@@ -40,7 +42,7 @@
 
 
 
-        <Menu   Width="150" Height="20" Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Background="{x:Null}" >
+        <Menu   Width="150" Height="20" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Background="{x:Null}" >
             <MenuItem Header="_Plik"  >
                 <MenuItem Header="_Określ matryce" Click="MenuItem_Click"/>
                 <MenuItem x:Name="RozmieśćMenu" Header="_Rozmieść" Click="button_rozmiesc_Click" IsEnabled="False"/>
