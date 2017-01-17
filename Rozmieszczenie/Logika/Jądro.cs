@@ -5,6 +5,7 @@ using System.Windows;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.Collections.Concurrent;
 
 namespace Rozmieszczenie.Logika
 {
@@ -493,11 +494,17 @@ namespace Rozmieszczenie.Logika
 
         public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y,int odstep)
         {
+            var sync = new Object();
+
             Parallel.For(0, lista_indeksow.Count, (int k) =>
            {
                Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y),odstep,lista_indeksow[k]);
-               lista_rozmieszczen.Add(roz);
 
+               lock (sync)
+               {
+                   lista_rozmieszczen.Add(roz);
+               }
+               
                for (int i = 0; i < liczba_figur; i++)
                {
                    int j = 0;
