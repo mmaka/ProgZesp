@@ -8,9 +8,10 @@ namespace Rozmieszczenie.Widoki
     /// </summary>
     public partial class pasek : Window
     {
-        public pasek()
+        public pasek(int s)
         {
             InitializeComponent();
+            status.Maximum = s;
         }
 
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -26,5 +27,11 @@ namespace Rozmieszczenie.Widoki
         {
             WindowState = WindowState.Minimized;
         }
+
+
+      
+
+       
     }
+
 }

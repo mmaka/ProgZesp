@@ -68,9 +68,9 @@
                 <MenuItem Header="_Odwróć prostokąt" Click="_Odwróć_prostokąt_Click"  Style="{StaticResource MenuItem}"/>
             </MenuItem>
             <MenuItem Header="Pomoc"  Style="{StaticResource MenuItem}">
-                <MenuItem Header="_O programie"  Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="_Pomoc"  Style="{StaticResource MenuItem}"/>
-                <MenuItem Header="_Ustawienia"  Style="{StaticResource MenuItem}"/>
+                <MenuItem Header="_O programie"  Style="{StaticResource MenuItem}" Click="MenuItem_Click_3"/>
+                <MenuItem Header="_Pomoc"  Style="{StaticResource MenuItem}" Click="MenuItem_Click_2"/>
+                <MenuItem Header="_Ustawienia"  Style="{StaticResource MenuItem}" Visibility="Hidden"/>
             </MenuItem>
         </Menu>
 

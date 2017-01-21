@@ -203,9 +203,7 @@ namespace Rozmieszczenie.Logika
 
             {
 
-                pasek Pasek = new Widoki.pasek();
-                Pasek.Show();
-                Pasek.status.Value = 0;
+                
 
                 int S = Convert.ToInt32(MW.textBox_Czas.Text);
                 int sekundCzas = Math.Max(S, 10);
@@ -216,7 +214,8 @@ namespace Rozmieszczenie.Logika
 
                 
                 int liczba_indeksowan = 45;
-                Pasek.status.Maximum = sekundCzas;
+                
+
                 List<int[]> lista_indeksow = new List<int[]>();
                 lista_rozmieszczen = new List<Rozmieszczenia>();
                 wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan, indeksowania_poczatkowe(lista_obiektow));
@@ -224,8 +223,15 @@ namespace Rozmieszczenie.Logika
 
                 //    foreach (Rozmieszczenie roz in lista_rozmieszczen)
                 //      roz.wypisz();
-                
+
+                pasek Pasek = new Widoki.pasek(sekundCzas);
+                Pasek.Show();
+                Pasek.status.Value = 0;
+
+
                 var startTime = DateTime.UtcNow; //tutaj pobieramy aktualny czas
+
+
                 do
                 {
                     // selekcja(lista_rozmieszczen, 15);
@@ -235,11 +241,11 @@ namespace Rozmieszczenie.Logika
                     //miksowanie_indeksow(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                     miksowanie_indeksow2(lista_rozmieszczen, lista_ind, liczba_indeksowan);
                     generuj_rozmieszczenia(lista_obiektow, lista_ind, lista_roz2, lista_obiektow.Count, m_x, m_y, odstep);
-                   
-                   Pasek.status.Dispatcher.Invoke(() => Pasek.status.Value++, DispatcherPriority.Background);
 
-                //tutaj jest sprawdzane czy aktualny czas - czas startu jest mniejszy niż ustalona liczba sekund
-                //dobrze by było dać użytkownikowi możliwość ustalenia czasu
+                    Pasek.status.Dispatcher.Invoke(() => Pasek.status.Value=(DateTime.UtcNow - startTime).Seconds, DispatcherPriority.Background);
+
+                    //tutaj jest sprawdzane czy aktualny czas - czas startu jest mniejszy niż ustalona liczba sekund
+                    //dobrze by było dać użytkownikowi możliwość ustalenia czasu
                 } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(sekundCzas)); 
                 //} while (w < liczba_indeksowan);
 
@@ -531,9 +537,9 @@ namespace Rozmieszczenie.Logika
     //zamkniecie programu
     internal void zamknij()
         {
-            
-            //wm.Close();
-            
+
+            App.Current.Shutdown();
+
         }
 
 

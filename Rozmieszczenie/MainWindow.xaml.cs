@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Rozmieszczenie.Widoki;
 
 namespace Rozmieszczenie
 {
@@ -446,5 +447,16 @@ namespace Rozmieszczenie
             WindowState = WindowState.Minimized;
         }
 
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            okno_pomoc ok = new okno_pomoc();
+            ok.Show();
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            okno_about oA = new okno_about();
+            oA.Show();
+        }
     }
 }

@@ -31,43 +31,7 @@ namespace Rozmieszczenie.Logika
             return true;
         } }
 
-    static class Drukuj
-    {
-        public static void TxtBox(object o)
-        {
-            TextBox T = (TextBox)o;
-            /*
-            PrintDialog dia = new PrintDialog();
-            PrintDialog PrintDialog = new PrintDialog();
-             //Open Print Dialog.
-             Nullable<Boolean> printClicked = PrintDialog.ShowDialog();
-
-             //If Print is clicked
-             if (printClicked == true)
-             {
-                 //Get Printer Capabilities.
-                 PrintCapabilities printCapabilities = PrintDialog.PrintQueue.GetPrintCapabilities(PrintDialog.PrintTicket);
-                 Size pageAreaSize = new Size(printCapabilities.PageImageableArea.ExtentWidth, printCapabilities.PageImageableArea.ExtentHeight);
-
-                 //Visual Brush for the ptint_TextBox to be printed.
-                 VisualBrush VisualBrush = new VisualBrush(T);
-                 VisualBrush.Stretch = Stretch.Uniform;
-                 VisualBrush.ViewboxUnits = BrushMappingMode.Absolute;
-                 VisualBrush.Viewbox = new Rect(0, 0, T.ExtentWidth, T.ExtentHeight);
-
-                 //Rectangle to contain the VisualBrush 
-                 Rectangle rect = new Rectangle();
-                 rect.Fill = VisualBrush;
-                 rect.Arrange(new Rect(new Point(0, 0), pageAreaSize));
-
-                 //Print the ptint_TextBox.
-                 XpsDocumentWriter writer = PrintQueue.CreateXpsDocumentWriter(PrintDialog.PrintQueue);
-                 writer.Write(rect, PrintDialog.PrintTicket);
-             }*/
-             
-
-        }
-    }
+    
 
 
     static public class ZapiszObrazMatrycy
@@ -254,9 +218,9 @@ namespace Rozmieszczenie.Logika
             }
 
 
-        public void Rysuj() {           
-
-            Canvas C = W.canvas;
+        public void Rysuj() {
+            
+          Canvas  C = W.canvas;
                 C.Children.Clear();
 
             {

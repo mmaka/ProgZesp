@@ -27,7 +27,7 @@ namespace Rozmieszczenie.Widoki
 
         private void button_Copy_Click(object sender, RoutedEventArgs e)
         {
-            Drukuj.TxtBox(textBox);
+            
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)

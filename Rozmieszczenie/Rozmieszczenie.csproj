@@ -80,6 +80,12 @@
     <Compile Include="Widoki\nowa_prostokat.xaml.cs">
       <DependentUpon>nowa_prostokat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\okno_about.xaml.cs">
+      <DependentUpon>okno_about.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widoki\okno_pomoc.xaml.cs">
+      <DependentUpon>okno_pomoc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widoki\pasek.xaml.cs">
       <DependentUpon>pasek.xaml</DependentUpon>
     </Compile>
@@ -117,6 +123,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\nowa_prostokat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\okno_about.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\okno_pomoc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
