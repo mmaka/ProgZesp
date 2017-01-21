@@ -25,6 +25,7 @@ namespace Rozmieszczenie
         public int odstep;
         public int NajPowPro;
         public int NajPowPro2;
+        public int SumNajPowPro;
         public int WolPowNrMat;
         public bool czyZmienaneRecznie = false;
         public int Liczba_wykorzystanych_matryc
@@ -41,12 +42,13 @@ namespace Rozmieszczenie
             odstep = odleglosc;
             NajPowPro = 0;
             WolPowNrMat = 0;
+
             if(tab_indeksow!=null)
-            for (int i = 0; i < liczba_figur; i++)
-            {
-                lokalizacja_figur[i] = new MatrycaFiguraPunkt(1, null, new Punkt());
-                indeksy[i] = tab_indeksow[i];
-            }
+                for (int i = 0; i < liczba_figur; i++)
+                {
+                    lokalizacja_figur[i] = new MatrycaFiguraPunkt(1, null, new Punkt());
+                    indeksy[i] = tab_indeksow[i];
+                }
         }
         
         //wypisywanie na potrzeby testów
@@ -150,5 +152,40 @@ namespace Rozmieszczenie
             NajPowPro2 = tmp_najwieksza;
         }
 
+        public void suma_NajPowPro()
+        {
+            int suma = 0;
+
+            foreach (Matryca m in lista_matryc)
+            {
+                int tmp = max_prostokat(m.zajetosc_x, 0);
+                suma += tmp;
+            }
+
+            SumNajPowPro = suma;
+        }
+       
+        public List<int> generowanie_rozmieszczenia(int liczba_figur, List<Prostokat> lista_figur, int[] indeksowanie, int nr_matrycy, int nr_pierwszego_prostokata)
+        {
+            List<int> pozostale_prostokaty = new List<int>();
+            int nr_wstawianego = nr_pierwszego_prostokata;
+
+            for (int i = 0; i < liczba_figur; i++)
+            {
+                Punkt p = new Punkt();
+                if (lista_figur[indeksowanie[i]].ustal_pozycje(p, lista_matryc[nr_matrycy], odstep))
+                {
+                    lokalizacja_figur[nr_wstawianego] = new MatrycaFiguraPunkt(nr_matrycy, lista_figur[indeksowanie[i]], p);
+                    indeksy[nr_wstawianego] = indeksowanie[i]; //rozmieszczenie musi pamietać kolejność ustawiania prostokątów - tu ją zapamiętujemy
+                    nr_wstawianego++;
+                }
+                else
+                {
+                    pozostale_prostokaty.Add(indeksowanie[i]);
+                }
+
+            }
+            return pozostale_prostokaty;
+        }
+        }
     }
-}

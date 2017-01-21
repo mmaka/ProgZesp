@@ -120,14 +120,15 @@ namespace Rozmieszczenie
             int poczatek_x = poczatkowy_max_x;
             int rozmiar_tab = tab_zaj_x.Length;
 
+            if (poczatek_x + odstep < tab_zaj_x.Length - 1) poczatek_x += odstep;
+
             for (int i = poczatek_x; i < rozmiar_tab; i++)
             {
                 poczatek_x = i;
                 if ((tab_zaj_x[i] < y_max)) break;
             }
 
-            if (poczatek_x == (rozmiar_tab - 1) || poczatek_x == poczatkowy_max_x) return poczatek_x;
-            else return poczatek_x - odstep;
+            return poczatek_x;           
         }
         //zwracamy minimalną wartość x jaką może zająć prostokąt - nie używamy tej metody
         private int zwroc_min_x_prostokat(Punkt p, int[] tab_zaj_y)
@@ -148,6 +149,9 @@ namespace Rozmieszczenie
             int koniec_x = max_x(p);
             int min = tab_zaj_x[poczatek_x];
 
+            if (koniec_x != tab_zaj_x.Length-1)
+                    koniec_x = koniec_x + odstep;
+
             for (int i = poczatek_x; i < koniec_x; i++) //tutaj i<=koniec_x powoduje, że nie zawsze krawędzie będą mogły na siebie zachodzić - jeżeli mamy dwa prostokaty na szczycie matrycy i jeden z nich jest wyższy (tj. ma min_y mniejszy), to gdy mniejszy dosuniemy do większego to zostanie on obniżony do min_y drugiego, bo wg tablicy zajętości ta powierzchnia jest zajęta
                 if (tab_zaj_x[i] < min) min = tab_zaj_x[i];
 
@@ -157,7 +161,7 @@ namespace Rozmieszczenie
         //sprawdzamy czy prostokąt można umieścić w domyślnym punkcie zaczepienia matrycy (0,0)
         private bool polozenie_poczatkowe_prostokat(Punkt p, int[] tab_zaj_x,int odstep)
         {
-            int max_wart_x = zwroc_max_x_prostokat(p, tab_zaj_x,odstep); //czy tu muszą być floaty?
+            int max_wart_x = zwroc_max_x_prostokat(p, tab_zaj_x,odstep);
             int max_wart_y = zwroc_max_y_prostokat(p, tab_zaj_x,odstep);
             return p.y + max_y(p) <= max_wart_y && p.x + max_x(p) <= max_wart_x;
         }
@@ -165,6 +169,9 @@ namespace Rozmieszczenie
         private void idz_max_w_prawo(Punkt p, int[] tab_zaj_x,int odstep)
         {
             int max_wart_x = zwroc_max_x_prostokat(p, tab_zaj_x,odstep);
+
+            if (max_wart_x != tab_zaj_x.Length - 1) max_wart_x -= odstep;
+
             p.x = max_wart_x - max_x(p) + min_x(p);
         }
         //przesuwamy położenie prostokąta maksymalnie w góre
@@ -184,9 +191,7 @@ namespace Rozmieszczenie
         private void aktualizacja_tablic_zajetosci(Punkt p, int[] zajetosc_x)
         {
             int poczatek_x = min_x(p);
-            int poczatek_y = min_y(p);
             int koniec_x = max_x(p);
-            int koniec_y = max_y(p);
 
             for (int i = poczatek_x; i < koniec_x; i++)
                 zajetosc_x[i] = p.y;
