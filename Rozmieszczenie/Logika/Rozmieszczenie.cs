@@ -63,7 +63,54 @@ namespace Rozmieszczenie
             }
             return s;
         }
+        public string wypiszNRMatrycy(int nrMatrcy)
+        {
 
+            string s = "";
+            for (int i = 0; i < lokalizacja_figur.Count(); i++)
+            {
+                if (lokalizacja_figur[i].nr_matrycy == nrMatrcy)
+                    s += ("\n" + lokalizacja_figur[i].nr_matrycy);
+
+            }
+            return s;
+        }
+        public string wypiszID(int nrMatrcy)
+        {
+
+            string s = "";
+            for (int i = 0; i < lokalizacja_figur.Count(); i++)
+            {
+                if (lokalizacja_figur[i].nr_matrycy == nrMatrcy)
+                    s += ("\n" + lokalizacja_figur[i].figura.ID);
+
+            }
+            return s;
+        }
+        public string wypiszWymiary(int nrMatrcy)
+        {
+
+            string s = "";
+            for (int i = 0; i < lokalizacja_figur.Count(); i++)
+            {
+                if (lokalizacja_figur[i].nr_matrycy == nrMatrcy)
+                    s += ("\n" + lokalizacja_figur[i].figura.W + " " + lokalizacja_figur[i].figura.H);
+
+            }
+            return s;
+        }
+        public string wypiszPunktZaczepienia(int nrMatrcy)
+        {
+
+            string s = "";
+            for (int i = 0; i < lokalizacja_figur.Count(); i++)
+            {
+                if (lokalizacja_figur[i].nr_matrycy == nrMatrcy)
+                    s += ("\n" + lokalizacja_figur[i].p.wypisz());
+
+            }
+            return s;
+        }
         public void wolna_powierzchnia_matrycy(int nr_matrycy)
         {
             int j = 0, suma = 0;

@@ -100,7 +100,7 @@ namespace Rozmieszczenie
         public void ZapiszDoPDFClick(object sender, RoutedEventArgs e)
         {
 
-            Widoki.wybórInfoPDF wPDF = new Widoki.wybórInfoPDF(J, J.wm, J.R);
+            Widoki.PDF wPDF = new Widoki.PDF(J, J.wm, J.R);
             wPDF.Show();
 
         }
