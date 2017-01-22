@@ -5,94 +5,96 @@ using System.Windows;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.Threading;
 
 namespace Rozmieszczenie.Logika
 {
     public class Jądro
     {
         nowa_prostokat np;
-        nowa_matryca nm;        
+        nowa_matryca nm;
         MainWindow MW;
         Zła_MatrycaFigura zMF;
 
+        public pasek Pasek;
         public int odstep = 5; //tutaj ręcznie możemy ustawić rozmiar odstępu
         public widok_matryca wm;
         public Matryca Matka;
         public informacyjne InfoOkno;
         public Rysowanie R;
         public Rozmieszczenia NAJLEPSZE;
-        public Przeciaganie prz; 
+        public Przeciaganie prz;
         public static List<Prostokat> lista_obiektow;
         public static int licznik = 0;
         public List<Rozmieszczenia> lista_rozmieszczen;
         //Konstruktor
         public Jądro(MainWindow _mw)
         {
-            MW = _mw;           
+            MW = _mw;
             lista_obiektow = new List<Prostokat>();
-           
+
         }
 
         //Określenie matrycy
-        public void nowy_matryca(int i=0)
+        public void nowy_matryca(int i = 0)
         {
-            nm = new nowa_matryca(this,i);
+            nm = new nowa_matryca(this, i);
             nm.ShowDialog();
 
-        }      
+        }
 
         public void dodaj_matryce()
         {
-            Matka = new Matryca(nm);            
+            Matka = new Matryca(nm);
             wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);
-            if(lista_obiektow.Count>0)
-            Sprawdź1();
-            MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y;
-              
+            if (lista_obiektow.Count > 0)
+                Sprawdź1();
+            MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y + "\t Rzaz: " + odstep;
+
         }
         public void zmień_matryce(int x, int y)
         {
             Matka.EdytujMatrycę(x, y);
             wm.Close();
             wm = new widok_matryca(this, Matka.rozmiar_x, Matka.rozmiar_y);
-           
-            MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y;
+
+            MW.label.Content = "Rozmiar matrycy: " + Matka.rozmiar_x + " x " + Matka.rozmiar_y + "\t Rzaz: " + odstep;
         }
         public void Sprawdź1()
         {
             MW.button_rozmiesc.IsEnabled = false;
             MW.RozmieśćMenu.IsEnabled = false;
             List<Prostokat> listaObiektówKtóreMieszcząSieNaMatrycach = new List<Prostokat>();
-                foreach (var item in lista_obiektow)                             //sprawdzanie czy obiekt zmieści sie na matrycy, jesli tak dodajemy do listy
+            foreach (var item in lista_obiektow)                             //sprawdzanie czy obiekt zmieści sie na matrycy, jesli tak dodajemy do listy
+            {
+
+
+                if (item.W <= Matka.rozmiar_x && item.H <= Matka.rozmiar_y)
+                    listaObiektówKtóreMieszcząSieNaMatrycach.Add(item);
+
+            }
+
+            if (listaObiektówKtóreMieszcząSieNaMatrycach.Count != lista_obiektow.Count)  //sprawdzamy czy jakaś figura się nie mieści 
+            {
+                List<int> listaIDdoUsunięcia = new List<int>();
+                var zapytanie = lista_obiektow.Except<Prostokat>(listaObiektówKtóreMieszcząSieNaMatrycach);
+                foreach (var item in zapytanie) //szukanie i dodawanie id figur które sie nie mieszcza
                 {
+                    listaIDdoUsunięcia.Add(item.ID);
+                }
+                if (zapytanie.Count() != 0)// jesli lista nie jest pusta to znaczy ze sa takie fiugury i trzeba albo je usunac albo zmienic rozmiar matrycy
+                {
+                    foreach (var item in listaIDdoUsunięcia)
+                    {
+                        zMF = new Zła_MatrycaFigura(item, this, "Figura " + item + " o wymiarach " + lista_obiektow[item - 1].W + "x" + lista_obiektow[item - 1].H + " nie zmieści się \n na matrycy (" + Matka.rozmiar_x + "x" + Matka.rozmiar_y + ")." + " Co chcesz zrobić?", MW);
+                        zMF.ShowDialog();
 
 
-                    if (item.W <= Matka.rozmiar_x && item.H <= Matka.rozmiar_y)
-                        listaObiektówKtóreMieszcząSieNaMatrycach.Add(item);
+                    }
 
                 }
-
-                if (listaObiektówKtóreMieszcząSieNaMatrycach.Count != lista_obiektow.Count)  //sprawdzamy czy jakaś figura się nie mieści 
-                {
-                    List<int> listaIDdoUsunięcia = new List<int>();
-                    var zapytanie = lista_obiektow.Except<Prostokat>(listaObiektówKtóreMieszcząSieNaMatrycach);
-                    foreach (var item in zapytanie) //szukanie i dodawanie id figur które sie nie mieszcza
-                    {
-                        listaIDdoUsunięcia.Add(item.ID);
-                    }
-                    if (zapytanie.Count() != 0)// jesli lista nie jest pusta to znaczy ze sa takie fiugury i trzeba albo je usunac albo zmienic rozmiar matrycy
-                    {
-                        foreach (var item in listaIDdoUsunięcia)
-                        {
-                            zMF = new Zła_MatrycaFigura(item, this, "Figura " + item + " o wymiarach "+lista_obiektow[item-1].W+"x"+ lista_obiektow[item-1].H + " nie zmieści się \n na matrycy (" +Matka.rozmiar_x+"x"+Matka.rozmiar_y+")."+" Co chcesz zrobić?", MW);
-                            zMF.ShowDialog();
-
-
-                        }
-                       
-                    }
-                }
-            if (sprawdź2()==1)
+            }
+            if (sprawdź2() == 1)
             {
                 MW.button_rozmiesc.IsEnabled = true;
                 MW.RozmieśćMenu.IsEnabled = true;
@@ -101,9 +103,9 @@ namespace Rozmieszczenie.Logika
         }
         int sprawdź2()
         {
-            
+
             List<Prostokat> listaObiektówKtóreMieszcząSieNaMatrycach = new List<Prostokat>();
-            foreach (var item in lista_obiektow)                           
+            foreach (var item in lista_obiektow)
             {
 
 
@@ -120,12 +122,12 @@ namespace Rozmieszczenie.Logika
         }
         internal void rozmiesc()
         {
-                    miksuj();   
+            miksuj();
         }
 
         internal void test()
         {
-            MW.textBox_komunikat.Text = ""+lista_obiektow.Count();
+            MW.textBox_komunikat.Text = "" + lista_obiektow.Count();
         }
 
 
@@ -133,11 +135,11 @@ namespace Rozmieszczenie.Logika
         public void nowy_prostokat()
         {
             np = new nowa_prostokat(this);
-            np.Show();            
+            np.Show();
         }
         public void dodaj_prostokat()
         {
-            
+
             int tmp_ile = Convert.ToInt32(np.textBox_ilosc_prostokat.Text);
             for (int i = 0; i < tmp_ile; i++)
             {
@@ -158,10 +160,10 @@ namespace Rozmieszczenie.Logika
         public void usuń_prostokąt(int id)
         {
             var obiektDoUsunięcia = (from figura in lista_obiektow
-                                    where figura.ID == id
-                                    select figura).First<Prostokat>();
+                                     where figura.ID == id
+                                     select figura).First<Prostokat>();
 
-            
+
             lista_obiektow.Remove(obiektDoUsunięcia);
             foreach (var item in lista_obiektow)
             {
@@ -171,13 +173,13 @@ namespace Rozmieszczenie.Logika
             Prostokat.licznik = lista_obiektow.Count;
             MW.dataGrid.DataContext = lista_obiektow;
             MW.dataGrid.Items.Refresh();
-            if(Matka !=null)
-            if (sprawdź2() == 1)
-            {
-                MW.button_rozmiesc.IsEnabled = true;
-                MW.RozmieśćMenu.IsEnabled = true;
-                MW.InfoButton.Visibility = Visibility.Hidden;
-            }
+            if (Matka != null)
+                if (sprawdź2() == 1)
+                {
+                    MW.button_rozmiesc.IsEnabled = true;
+                    MW.RozmieśćMenu.IsEnabled = true;
+                    MW.InfoButton.Visibility = Visibility.Hidden;
+                }
 
         }
         public void usuń_wszystkie()
@@ -195,6 +197,10 @@ namespace Rozmieszczenie.Logika
 
         }
 
+        void UpdatePasek()
+        {   
+            Pasek.status.Dispatcher.Invoke(() => Pasek.status.Value++, DispatcherPriority.Background);
+        }
 
         //miksowanko
         public void miksuj()
@@ -208,11 +214,15 @@ namespace Rozmieszczenie.Logika
 
                 int m_x = Matka.rozmiar_x;
                 int m_y = Matka.rozmiar_y;
-                pasek Pasek = new Widoki.pasek(sekundCzas);
+
+                Pasek = new Widoki.pasek(sekundCzas);
                 Pasek.Show();
                 Pasek.status.Value = 0;
 
-                NAJLEPSZE = go(m_x, m_y, odstep,sekundCzas,Pasek);
+                               
+
+
+                NAJLEPSZE = go(m_x, m_y, odstep,sekundCzas);
             
                 {
                     R = new Rysowanie(wm);
@@ -224,7 +234,10 @@ namespace Rozmieszczenie.Logika
             try { wm.Show(); }
             catch { }
             prz = new Przeciaganie(NAJLEPSZE, wm, this);
-            
+
+            MW.button_rozmiesc_Copy.IsEnabled = true;
+            MW.button_rozmiesc_Copy1.IsEnabled = true;
+
         }
 
         
@@ -235,7 +248,10 @@ namespace Rozmieszczenie.Logika
                         "Liczba wykorzystanych matryc: " + NAJLEPSZE.Liczba_wykorzystanych_matryc +
                         "\nNajwiększa wolna prostokatna powierzchnia: " + NAJLEPSZE.NajPowPro2 +
                         "\nLiczba rozmieszczen: "+ licznik +
-                        "\nEdytowane manualnie: " + NAJLEPSZE.czyZmienaneRecznie);
+                        "\nEdytowane manualnie: " + NAJLEPSZE.czyZmienaneRecznie+
+                        "\nSzerokość matrycy: "+Matka.rozmiar_x+
+                        "\nWysokość matrycy: "+ Matka.rozmiar_y+
+                        "\nOdstęp (rzaz): "+odstep);
             InfoOkno.textBox.Text += ("\n********************************************************************\n ");
             InfoOkno.textBox.Text += NAJLEPSZE.wypisz() + "\n";
             InfoOkno.Show();
@@ -505,41 +521,44 @@ namespace Rozmieszczenie.Logika
                 indeksowanie[y] = tmp;
             }
         }
-/*
-        public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y,int odstep)
-        {
-            var sync = new Object();
+        /*
+                public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y,int odstep)
+                {
+                    var sync = new Object();
 
-            Parallel.For(0, lista_indeksow.Count, (int k) =>
-           {
-               Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y),odstep,lista_indeksow[k]);
-
-               lock (sync)
-               {
-                   lista_rozmieszczen.Add(roz);
-               }
-               
-               for (int i = 0; i < liczba_figur; i++)
-               {
-                   int j = 0;
-                   roz.lokalizacja_figur[i] = new MatrycaFiguraPunkt(j, lista_figur[lista_indeksow[k][i]], new Punkt());
-
-                   while (!lista_figur[lista_indeksow[k][i]].ustal_pozycje(roz.lokalizacja_figur[i].p, roz.lista_matryc[j],odstep))
+                    Parallel.For(0, lista_indeksow.Count, (int k) =>
                    {
-                       if (j == roz.lista_matryc.Count - 1) roz.lista_matryc.Add(new Matryca(m_rozmiar_x, m_rozmiar_y));
+                       Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y),odstep,lista_indeksow[k]);
 
-                       j++;
-                   }
+                       lock (sync)
+                       {
+                           lista_rozmieszczen.Add(roz);
+                       }
 
-                   roz.lokalizacja_figur[i].nr_matrycy = j;
-               }
+                       for (int i = 0; i < liczba_figur; i++)
+                       {
+                           int j = 0;
+                           roz.lokalizacja_figur[i] = new MatrycaFiguraPunkt(j, lista_figur[lista_indeksow[k][i]], new Punkt());
 
-               roz.wolna_powierzchnia_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
-               roz.najwieksza_prostokatna_powierzchnia();
-           }) ;
-        }
-  */  
-        public static Rozmieszczenia go(int m_x,int m_y,int odstep,int ile_sekund,pasek Pasek)
+                           while (!lista_figur[lista_indeksow[k][i]].ustal_pozycje(roz.lokalizacja_figur[i].p, roz.lista_matryc[j],odstep))
+                           {
+                               if (j == roz.lista_matryc.Count - 1) roz.lista_matryc.Add(new Matryca(m_rozmiar_x, m_rozmiar_y));
+
+                               j++;
+                           }
+
+                           roz.lokalizacja_figur[i].nr_matrycy = j;
+                       }
+
+                       roz.wolna_powierzchnia_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
+                       roz.najwieksza_prostokatna_powierzchnia();
+                   }) ;
+                }
+          */
+
+
+     
+        public  Rozmieszczenia go(int m_x,int m_y,int odstep,int ile_sekund)
         {
             
             int[] pierwsze_indeksowanie = new int[lista_obiektow.Count];
@@ -562,12 +581,12 @@ namespace Rozmieszczenie.Logika
             {
                 lista_roz2 = new List<Rozmieszczenia>();
                 rozmieszczanie(lista_roz2, lista_obiektow, lista_indeksow, lista_obiektow.Count, m_x, m_y, odstep);
-                
+
                 lista_indeksow.Clear();
                 miksowanie_indeksow2(lista_roz2, lista_indeksow, liczba_indeksowan);
 
-                Pasek.status.Dispatcher.Invoke(() => Pasek.status.Value = (DateTime.UtcNow - startTime).Seconds, DispatcherPriority.Background);
-                //Pasek.status.Dispatcher.Invoke(() => Pasek.status.Value++, DispatcherPriority.Background);
+                UpdatePasek();
+                
                 licznik++; //pomocniczy licznik żeby wiedzieć ile pętli się wykonuje w określonym czasie
                 
             } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(ile_sekund) && zaleznosc_od_t);
@@ -588,12 +607,13 @@ namespace Rozmieszczenie.Logika
         }
 
 
-        public static void rozmieszczanie(List<Rozmieszczenia> lista_rozmieszczen,List<Prostokat> lista_figur,List<int[]> lista_indeksow,int liczba_figur,int m_rozmiar_x,int m_rozmiar_y,int odstep)
+        public  void rozmieszczanie(List<Rozmieszczenia> lista_rozmieszczen,List<Prostokat> lista_figur,List<int[]> lista_indeksow,int liczba_figur,int m_rozmiar_x,int m_rozmiar_y,int odstep)
         {
             var sync = new Object();
 
             Parallel.For(0, lista_indeksow.Count, (int k) =>
             {
+                
                 Rozmieszczenia r;
                 r = start(lista_figur,liczba_figur,lista_indeksow[k],m_rozmiar_x,m_rozmiar_y,odstep);
                 lock (sync)
@@ -633,7 +653,7 @@ namespace Rozmieszczenie.Logika
             return ile_roznych;
         }
 
-        public static Rozmieszczenia start(List<Prostokat> lista_prostokatow,int liczba_figur,int[] indeksowanie,int m_rozmiar_x,int m_rozmiar_y,int odstep)
+        public  Rozmieszczenia start(List<Prostokat> lista_prostokatow,int liczba_figur,int[] indeksowanie,int m_rozmiar_x,int m_rozmiar_y,int odstep)
         {
             int nr_matrycy = 0;
             int liczba_prostokatow = liczba_figur;
@@ -672,7 +692,7 @@ namespace Rozmieszczenie.Logika
                         rozmieszczanie(lista_roz2,lista_prostokatow, lista_indeksowan,liczba_prostokatow, m_rozmiar_x, m_rozmiar_y, odstep);
                         lista_indeksowan.Clear();
                         miksowanie_indeksow2(lista_roz2, lista_indeksowan, liczba_indeksowan);
-
+                        UpdatePasek();
                     } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(30)); //tutaj czas jest ustalony ręcznie, ale będzie to zmienione
 
                     Rozmieszczenia NAJLEPSZE = lista_roz2[0];

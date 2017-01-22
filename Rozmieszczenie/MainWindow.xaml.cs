@@ -51,6 +51,7 @@ namespace Rozmieszczenie
         private void button_rozmiesc_Click(object sender, RoutedEventArgs e)
         {
             J.rozmiesc();
+                
             
         }
        
@@ -439,7 +440,7 @@ namespace Rozmieszczenie
 
         private void Zamknij(object sender, RoutedEventArgs e)
         {
-            Close();
+            App.Current.Shutdown();
         }
 
         private void Minimalizuj(object sender, RoutedEventArgs e)
@@ -457,6 +458,21 @@ namespace Rozmieszczenie
         {
             okno_about oA = new okno_about();
             oA.Show();
+        }
+
+        private void button_rozmiesc_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            if (J.NAJLEPSZE != null && J.InfoOkno!=null) J.InfoBox();
+        }
+
+        private void button_rozmiesc_Copy1_Click(object sender, RoutedEventArgs e)
+        {
+            if (J.NAJLEPSZE != null && J.wm != null)
+            {
+                J.dodaj_matryce();
+                J.wm.Show();
+                J.R.Rysuj(J.wm, J.NAJLEPSZE);
+            }
         }
     }
 }
