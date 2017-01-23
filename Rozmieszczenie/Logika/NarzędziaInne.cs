@@ -135,73 +135,24 @@ namespace Rozmieszczenie.Logika
 
                     table.SetWidths(widths);
                     table.DefaultCell.FixedHeight = (iTextSharp.text.PageSize.A4.Height - (2 * doc.BottomMargin)) / 2;
+                    table.DefaultCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                    table.DefaultCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
 
                     Wszystkie(W, rys, true);
 
                     for (int i = 0; i <= rys.liczba_matryc; i++)
                     {
                         iTextSharp.text.Image PNG = iTextSharp.text.Image.GetInstance(System.AppDomain.CurrentDomain.BaseDirectory + "tmp\\matryca" + i + ".png");
+                        RotationPNG(PNG);
                         table.AddCell(PNG);
                         if (rys.liczba_matryc + 1 % 2 != 0 && i + 1 > rys.liczba_matryc)
-                            table.AddCell(new iTextSharp.text.pdf.PdfPCell(new iTextSharp.text.Phrase("Empty")));
+                            table.AddCell(new iTextSharp.text.pdf.PdfPCell(new iTextSharp.text.Phrase("")));
 
                         if (listawybranychinformacji.Count > 1 && i % 4 == 0)
                         {
                             for (int k = i; k <= i + 3; k++)
                             {
-                                foreach (var item in listawybranychinformacji)
-                                {
-                                    if (item == "Numer Matrycy")
-                                    {
-                                        iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                        p.Add(new iTextSharp.text.Phrase("Numer Matrycy"));
-                                        p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszNRMatrycy(k)));
-                                        if (J.NAJLEPSZE.wypiszNRMatrycy(k) != "")
-                                        {
-                                            cell.AddElement(p);
-                                            tableInfo.AddCell(cell);
-                                        }
-                                    }
-                                    if (item == "ID")
-                                    {
-                                        iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                        p.Add(new iTextSharp.text.Phrase("ID"));
-                                        p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszID(k)));
-                                        if (J.NAJLEPSZE.wypiszNRMatrycy(k) != "")
-                                        {
-                                            cell.AddElement(p);
-                                            tableInfo.AddCell(cell);
-                                        }
-                                    }
-                                    if (item == "Punkt Zaczepienia")
-                                    {
-                                        iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                        p.Add(new iTextSharp.text.Phrase("Punkt Zaczepienia"));
-                                        p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszPunktZaczepienia(k)));
-                                        if (J.NAJLEPSZE.wypiszNRMatrycy(k) != "")
-                                        {
-                                            cell.AddElement(p);
-                                            tableInfo.AddCell(cell);
-                                        }
-                                    }
-                                    if (item == "Wymiary")
-                                    {
-                                        iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                        p.Add(new iTextSharp.text.Phrase("Wymiary"));
-                                        p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszWymiary(k)));
-                                        if (J.NAJLEPSZE.wypiszNRMatrycy(k) != "")
-                                        {
-                                            cell.AddElement(p);
-                                            tableInfo.AddCell(cell);
-                                        }
-                                    }
-
-
-                                }
+                                GetInfoPDF(J, k, tableInfo, listawybranychinformacji);
                             }
                             doc.Add(tableInfo);
                             doc.NewPage();
@@ -217,6 +168,8 @@ namespace Rozmieszczenie.Logika
 
                             table.SetWidths(widths);
                             table.DefaultCell.FixedHeight = (iTextSharp.text.PageSize.A4.Height - (2 * doc.BottomMargin)) / 2;
+                            table.DefaultCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                            table.DefaultCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
 
                         }
                     }
@@ -233,70 +186,21 @@ namespace Rozmieszczenie.Logika
 
                     table.SetWidths(widths);
                     table.DefaultCell.FixedHeight = (iTextSharp.text.PageSize.A4.Height - (2 * doc.BottomMargin)) / 2;
+                    table.DefaultCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                    table.DefaultCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
 
                     Wszystkie(W, rys, true);
 
                     for (int i = 0; i <= rys.liczba_matryc; i++)
                     {
                         iTextSharp.text.Image PNG = iTextSharp.text.Image.GetInstance(System.AppDomain.CurrentDomain.BaseDirectory + "tmp\\matryca" + i + ".png");
+                        RotationPNG(PNG);
                         table.AddCell(PNG);
                         if (listawybranychinformacji.Count > 1 && i % 2 == 0)
                         {
                             for (int k = i; k <= i + 1; k++)
                             {
-                                foreach (var item in listawybranychinformacji)
-                                {
-                                    if (item == "Numer Matrycy")
-                                    {
-                                        iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                        p.Add(new iTextSharp.text.Phrase("Numer Matrycy"));
-                                        p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszNRMatrycy(k)));
-                                        if (J.NAJLEPSZE.wypiszNRMatrycy(k) != "")
-                                        {
-                                            cell.AddElement(p);
-                                            tableInfo.AddCell(cell);
-                                        }
-                                    }
-                                    if (item == "ID")
-                                    {
-                                        iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                        p.Add(new iTextSharp.text.Phrase("ID"));
-                                        p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszID(k)));
-                                        if (J.NAJLEPSZE.wypiszNRMatrycy(k) != "")
-                                        {
-                                            cell.AddElement(p);
-                                            tableInfo.AddCell(cell);
-                                        }
-                                    }
-                                    if (item == "Punkt Zaczepienia")
-                                    {
-                                        iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                        p.Add(new iTextSharp.text.Phrase("Punkt Zaczepienia"));
-                                        p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszPunktZaczepienia(k)));
-                                        if (J.NAJLEPSZE.wypiszNRMatrycy(k) != "")
-                                        {
-                                            cell.AddElement(p);
-                                            tableInfo.AddCell(cell);
-                                        }
-                                    }
-                                    if (item == "Wymiary")
-                                    {
-                                        iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                        iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                        p.Add(new iTextSharp.text.Phrase("Wymiary"));
-                                        p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszWymiary(k)));
-                                        if (J.NAJLEPSZE.wypiszNRMatrycy(k) != "")
-                                        {
-                                            cell.AddElement(p);
-                                            tableInfo.AddCell(cell);
-                                        }
-                                    }
-
-
-                                }
+                                GetInfoPDF(J, k, tableInfo, listawybranychinformacji);
                             }
                             doc.Add(tableInfo);
                             doc.NewPage();
@@ -311,6 +215,8 @@ namespace Rozmieszczenie.Logika
                             table = new iTextSharp.text.pdf.PdfPTable(1);
                             table.SetWidths(widths);
                             table.DefaultCell.FixedHeight = (iTextSharp.text.PageSize.A4.Height - (2 * doc.BottomMargin)) / 2;
+                            table.DefaultCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                            table.DefaultCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
                         }
 
                     }
@@ -322,6 +228,8 @@ namespace Rozmieszczenie.Logika
                     iTextSharp.text.pdf.PdfPTable tableInfo = new iTextSharp.text.pdf.PdfPTable(1);
                     iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(1);
                     table.DefaultCell.FixedHeight = (iTextSharp.text.PageSize.A4.Height - (2 * doc.BottomMargin));
+                    table.DefaultCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                    table.DefaultCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
                     Wszystkie(W, rys, true);
 
                     if (listawybranychinformacji.Count > 1)
@@ -330,52 +238,17 @@ namespace Rozmieszczenie.Logika
 
                     for (int i = 0; i <= rys.liczba_matryc; i++)
                     {
+                        
                         iTextSharp.text.Image PNG = iTextSharp.text.Image.GetInstance(System.AppDomain.CurrentDomain.BaseDirectory + "tmp\\matryca" + i + ".png");
+                        RotationPNG(PNG);
+                      
+
+
                         table.AddCell(PNG);
                         if (listawybranychinformacji.Count > 1)
                         {
 
-                            foreach (var item in listawybranychinformacji)
-                            {
-                                if (item == "Numer Matrycy")
-                                {
-                                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                    p.Add(new iTextSharp.text.Phrase("Numer Matrycy"));
-                                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszNRMatrycy(i)));
-                                    cell.AddElement(p);
-                                    tableInfo.AddCell(cell);
-                                }
-                                if (item == "ID")
-                                {
-                                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                    p.Add(new iTextSharp.text.Phrase("ID"));
-                                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszID(i)));
-                                    cell.AddElement(p);
-                                    tableInfo.AddCell(cell);
-                                }
-                                if (item == "Punkt Zaczepienia")
-                                {
-                                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                    p.Add(new iTextSharp.text.Phrase("Punkt Zaczepienia"));
-                                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszPunktZaczepienia(i)));
-                                    cell.AddElement(p);
-                                    tableInfo.AddCell(cell);
-                                }
-                                if (item == "Wymiary")
-                                {
-                                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                    p.Add(new iTextSharp.text.Phrase("Wymiary"));
-                                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszWymiary(i)));
-                                    cell.AddElement(p);
-                                    tableInfo.AddCell(cell);
-                                }
-
-
-                            }
+                            GetInfoPDF(J, i, tableInfo, listawybranychinformacji);
                             doc.Add(tableInfo);
                             doc.NewPage();
                             tableInfo = new iTextSharp.text.pdf.PdfPTable(listawybranychinformacji.Count - 1);
@@ -385,6 +258,8 @@ namespace Rozmieszczenie.Logika
                         doc.Add(table);
                         doc.NewPage();
                         table = new iTextSharp.text.pdf.PdfPTable(1);
+                        table.DefaultCell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
+                        table.DefaultCell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
 
                     }
 
@@ -392,60 +267,18 @@ namespace Rozmieszczenie.Logika
                 else if (listawybranychinformacji[0] == "Brak")
                 {
 
-
-
                     if (listawybranychinformacji.Count > 1)
                     {
                         iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(listawybranychinformacji.Count - 1);
+                  
+
                         for (int i = 0; i <= rys.liczba_matryc; i++)
                         {
-                            foreach (var item in listawybranychinformacji)
-                            {
-                                if (item == "Numer Matrycy")
-                                {
-                                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                    p.Add(new iTextSharp.text.Phrase("Numer Matrycy"));
-                                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszNRMatrycy(i)));
-                                    cell.AddElement(p);
-                                    table.AddCell(cell);
-                                }
-                                if (item == "ID")
-                                {
-                                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                    p.Add(new iTextSharp.text.Phrase("ID"));
-                                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszID(i)));
-                                    cell.AddElement(p);
-                                    table.AddCell(cell);
-                                }
-                                if (item == "Punkt Zaczepienia")
-                                {
-                                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                    p.Add(new iTextSharp.text.Phrase("Punkt Zaczepienia"));
-                                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszPunktZaczepienia(i)));
-                                    cell.AddElement(p);
-                                    table.AddCell(cell);
-                                }
-                                if (item == "Wymiary")
-                                {
-                                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
-                                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
-                                    p.Add(new iTextSharp.text.Phrase("Wymiary"));
-                                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszWymiary(i)));
-                                    cell.AddElement(p);
-                                    table.AddCell(cell);
-                                }
 
-
-                            }
-
+                            GetInfoPDF(J,i,table,listawybranychinformacji);
 
                             doc.Add(table);
                             table = new iTextSharp.text.pdf.PdfPTable(listawybranychinformacji.Count - 1);
-
-
 
                         }
                     }
@@ -466,6 +299,72 @@ namespace Rozmieszczenie.Logika
 
 
 
+        }
+        private static void RotationPNG(iTextSharp.text.Image PNG)
+        {
+            if (PNG.Width > PNG.Height)
+                PNG.RotationDegrees = 90;
+                
+        }
+        private static void  GetInfoPDF(Jądro J,int i, iTextSharp.text.pdf.PdfPTable table, List<string> listawybranychinformacji)
+        {
+            foreach (var item in listawybranychinformacji)
+            {
+                if (item == "Numer Matrycy")
+                {
+                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
+                    p.Add(new iTextSharp.text.Phrase("Numer Matrycy"));
+                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszNRMatrycy(i)));
+                    p.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    if (J.NAJLEPSZE.wypiszNRMatrycy(i) != "")
+                    {
+                        cell.AddElement(p);
+                        table.AddCell(cell);
+                    }
+                }
+                if (item == "ID")
+                {
+                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
+                    p.Add(new iTextSharp.text.Phrase("ID"));
+                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszID(i)));
+                    p.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    if (J.NAJLEPSZE.wypiszNRMatrycy(i) != "")
+                    {
+                        cell.AddElement(p);
+                        table.AddCell(cell);
+                    }
+                }
+                if (item == "Punkt Zaczepienia")
+                {
+                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
+                    p.Add(new iTextSharp.text.Phrase("Punkt Zaczepienia"));
+                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszPunktZaczepienia(i)));
+                    p.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    if (J.NAJLEPSZE.wypiszNRMatrycy(i) != "")
+                    {
+                        cell.AddElement(p);
+                        table.AddCell(cell);
+                    }
+                }
+                if (item == "Wymiary")
+                {
+                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell();
+                    iTextSharp.text.Paragraph p = new iTextSharp.text.Paragraph();
+                    p.Add(new iTextSharp.text.Phrase("Wymiary"));
+                    p.Add(new iTextSharp.text.Phrase(J.NAJLEPSZE.wypiszWymiary(i)));
+                    p.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                    if (J.NAJLEPSZE.wypiszNRMatrycy(i) != "")
+                    {
+                        cell.AddElement(p);
+                        table.AddCell(cell);
+                    }
+                }
+
+
+            }
         }
 
         static void _stworz(Canvas canvas, string nazwa_pliku, bool YN = true)

@@ -184,7 +184,8 @@ namespace Rozmieszczenie
                     XElement Matryca = new XElement("Matryca");
                     XElement Rozmieszczenia = new XElement("Rozmieszczenia");
 
-
+                   
+                  
 
                     try////dodanie stworzonej matrycy
                     {
@@ -216,7 +217,7 @@ namespace Rozmieszczenie
 
                         Projekt.Add(Rozmieszczenia);
 
-                        //budowanie drzewa (od gałęzi)
+                      
 
                         foreach (var item in J.NAJLEPSZE.lokalizacja_figur)
                         {
@@ -241,8 +242,12 @@ namespace Rozmieszczenie
 
                             ListaFigur.Add(Figura);
 
-                        }
-                        XElement Info = new XElement("Info", J.InfoOkno.textBox);
+                        }          
+
+                        XElement Info = new XElement("Info");
+                        Info.Add(new XElement("NajWolPow",J.NAJLEPSZE.NajPowPro2));
+                        Info.Add(new XElement("LiczbaRozmieszczeń",Jądro.licznik));
+                        Info.Add(new XElement("EdytowaneManualnie",J.NAJLEPSZE.czyZmienaneRecznie));
                         Projekt.Add(Info);
                     }
                     catch
@@ -380,12 +385,18 @@ namespace Rozmieszczenie
                             roz.lokalizacja_figur[iterator] = new MatrycaFiguraPunkt(int.Parse(item.Element("NumerMatrycy").Value), new Prostokat(int.Parse(item.Element("W").Value), int.Parse(item.Element("H").Value), iterator+1, item.Element("Nazwa").Value), new Punkt(int.Parse(item.Element("PołożenieX").Value), int.Parse(item.Element("PołożenieY").Value)));
                             iterator++;
                         }
-
+                        J.NAJLEPSZE = roz;
                         J.R.Rysuj(J.wm, roz, int.Parse(xml.Root.Element("Matryca").Element("Liczba").Value) - 1);
-                        J.InfoOkno = new Widoki.informacyjne();
-                         J.InfoOkno.textBox.Text = xml.Root.Element("Info").Value;
-                        J.InfoOkno.Show();
+                       
+
+                        roz.NajPowPro2 = int.Parse(xml.Root.Element("Info").Element("NajWolPow").Value);
+                        Jądro.licznik = int.Parse(xml.Root.Element("Info").Element("LiczbaRozmieszczeń").Value);
+                        roz.czyZmienaneRecznie = bool.Parse(xml.Root.Element("Info").Element("EdytowaneManualnie").Value);
+
+                        J.InfoBox();
                         J.prz  = new Przeciaganie(roz,J.wm,J);
+                        button_rozmiesc_Copy1.IsEnabled = true;
+                        button_rozmiesc_Copy.IsEnabled = true;
                     }
                     catch { }
                     J.Sprawdź1();

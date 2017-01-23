@@ -585,7 +585,7 @@ namespace Rozmieszczenie.Logika
                 lista_indeksow.Clear();
                 miksowanie_indeksow2(lista_roz2, lista_indeksow, liczba_indeksowan);
 
-                UpdatePasek();
+              //  UpdatePasek();
                 
                 licznik++; //pomocniczy licznik żeby wiedzieć ile pętli się wykonuje w określonym czasie
                 
@@ -692,7 +692,7 @@ namespace Rozmieszczenie.Logika
                         rozmieszczanie(lista_roz2,lista_prostokatow, lista_indeksowan,liczba_prostokatow, m_rozmiar_x, m_rozmiar_y, odstep);
                         lista_indeksowan.Clear();
                         miksowanie_indeksow2(lista_roz2, lista_indeksowan, liczba_indeksowan);
-                        UpdatePasek();
+                       // UpdatePasek();
                     } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(30)); //tutaj czas jest ustalony ręcznie, ale będzie to zmienione
 
                     Rozmieszczenia NAJLEPSZE = lista_roz2[0];
