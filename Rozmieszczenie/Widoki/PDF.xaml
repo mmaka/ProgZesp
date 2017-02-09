@@ -1,0 +1,33 @@
+﻿<Window x:Class="Rozmieszczenie.Widoki.PDF"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
+        mc:Ignorable="d"
+        Title="PDF" Height="300" Width="300">
+
+    <Grid>
+        <GroupBox x:Name="groupBox" Header="Matryca" HorizontalAlignment="Left" Margin="37,32,0,0" VerticalAlignment="Top" Height="67" Width="202">
+            <StackPanel >
+                <ComboBox x:Name="ComboBox"  >
+                    <ComboBoxItem Content="Brak" IsSelected="True"/>
+                    <ComboBoxItem Content="Jedna na stronę"/>
+                    <ComboBoxItem Content="Dwie na stronę"/>
+                    <ComboBoxItem Content="Cztery na stronę"/>
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Informacje Dodatkowe" Margin="37,122,53,35">
+            <ListBox x:Name="listBox"  SelectionMode="Multiple" BorderThickness="0" >
+
+                <ListBoxItem Content="Numer Matrycy"></ListBoxItem>
+                <ListBoxItem Content="ID"></ListBoxItem>
+                <ListBoxItem Content="Wymiary"></ListBoxItem>
+                <ListBoxItem Content="Punkt Zaczepienia"></ListBoxItem>
+            </ListBox>
+        </GroupBox>
+        <Button x:Name="button" Content="Zapisz" HorizontalAlignment="Left" Margin="92,239,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+
+    </Grid>
+</Window>

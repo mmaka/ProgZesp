@@ -89,6 +89,9 @@
     <Compile Include="Widoki\pasek.xaml.cs">
       <DependentUpon>pasek.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widoki\PDF.xaml.cs">
+      <DependentUpon>PDF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widoki\widok_matryca.xaml.cs">
       <DependentUpon>widok_matryca.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widoki\pasek.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widoki\PDF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -649,8 +649,6 @@ namespace Rozmieszczenie.Logika
                 lista_indeksow.Clear();
                 miksowanie_indeksow2(lista_roz2, lista_indeksow, liczba_indeksowan);
 
-                
-
                 licznik++; //pomocniczy licznik żeby wiedzieć ile pętli się wykonuje w określonym czasie
             } while (status);
 
