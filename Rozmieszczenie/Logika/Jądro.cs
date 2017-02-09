@@ -22,11 +22,12 @@ namespace Rozmieszczenie.Logika
         public Matryca Matka;
         public informacyjne InfoOkno;
         public Rysowanie R;
-        public Rozmieszczenia NAJLEPSZE;
+        public static Rozmieszczenia NAJLEPSZE = null;
         public Przeciaganie prz;
         public static List<Prostokat> lista_obiektow;
         public static int licznik = 0;
         public List<Rozmieszczenia> lista_rozmieszczen;
+        volatile public static bool status = true;
         //Konstruktor
         public Jądro(MainWindow _mw)
         {
@@ -210,7 +211,9 @@ namespace Rozmieszczenie.Logika
                 
                 int S = Convert.ToInt32(MW.textBox_Czas.Text);
                 int sekundCzas = Math.Max(S, 10);
-                
+                ParameterizedThreadStart pts = new ParameterizedThreadStart(go);
+                Thread thr = new Thread(pts);
+               
 
                 int m_x = Matka.rozmiar_x;
                 int m_y = Matka.rozmiar_y;
@@ -218,15 +221,47 @@ namespace Rozmieszczenie.Logika
                 Pasek = new Widoki.pasek(sekundCzas);
                 Pasek.Show();
                 Pasek.status.Value = 0;
+                List<int> tab_arg = new List<int>();
+                tab_arg.Add(m_x);
+                tab_arg.Add(m_y);
+                tab_arg.Add(odstep);
+                tab_arg.Add(sekundCzas);
+                thr.Start(tab_arg);
+                var startTime = DateTime.UtcNow;
+                do
+                {
+                    UpdatePasek();
+                    Task.Delay(400);
+                  
+                } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(sekundCzas) || NAJLEPSZE == null);
 
-                               
+                status = false; //tutaj kończymy działanie rozmieszczania i blokujemy możliwość dostępu do blokady
+                startTime = DateTime.UtcNow; 
+                while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(1)){ }; //odczekujemy sekunde
 
+                try
+                {
+                    thr.Abort(); //kto nie zdążył się zakończyć jest niszczony - nie należy tak zabijać wątków, ale wydaje mi się, że
+                                 //z punktu widzenia naszych obliczeń nie ma niebezpieczeństw (pracujemy na paru listach i tablicach), oprócz
+                                 //blokady, w ramach której ustalamy najlepsze rozmieszczenie - tego wątku nie chciałbym ubić bo manipuluje zmienną
+                                 //która zawiera wynik obliczeń. dlatego po upływie czasu ustalanie najlepszego rozmieszczenia jest blokowane
+                                //i odczekujemy sekunde, aż te wątki, które już czekają na porównanie swojego wyniku z aktualnym najlepszym
+                                //mogły się porównać. Potem następuje abort. - metoda trochę mało wyrafinowana (zdroworozsądkowa)
+                                
+                }
+                
+                catch(ThreadAbortException e)
+                {
 
-                NAJLEPSZE = go(m_x, m_y, odstep,sekundCzas);
-            
+                }
+                finally
+                {
+
+                }
+                
                 {
                     R = new Rysowanie(wm);
-                    R.Rysuj(wm, NAJLEPSZE);
+                    R.Rysuj(wm, Jądro.NAJLEPSZE);
                 }
                 Pasek.Close();
                 InfoBox();
@@ -240,6 +275,16 @@ namespace Rozmieszczenie.Logika
 
         }
 
+        public static void czy_najlepsze(Rozmieszczenia roz)
+        {
+               if (Jądro.NAJLEPSZE.Liczba_wykorzystanych_matryc > roz.Liczba_wykorzystanych_matryc)
+                Jądro.NAJLEPSZE = roz;
+                else if (Jądro.NAJLEPSZE.Liczba_wykorzystanych_matryc == roz.Liczba_wykorzystanych_matryc)
+                {
+                    if (Jądro.NAJLEPSZE.SumNajPowPro < roz.SumNajPowPro)
+                    Jądro.NAJLEPSZE = roz;
+                }
+        }
         
         public void InfoBox()
         {
@@ -248,6 +293,7 @@ namespace Rozmieszczenie.Logika
                         "Liczba wykorzystanych matryc: " + NAJLEPSZE.Liczba_wykorzystanych_matryc +
                         "\nNajwiększa wolna prostokatna powierzchnia: " + NAJLEPSZE.NajPowPro2 +
                         "\nLiczba rozmieszczen: "+ licznik +
+                        "\nNowa miara: "+ NAJLEPSZE.miara +
                         "\nEdytowane manualnie: " + NAJLEPSZE.czyZmienaneRecznie+
                         "\nSzerokość matrycy: "+Matka.rozmiar_x+
                         "\nWysokość matrycy: "+ Matka.rozmiar_y+
@@ -379,7 +425,7 @@ namespace Rozmieszczenie.Logika
             Random rand = new Random();
             int[] prob_choice = new int[lista_roz.Count];
             int j, k, suma = 0;
-
+            //gdzieś tu trzeba będzie robić sprawdzenie czy nie mamy jednego prostokąta na liście
             for (int i = 0; i < lista_roz.Count; i++)
             {
                 suma += lista_roz[i].NajPowPro2;
@@ -521,7 +567,7 @@ namespace Rozmieszczenie.Logika
                 indeksowanie[y] = tmp;
             }
         }
-        /*
+        
                 public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y,int odstep)
                 {
                     var sync = new Object();
@@ -552,62 +598,84 @@ namespace Rozmieszczenie.Logika
 
                        roz.wolna_powierzchnia_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
                        roz.najwieksza_prostokatna_powierzchnia();
+                       roz.suma_NajPowPro();
                    }) ;
                 }
-          */
+        
 
 
-     
-        public  Rozmieszczenia go(int m_x,int m_y,int odstep,int ile_sekund)
+
+    
+        public static void go(object tab_arg)
         {
-            
+            List<int> arg = (List<int>)tab_arg;
+            int m_x = arg[0];
+            int m_y = arg[1];
+            int odstep = arg[2];
+            int ile_sekund = arg[3];
+            var sync = new Object();
             int[] pierwsze_indeksowanie = new int[lista_obiektow.Count];
             for (int i = 0; i < lista_obiektow.Count; i++)
                 pierwsze_indeksowanie[i] = i;
 
             int liczba_indeksowan = ile_roznych_prostokatow(lista_obiektow,pierwsze_indeksowanie);
-            liczba_indeksowan *= 20;
+
+            if (lista_obiektow.Count > 3)
+                    liczba_indeksowan *= 30;
 
             List<int[]> lista_indeksow = new List<int[]>();  
             wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan, indeksowania_proponowane(lista_obiektow,pierwsze_indeksowanie));
             
-            bool zaleznosc_od_t = true;
+         //   bool zaleznosc_od_t = true;
             var startTime = DateTime.UtcNow; //tutaj pobieramy aktualny czas
             List<Rozmieszczenia> lista_roz2;
 
-            if (lista_obiektow.Count < 3)
-                zaleznosc_od_t = false;
-            do
-            {
+   
+                do
+                {
                 lista_roz2 = new List<Rozmieszczenia>();
-                rozmieszczanie(lista_roz2, lista_obiektow, lista_indeksow, lista_obiektow.Count, m_x, m_y, odstep);
-
+                //     rozmieszczanie(lista_roz2, lista_obiektow, lista_indeksow, lista_obiektow.Count, m_x, m_y, odstep);
+                generuj_rozmieszczenia(lista_obiektow, lista_indeksow, lista_roz2, lista_obiektow.Count, m_x, m_y, odstep);
+                Rozmieszczenia best = znajdz_najlepsze(lista_roz2);
+                if (status)
+                {
+                    lock (sync)
+                    {
+                        if (NAJLEPSZE == null) NAJLEPSZE = best;
+                        else czy_najlepsze(best);
+                    }
+                }
+                
                 lista_indeksow.Clear();
                 miksowanie_indeksow2(lista_roz2, lista_indeksow, liczba_indeksowan);
 
-                UpdatePasek();
                 
-                licznik++; //pomocniczy licznik żeby wiedzieć ile pętli się wykonuje w określonym czasie
-                
-            } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(ile_sekund) && zaleznosc_od_t);
 
-            Rozmieszczenia NAJLEPSZE = lista_roz2[0];
-            for (int i = 0; i < lista_roz2.Count; i++)
+                licznik++; //pomocniczy licznik żeby wiedzieć ile pętli się wykonuje w określonym czasie
+            } while (status);
+
+        }
+
+        public static Rozmieszczenia znajdz_najlepsze(List<Rozmieszczenia> lista)
+        {
+            Rozmieszczenia najlepsze = lista[0];
+            
+            for (int i = 0; i < lista.Count; i++)
             {
-                if (NAJLEPSZE.Liczba_wykorzystanych_matryc > lista_roz2[i].Liczba_wykorzystanych_matryc)
-                    NAJLEPSZE = lista_roz2[i];
-                else if (NAJLEPSZE.Liczba_wykorzystanych_matryc == lista_roz2[i].Liczba_wykorzystanych_matryc)
+                if (najlepsze.Liczba_wykorzystanych_matryc > lista[i].Liczba_wykorzystanych_matryc)
+                    najlepsze = lista[i];
+                else if (najlepsze.Liczba_wykorzystanych_matryc == lista[i].Liczba_wykorzystanych_matryc)
                 {
-                    if (NAJLEPSZE.SumNajPowPro < lista_roz2[i].SumNajPowPro)
-                        NAJLEPSZE = lista_roz2[i];
+                    if (najlepsze.SumNajPowPro < lista[i].SumNajPowPro)
+                        najlepsze = lista[i];
                 }
 
             }
-            return NAJLEPSZE;
+
+            return najlepsze;
         }
 
-
-        public  void rozmieszczanie(List<Rozmieszczenia> lista_rozmieszczen,List<Prostokat> lista_figur,List<int[]> lista_indeksow,int liczba_figur,int m_rozmiar_x,int m_rozmiar_y,int odstep)
+        public static void rozmieszczanie(List<Rozmieszczenia> lista_rozmieszczen,List<Prostokat> lista_figur,List<int[]> lista_indeksow,int liczba_figur,int m_rozmiar_x,int m_rozmiar_y,int odstep)
         {
             var sync = new Object();
 
@@ -653,7 +721,7 @@ namespace Rozmieszczenie.Logika
             return ile_roznych;
         }
 
-        public  Rozmieszczenia start(List<Prostokat> lista_prostokatow,int liczba_figur,int[] indeksowanie,int m_rozmiar_x,int m_rozmiar_y,int odstep)
+        public static Rozmieszczenia start(List<Prostokat> lista_prostokatow,int liczba_figur,int[] indeksowanie,int m_rozmiar_x,int m_rozmiar_y,int odstep)
         {
             int nr_matrycy = 0;
             int liczba_prostokatow = liczba_figur;
@@ -692,8 +760,8 @@ namespace Rozmieszczenie.Logika
                         rozmieszczanie(lista_roz2,lista_prostokatow, lista_indeksowan,liczba_prostokatow, m_rozmiar_x, m_rozmiar_y, odstep);
                         lista_indeksowan.Clear();
                         miksowanie_indeksow2(lista_roz2, lista_indeksowan, liczba_indeksowan);
-                        UpdatePasek();
-                    } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(30)); //tutaj czas jest ustalony ręcznie, ale będzie to zmienione
+                    
+                    } while ((DateTime.UtcNow - startTime < TimeSpan.FromSeconds(30)) && status ); //tutaj czas jest ustalony ręcznie, ale będzie to zmienione
 
                     Rozmieszczenia NAJLEPSZE = lista_roz2[0];
 

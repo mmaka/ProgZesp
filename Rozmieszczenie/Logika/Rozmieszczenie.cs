@@ -27,6 +27,7 @@ namespace Rozmieszczenie
         public int NajPowPro2;
         public int SumNajPowPro;
         public int WolPowNrMat;
+        public float miara;//dopisane
         public bool czyZmienaneRecznie = false;
         public int Liczba_wykorzystanych_matryc
         {
@@ -42,6 +43,7 @@ namespace Rozmieszczenie
             odstep = odleglosc;
             NajPowPro = 0;
             WolPowNrMat = 0;
+            miara = 0;
 
             if(tab_indeksow!=null)
                 for (int i = 0; i < liczba_figur; i++)
@@ -139,6 +141,7 @@ namespace Rozmieszczenie
             return max_powierzchnia;
         }
 
+        //tutaj bez sensu jest sprawdzać wszystkie matryce z danego rozmieszczenia... kolejne, mniej użyte będą miały większą powierzchnię
         public void najwieksza_prostokatna_powierzchnia()
         {
             int tmp_najwieksza = 0;
@@ -155,14 +158,24 @@ namespace Rozmieszczenie
         public void suma_NajPowPro()
         {
             int suma = 0;
+            float tmp_miara = 0;
+            int j = 0;
 
-            foreach (Matryca m in lista_matryc)
+            for(int i =0; i<lista_matryc.Count;i++)
             {
-                int tmp = max_prostokat(m.zajetosc_x, 0);
+                int tmp = max_prostokat(lista_matryc[i].zajetosc_x, 0);
+                int ile_figur = 0;
+                for(; j < lokalizacja_figur.Length; j++)
+                {
+                    if (lokalizacja_figur[j].nr_matrycy == i) ile_figur++;
+                    else break;
+                }
+                tmp_miara += (tmp * ((float)ile_figur / lokalizacja_figur.Length));
                 suma += tmp;
             }
 
             SumNajPowPro = suma;
+            miara = tmp_miara;
         }
        
         public List<int> generowanie_rozmieszczenia(int liczba_figur, List<Prostokat> lista_figur, int[] indeksowanie, int nr_matrycy, int nr_pierwszego_prostokata)

@@ -196,9 +196,9 @@ namespace Rozmieszczenie
                     catch { }
                     try
                     {
-                        XElement Liczba = new XElement("Liczba", J.NAJLEPSZE.lista_matryc.Count);
+                        XElement Liczba = new XElement("Liczba", Jądro.NAJLEPSZE.lista_matryc.Count);
                         Matryca.Add(Liczba);
-                        XElement Odstęp = new XElement("Odstęp", J.NAJLEPSZE.odstep);
+                        XElement Odstęp = new XElement("Odstęp", Jądro.NAJLEPSZE.odstep);
                         Matryca.Add(Odstęp);
                     }
                     catch { }
@@ -210,7 +210,7 @@ namespace Rozmieszczenie
 
                     try
                     {
-                        XElement LiczbaFigur = new XElement("LiczbaFigur", J.NAJLEPSZE.lokalizacja_figur.Length);
+                        XElement LiczbaFigur = new XElement("LiczbaFigur", Jądro.NAJLEPSZE.lokalizacja_figur.Length);
                         Rozmieszczenia.Add(LiczbaFigur);
                       
 
@@ -218,7 +218,7 @@ namespace Rozmieszczenie
 
                         //budowanie drzewa (od gałęzi)
 
-                        foreach (var item in J.NAJLEPSZE.lokalizacja_figur)
+                        foreach (var item in Jądro.NAJLEPSZE.lokalizacja_figur)
                         {
 
                             XElement NumerMatrycy = new XElement("NumerMatrycy", item.nr_matrycy);
@@ -462,16 +462,16 @@ namespace Rozmieszczenie
 
         private void button_rozmiesc_Copy_Click(object sender, RoutedEventArgs e)
         {
-            if (J.NAJLEPSZE != null && J.InfoOkno!=null) J.InfoBox();
+            if (Jądro.NAJLEPSZE != null && J.InfoOkno!=null) J.InfoBox();
         }
 
         private void button_rozmiesc_Copy1_Click(object sender, RoutedEventArgs e)
         {
-            if (J.NAJLEPSZE != null && J.wm != null)
+            if (Jądro.NAJLEPSZE != null && J.wm != null)
             {
                 J.dodaj_matryce();
                 J.wm.Show();
-                J.R.Rysuj(J.wm, J.NAJLEPSZE);
+                J.R.Rysuj(J.wm, Jądro.NAJLEPSZE);
             }
         }
     }
