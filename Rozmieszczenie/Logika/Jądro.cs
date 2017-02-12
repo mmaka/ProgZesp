@@ -534,7 +534,7 @@ namespace Rozmieszczenie.Logika
                 while (prob_choice[m] < k)
                     m++;
 
-                lista_ind[i] = miksuj_dwa_roz2(lista_roz[l], lista_roz[m]);
+                lista_ind[i] = miksuj_dwa_roz(lista_roz[l], lista_roz[m]);
 
             }
         }
@@ -682,7 +682,7 @@ namespace Rozmieszczenie.Logika
                 j++;
             }
 
-            mutacja_indeksowania(nowe_indeksowanie);
+           // mutacja_indeksowania(nowe_indeksowanie);
 
             return nowe_indeksowanie;
         }
