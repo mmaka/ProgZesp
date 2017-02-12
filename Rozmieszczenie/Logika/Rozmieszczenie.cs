@@ -25,6 +25,7 @@ namespace Rozmieszczenie
         public int odstep;
         public int NajPowPro;
         public int NajPowPro2;
+        public int NajPowProNr;
         public int SumNajPowPro;
         public int WolPowNrMat;
         public float miara;//dopisane
@@ -43,6 +44,7 @@ namespace Rozmieszczenie
             odstep = odleglosc;
             NajPowPro = 0;
             WolPowNrMat = 0;
+            NajPowProNr = 0;
             miara = 0;
 
             if(tab_indeksow!=null)
@@ -113,7 +115,7 @@ namespace Rozmieszczenie
             }
             return s;
         }
-        public void wolna_powierzchnia_matrycy(int nr_matrycy)
+        public int wolna_powierzchnia_matrycy(int nr_matrycy)
         {
             int j = 0, suma = 0;
             int tmp = lista_matryc[nr_matrycy].zajetosc_x[0];
@@ -129,7 +131,12 @@ namespace Rozmieszczenie
                 j++;
             }
 
-            WolPowNrMat = suma;
+            return suma;
+        }
+
+        public void wolna_powierzchnia_ostatnia_matryca()
+        {
+            WolPowNrMat = wolna_powierzchnia_matrycy(Liczba_wykorzystanych_matryc - 1);
         }
 
         //ta metoda niech jeszcze zostanie - miała długą historię ;) była błędna, ale udało mi się ją poprawić - teraz można z niej korzystać do celów kontrolnych: tzn. mamy dwie metody, które liczą to samo - łatwiej jest kontrolować poprawne wyniki
@@ -200,6 +207,32 @@ namespace Rozmieszczenie
             }
 
             NajPowPro2 = tmp_najwieksza;
+        }
+
+        public void najwieksza_prostokatna_powierzchnia_nr_matrycy(int nr_matrycy)
+        {
+            NajPowProNr = max_prostokat(lista_matryc[nr_matrycy].zajetosc_x, 0);
+        }
+
+        public void zaktualizuj_liste_indeksow()
+        {
+            int[] nowe_indeksy = new int[indeksy.Length];
+            int k = 0;
+
+            for(int j = 0; j < Liczba_wykorzystanych_matryc; j++)
+            {
+                for (int i = 0; i < indeksy.Length; i++)
+                {
+                    if(lokalizacja_figur[i].nr_matrycy == j)
+                    {
+                        nowe_indeksy[k] = indeksy[i];
+                        k++;
+                    }
+                }
+            }
+
+            indeksy = nowe_indeksy;
+            
         }
 
         public void suma_NajPowPro()

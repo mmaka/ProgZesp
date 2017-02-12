@@ -11,8 +11,9 @@ namespace Rozmieszczenie.Widoki
         public okno_pomoc()
         {
             InitializeComponent();
-
-            text.Text = "Aby uzyskać rozmieszczenie figur: \n -dodaj figury \n -określ rozmiar matrycy \n -kliknij 'rozmieść'";
+            text.Text = "INSTRUKCJA OBSŁUGI:\n";
+            text.Text += "\nAplikacja ma na celu wsparcie minimalizacji zużycia powierzchni matryc, na których rozmieszczanie są prostokąty.\n";
+            text.Text += "Aby rozpocząć rozmieszczanie prostokątów: \n 1) dodaj figury (ręcznie lub z pliku xml) \n 2) określ rozmiar matrycy oraz rzaz \n 3) ustal czas (w sekundach) trwania obliczeń (PRZYKŁAD!!!)\n 4) kliknij 'rozmieść'";
             text.Text +="\n\nAby zapisać obraz matrycy w pliku graficznym kliknij  'Do obrazu TA' aby zapisać obraz aktualnie wyświetlanej matrycy\n lub 'Do obrazu ALL' \n aby zapisaćobraz wszystkich matryc.";
             text.Text += "\n\nAby zapisać listę figur do pliku wybierz Menu Plik i Zapisz listę figur, analogicznie postąp jeśli chcesz zapisaćcały projekt.";
             text.Text += "\n\nAby eksportować listę figur i obrazy matryc po rozmieszczeniu wybierz menu Plik-> Zapisz doPDF";

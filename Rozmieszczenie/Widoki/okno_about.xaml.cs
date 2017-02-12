@@ -13,7 +13,7 @@ namespace Rozmieszczenie.Widoki
             InitializeComponent();
             text.Text = "Program umożliwiający ooptymalny rozkład figur prostokątnych na matrycy określonej wielkosci. \n\n";
             text.Text += "Wykorzystując algorytmy genetyczne szuka najlepszej możliwej konfiguracji rozłożenia figur, \n\n\n\n";
-            text.Text += "zarówno do cięcia jak i układania. \n Autorzy: \n -Michał Makaś \n -Jakub Reszka \n -Dawid Gruszczyński \n\n UMK WFAiIS Rok 2016/2017 rok 3 ";
+            text.Text += "zarówno do cięcia jak i układania. \n Autorzy:\n -Dawid Gruszczyński \n -Michał Makaś \n -Jakub Reszka \n\n UMK WFAiIS Rok 2016/2017 rok 3 ";
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
