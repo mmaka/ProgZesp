@@ -15,7 +15,9 @@
         <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
 
 
-        <TextBox x:Name="textBox" Margin="10,25,10,40" TextWrapping="Wrap" Text="TextBox" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource StylTextBox}"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Style="{StaticResource myStyle}" Margin="10,25,10,40"  >
+            <TextBox x:Name="textBox" TextWrapping="Wrap" Text="TextBox" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource StylTextBox}"/>
+        </ScrollViewer>
         
         <Button x:Name="button_Copy" Content="Drukuj" HorizontalAlignment="Left" Margin="15,0,0,6" VerticalAlignment="Bottom" Width="115" Grid.ColumnSpan="2" Click="button_Copy_Click" Style="{StaticResource  StylButton}"/>
         <Button x:Name="button_zapisz" Content="Zapisz do pliku" HorizontalAlignment="Left" Margin="135,0,0,6" VerticalAlignment="Bottom" Width="115" Style="{StaticResource StylButton}"/>

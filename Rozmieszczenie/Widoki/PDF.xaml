@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie.Widoki"
         mc:Ignorable="d"
-        Title="PDF" Height="300" Width="300">
+        Title="PDF" Height="300" Width="300" Style="{StaticResource StylWindow}">
 
-    <Grid>
-        <GroupBox x:Name="groupBox" Header="Matryca" HorizontalAlignment="Left" Margin="37,32,0,0" VerticalAlignment="Top" Height="67" Width="202">
+    <Grid  MouseDown="Grid_MouseDown_1">
+        <Rectangle Style="{StaticResource TemplateRectangle }"/>
+
+        <Border  Style="{StaticResource Belka.Pasek}" Panel.ZIndex="0"/>
+        <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
+        <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
+
+        <GroupBox x:Name="groupBox" Header="Matryca" HorizontalAlignment="Left" Margin="37,32,0,0" VerticalAlignment="Top" Height="67" Width="202" BorderBrush="#FF66C6FF">
             <StackPanel >
                 <ComboBox x:Name="ComboBox"  >
                     <ComboBoxItem Content="Brak" IsSelected="True"/>
@@ -18,16 +24,16 @@
                 </ComboBox>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Informacje Dodatkowe" Margin="37,122,53,35">
-            <ListBox x:Name="listBox"  SelectionMode="Multiple" BorderThickness="0" >
+        <GroupBox Header="Informacje Dodatkowe" Margin="37,122,53,35" BorderBrush="#FF80CFFF">
+            <ListBox x:Name="listBox"  SelectionMode="Multiple" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" >
 
-                <ListBoxItem Content="Numer Matrycy"></ListBoxItem>
-                <ListBoxItem Content="ID"></ListBoxItem>
-                <ListBoxItem Content="Wymiary"></ListBoxItem>
-                <ListBoxItem Content="Punkt Zaczepienia"></ListBoxItem>
+                <ListBoxItem Content="Numer Matrycy" Foreground="White"></ListBoxItem>
+                <ListBoxItem Content="ID" Foreground="White"></ListBoxItem>
+                <ListBoxItem Content="Wymiary" Foreground="White"></ListBoxItem>
+                <ListBoxItem Content="Punkt Zaczepienia" Foreground="White"></ListBoxItem>
             </ListBox>
         </GroupBox>
-        <Button x:Name="button" Content="Zapisz" HorizontalAlignment="Left" Margin="92,239,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="button" Style="{StaticResource StylButton}" Content="Zapisz" HorizontalAlignment="Left" Margin="107,270,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
 
     </Grid>
 </Window>

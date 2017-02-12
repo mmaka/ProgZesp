@@ -46,5 +46,20 @@ namespace Rozmieszczenie.Widoki
             ZapiszObrazMatrycy.PDF(J, J.wm, J.R, listaWybranychInformacji);
             this.Close();
         }
+
+        private void Zamknij(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Minimalizuj(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void Grid_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed) DragMove();
+        }
     }
 }

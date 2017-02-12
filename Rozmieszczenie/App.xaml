@@ -412,6 +412,44 @@
 
 
 
+        <Style x:Key="myStyle" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollContentPresenter Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                            <ScrollBar 
+                        Name="PART_VerticalScrollBar"
+                        Opacity="0.5" 
+                        Grid.Column="1"
+                        Value="{TemplateBinding VerticalOffset}"
+                        Maximum="{TemplateBinding ScrollableHeight}"
+                        ViewportSize="{TemplateBinding ViewportHeight}"
+                        Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Background="#99707070" BorderBrush="#FF00003C"
+                                />
+                            <ScrollBar 
+                        Name="PART_HorizontalScrollBar"
+                        Orientation="Horizontal"
+                        Opacity="0.75"
+                        Grid.Row="1"
+                        Value="{TemplateBinding HorizontalOffset}"
+                        Maximum="{TemplateBinding ScrollableWidth}"
+                        ViewportSize="{TemplateBinding ViewportWidth}"
+                        Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
 

@@ -617,21 +617,35 @@ namespace Rozmieszczenie.Logika
         widok_matryca WM;
         Jądro J;
         public bool czyEdytowac;
-       
+        Dictionary<int, Punkt> kopiaPunktow;
 
         int am;
-
+        int rzaz;
+                
         public Przeciaganie(Rozmieszczenia _R, widok_matryca _WM, Jądro _J)
         {
             R = _R; WM = _WM; J = _J; kopiaR = _R;
             MessageBoxResult result = MessageBox.Show("Rozmieszczono figury. \nCzy chesz poprawićrozmieszczenie ręcznie?", "Rozmieszczanie manualne",
                             MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             if (result == MessageBoxResult.Yes)
             {
                 _R.czyZmienaneRecznie = true;
                 Okno = new manualna_edycja_okno_info(this);
                 Okno.Show();
                 czyEdytowac = true;
+                rzaz = J.odstep;
+
+                kopiaPunktow = new Dictionary<int, Punkt>();
+
+                foreach (MatrycaFiguraPunkt O in R.lokalizacja_figur)
+                {
+                    kopiaPunktow.Add(O.figura.ID, new Punkt(O.p.x, O.p.y));
+                }
+
+
+
+
             }
             else if (result == MessageBoxResult.No)
             {
@@ -650,7 +664,11 @@ namespace Rozmieszczenie.Logika
 
         public void Przywroc() //nie dizala bo tu wszystko jest reerencją...
         {
-            kopiaR = R;
+            foreach (MatrycaFiguraPunkt O in R.lokalizacja_figur)
+            {
+                O.p.x = kopiaPunktow[O.figura.ID].x;
+                O.p.y = kopiaPunktow[O.figura.ID].y;
+            }
             J.R.Rysuj(kopiaR);
         }
 
@@ -711,18 +729,18 @@ namespace Rozmieszczenie.Logika
                             J.wm.textBlock.Text = "   nie można tu przesunąć Y (" + RX + "," + RY + ")";
                         }
                         if(czyMogeX || czyMogeY){
-                            if (RX < O.p.x + O.figura.W)
-                                if (RX + p.figura.W > O.p.x)
-                                    if (p.p.y < O.p.y + O.figura.H)
-                                        if (p.p.y + p.figura.H > O.p.y)
+                            if (RX < O.p.x + O.figura.W +rzaz)
+                                if (RX + p.figura.W +rzaz > O.p.x)
+                                    if (p.p.y < O.p.y + O.figura.H +rzaz)
+                                        if (p.p.y + p.figura.H +rzaz> O.p.y)
                                         {
                                             czyMogeX = false;
                                             J.wm.textBlock.Text = "   nie można tu przesunąć X (" + RX + "," + RY + ")";
                                         }
-                            if (p.p.x < O.p.x + O.figura.W)
-                                if (p.p.x + p.figura.W > O.p.x)
-                                    if (RY < O.p.y + O.figura.H)
-                                        if (RY + p.figura.H > O.p.y)
+                            if (p.p.x < O.p.x + O.figura.W +rzaz)
+                                if (p.p.x + p.figura.W +rzaz > O.p.x)
+                                    if (RY < O.p.y + O.figura.H +rzaz)
+                                        if (RY + p.figura.H +rzaz > O.p.y)
                                         {
                                             czyMogeY = false;
                                             J.wm.textBlock.Text = "   nie można tu przesunąć Y (" + RX + "," + RY + ")";

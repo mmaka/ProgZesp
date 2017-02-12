@@ -15,26 +15,26 @@
         <Button  Click="Zamknij" Style="{StaticResource Belka.ZamknijButton}"/>
         <Button  Click="Minimalizuj" Style="{StaticResource Belka.MinimalizujButton}"/>
 
-        
-            <DataGrid x:Name="dataGrid" Margin="136,67,10,84" ItemsSource="{Binding}" SelectionChanged="dataGrid_SelectionChanged" PreviewKeyDown="DataGridPreviewKeyDown"
+
+        <DataGrid x:Name="dataGrid" Margin="136,67,10,84" ItemsSource="{Binding}" SelectionChanged="dataGrid_SelectionChanged" PreviewKeyDown="DataGridPreviewKeyDown"
                   Background="#00000000" BorderBrush="#CC707070" Foreground="White" Padding="5,0,0,0"
                   CellStyle="{StaticResource CellStyl }" RowStyle="{StaticResource RowStyl}"
                  ColumnHeaderStyle="{StaticResource HeaderStyl}" RowHeaderStyle="{StaticResource DataGridKolumna1Styl}" >
-                <DataGrid.ContextMenu>
-                    <ContextMenu Style="{StaticResource MenuContext}" Width="auto" Height="auto"  Background="#CC00A6F3" >
-                        <MenuItem Header="_Dodaj prostokąt" Click="button_Click" Style="{StaticResource MenuItem}"/>
-                        <MenuItem Header="_Usuń prostokąt" Click="_Usuń_prostokąt_Click" Style="{StaticResource MenuItem}"/>
-                        <MenuItem Header="_Usuń wszystkie" Click="_Usuń_wszystkie_Click" Style="{StaticResource MenuItem}"/>
-                        <MenuItem Header="_Odwróć prostokąt" Click="_Odwróć_prostokąt_Click" Style="{StaticResource MenuItem}"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
-        
+            <DataGrid.ContextMenu>
+                <ContextMenu Style="{StaticResource MenuContext}" Width="auto" Height="auto"  Background="#CC00A6F3" >
+                    <MenuItem Header="_Dodaj prostokąt" Click="button_Click" Style="{StaticResource MenuItem}"/>
+                    <MenuItem Header="_Usuń prostokąt" Click="_Usuń_prostokąt_Click" Style="{StaticResource MenuItem}"/>
+                    <MenuItem Header="_Usuń wszystkie" Click="_Usuń_wszystkie_Click" Style="{StaticResource MenuItem}"/>
+                    <MenuItem Header="_Odwróć prostokąt" Click="_Odwróć_prostokąt_Click" Style="{StaticResource MenuItem}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
 
 
-        <Button x:Name="button" Content="Dodaj prostokat" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="115" Click="button_Click" Style="{StaticResource StylButton}" />
-        <Button x:Name="button_rozmiesc" Content="Rozmieść" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Click"  Style="{StaticResource StylButton}" IsEnabled="False"/>
-        <Button x:Name="button_usuń" Content="Usun prostokat" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="115" Click="_Usuń_prostokąt_Click" Style="{StaticResource StylButton}" />
+
+        <Button x:Name="button" Content="Dodaj prostokat" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Width="115" Click="button_Click" Style="{StaticResource StylButton}" />
+        <Button x:Name="button_rozmiesc" Content="Rozmieść" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Click"  Style="{StaticResource StylButton}" IsEnabled="False"/>
+        <Button x:Name="button_usuń" Content="Usun prostokat" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Width="115" Click="_Usuń_prostokąt_Click" Style="{StaticResource StylButton}" />
         <Button x:Name="InfoButton" Visibility="Hidden"  BorderThickness="0"  HorizontalAlignment="Left" Margin="386,0,0,0" VerticalAlignment="Top" Width="46" Click="InfoButtonClick" Height="26"  Style="{StaticResource StylButton}">
 
             <Image Source="Resources/warning.jpg" Height="24" Width="46" Stretch="Uniform"/>
@@ -43,12 +43,12 @@
 
 
         <Label x:Name="label" Content="Rozmiar matrycy: nie określony" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,37,0,0" Height="25" Width="296" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070"/>
-        <Label x:Name="labelcza" Content="Czas:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,159,0,0" Height="25" Width="38" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070"/>
+        <Label x:Name="labelcza" Content="Czas (sekund):" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,203,0,0" Height="25" Width="101" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070"/>
 
         <TextBox x:Name="textBox_komunikat" TextWrapping="Wrap" Text="Witaj!" Margin="10,0,10,61" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070" SelectionBrush="{x:Null}"/>
-        <TextBox x:Name="textBox_Czas" TextWrapping="Wrap" Text="10" Margin="66,0,326,270" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070" SelectionBrush="{x:Null}" Height="17"/>
+        <TextBox x:Name="textBox_Czas" TextWrapping="Wrap" Text="10" Margin="23,0,369,205" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070" SelectionBrush="{x:Null}" Height="17"/>
 
-      
+
 
         <Menu   Width="auto" Height="20" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Background="{x:Null}" Style="{StaticResource Menu}"    >
             <MenuItem Header="_Plik"  Style="{StaticResource MenuItem}" >
@@ -73,8 +73,9 @@
                 <MenuItem Header="_Ustawienia"  Style="{StaticResource MenuItem}" Visibility="Hidden"/>
             </MenuItem>
         </Menu>
-        <Button x:Name="button_rozmiesc_Copy" Content="Informacje " HorizontalAlignment="Left" Margin="9,209,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Copy_Click"  Style="{StaticResource StylButton}" IsEnabled="False"/>
-        <Button x:Name="button_rozmiesc_Copy1" Content="Podgląd" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Copy1_Click"  Style="{StaticResource StylButton}" IsEnabled="False"/>
+        <Button x:Name="button_rozmiesc_Copy" Content="Informacje " HorizontalAlignment="Left" Margin="9,277,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Copy_Click"  Style="{StaticResource StylButton}" IsEnabled="False"/>
+        <Button x:Name="button_rozmiesc_Copy1" Content="Podgląd" HorizontalAlignment="Left" Margin="10,298,0,0" VerticalAlignment="Top" Width="115" Click="button_rozmiesc_Copy1_Click"  Style="{StaticResource StylButton}" IsEnabled="False"/>
+        <Button x:Name="button_Copy" Content="Określ Matryce" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="115" Click="MenuItem_Click" Style="{StaticResource StylButton}" />
 
 
 
