@@ -1,0 +1,66 @@
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe.config
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\obj\Debug\dodawanie_figur1.csprojResolveAssemblyReference.cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form1.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\obj\Debug\dodawanie_figur1.Properties.Resources.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\obj\Debug\dodawanie_figur1.csproj.GenerateResource.Cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\bin\Debug\dodawanie_figur1.pdb
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\obj\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\obj\Debug\dodawanie_figur1.pdb
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_prostokat.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_matryca.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe.config
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\obj\Debug\dodawanie_figur1.pdb
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form1.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_matryca.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_prostokat.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\obj\Debug\dodawanie_figur1.Properties.Resources.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\obj\Debug\dodawanie_figur1.csproj.GenerateResource.Cache
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\bin\Debug\dodawanie_figur1.pdb
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\obj\Debug\dodawanie_figur1.exe
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — kopia (2)\dodawanie_figur1\obj\Debug\dodawanie_figur1.csprojResolveAssemblyReference.cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe.config
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.pdb
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.csprojResolveAssemblyReference.cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form1.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_matryca.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_prostokat.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.Properties.Resources.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.csproj.GenerateResource.Cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\bin\Debug\dodawanie_figur1.pdb
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe.config
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.pdb
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\bin\Debug\dodawanie_figur1.pdb
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.csprojResolveAssemblyReference.cache
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form1.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_matryca.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_prostokat.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.Properties.Resources.resources
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.csproj.GenerateResource.Cache
+F:\rok_3\programowanie_zespolowe\dodawanie_figur1 — plikMAKAdolacz\dodawanie_figur1\obj\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe.config
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\bin\Debug\dodawanie_figur1.pdb
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\obj\Debug\dodawanie_figur1.csprojResolveAssemblyReference.cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form1.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_matryca.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_prostokat.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\obj\Debug\dodawanie_figur1.Properties.Resources.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\obj\Debug\dodawanie_figur1.csproj.GenerateResource.Cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\obj\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\PZ\dodawanie_figur1\obj\Debug\dodawanie_figur1.pdb
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe.config
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\obj\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\obj\Debug\dodawanie_figur1.pdb
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\obj\Debug\dodawanie_figur1.csprojResolveAssemblyReference.cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form1.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_matryca.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\obj\Debug\dodawanie_figur1.Form_prostokat.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\obj\Debug\dodawanie_figur1.Properties.Resources.resources
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\obj\Debug\dodawanie_figur1.csproj.GenerateResource.Cache
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\bin\Debug\dodawanie_figur1.exe
+E:\PULPITEK\SZKOŁA\STUDIA\rok_3\programowanie_zespolowe\aktualny\dodawanie_figur1\bin\Debug\dodawanie_figur1.pdb
