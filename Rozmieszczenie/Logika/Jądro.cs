@@ -17,7 +17,7 @@ namespace Rozmieszczenie.Logika
         Zła_MatrycaFigura zMF;
 
         public pasek Pasek;
-        public int odstep = 5; //tutaj ręcznie możemy ustawić rozmiar odstępu
+        public int odstep; //tutaj ręcznie możemy ustawić rozmiar odstępu
         public widok_matryca wm;
         public Matryca Matka;
         public informacyjne InfoOkno;
@@ -205,67 +205,68 @@ namespace Rozmieszczenie.Logika
 
         //miksowanko
         public void miksuj()
-        {
+        {                
+           int S = Convert.ToInt32(MW.textBox_Czas.Text);
+           int sekundCzas = Math.Max(S, 10);
+           bool zaleznosc_od_t = true;
+           ParameterizedThreadStart pts = new ParameterizedThreadStart(go);
+           Thread thr = new Thread(pts);
 
-            {
-                
-                int S = Convert.ToInt32(MW.textBox_Czas.Text);
-                int sekundCzas = Math.Max(S, 10);
-                ParameterizedThreadStart pts = new ParameterizedThreadStart(go);
-                Thread thr = new Thread(pts);
-               
+           if (lista_obiektow.Count < 4)
+                zaleznosc_od_t = false;
 
-                int m_x = Matka.rozmiar_x;
-                int m_y = Matka.rozmiar_y;
+           int m_x = Matka.rozmiar_x;
+           int m_y = Matka.rozmiar_y;
 
-                Pasek = new Widoki.pasek(sekundCzas);
-                Pasek.Show();
-                Pasek.status.Value = 0;
-                List<int> tab_arg = new List<int>();
-                tab_arg.Add(m_x);
-                tab_arg.Add(m_y);
-                tab_arg.Add(odstep);
-                tab_arg.Add(sekundCzas);
-                thr.Start(tab_arg);
-                var startTime = DateTime.UtcNow;
-                do
-                {
-                    UpdatePasek();
-                    Task.Delay(400);
+           Pasek = new Widoki.pasek(sekundCzas);
+           Pasek.Show();
+           Pasek.status.Value = 0;
+
+           List<int> tab_arg = new List<int>();
+           tab_arg.Add(m_x);
+           tab_arg.Add(m_y);
+           tab_arg.Add(odstep);
+       //    tab_arg.Add(sekundCzas);
+           thr.Start(tab_arg);
+
+           var startTime = DateTime.UtcNow;
+           do
+           {
+              UpdatePasek();
+              Task.Delay(400);
                   
-                } while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(sekundCzas) || NAJLEPSZE == null);
+           } while ((DateTime.UtcNow - startTime < TimeSpan.FromSeconds(sekundCzas) && zaleznosc_od_t) || NAJLEPSZE == null);
 
-                status = false; //tutaj kończymy działanie rozmieszczania i blokujemy możliwość dostępu do blokady
-                startTime = DateTime.UtcNow; 
-                while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(1)){ }; //odczekujemy sekunde
+           status = false; //tutaj kończymy działanie rozmieszczania i blokujemy możliwość dostępu do blokady
+           startTime = DateTime.UtcNow; 
+           while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(1)){ }; //odczekujemy sekunde
 
-                try
-                {
-                    thr.Abort(); //kto nie zdążył się zakończyć jest niszczony - nie należy tak zabijać wątków, ale wydaje mi się, że
+           try
+           {
+              thr.Abort(); //kto nie zdążył się zakończyć jest niszczony - nie należy tak zabijać wątków, ale wydaje mi się, że
                                  //z punktu widzenia naszych obliczeń nie ma niebezpieczeństw (pracujemy na paru listach i tablicach), oprócz
                                  //blokady, w ramach której ustalamy najlepsze rozmieszczenie - tego wątku nie chciałbym ubić bo manipuluje zmienną
                                  //która zawiera wynik obliczeń. dlatego po upływie czasu ustalanie najlepszego rozmieszczenia jest blokowane
                                 //i odczekujemy sekunde, aż te wątki, które już czekają na porównanie swojego wyniku z aktualnym najlepszym
                                 //mogły się porównać. Potem następuje abort. - metoda trochę mało wyrafinowana (zdroworozsądkowa)
                                 
-                }
+           }
                 
-                catch(ThreadAbortException e)
-                {
+           catch(ThreadAbortException e)
+           {
 
-                }
-                finally
-                {
+           }
+           finally
+           {
 
-                }
+           }
                 
-                {
-                    R = new Rysowanie(wm);
-                    R.Rysuj(wm, NAJLEPSZE);
-                }
-                Pasek.Close();
-                InfoBox();
-            }
+           R = new Rysowanie(wm);
+           R.Rysuj(wm, NAJLEPSZE);
+
+           Pasek.Close();
+           InfoBox();
+ 
             try { wm.Show(); }
             catch { }
             prz = new Przeciaganie(NAJLEPSZE, wm, this);
@@ -274,58 +275,45 @@ namespace Rozmieszczenie.Logika
             MW.button_rozmiesc_Copy1.IsEnabled = true;
 
         }
-
-        public static void czy_najlepsze(Rozmieszczenia roz)
-        {
-               if (NAJLEPSZE.Liczba_wykorzystanych_matryc > roz.Liczba_wykorzystanych_matryc)
-                NAJLEPSZE = roz;
-                else if (NAJLEPSZE.Liczba_wykorzystanych_matryc == roz.Liczba_wykorzystanych_matryc)
-                {
-                    if (NAJLEPSZE.SumNajPowPro < roz.SumNajPowPro)
-                        NAJLEPSZE = roz;
-                }
-        }
-        
+     
         public static void ustal_najlepsze(Rozmieszczenia roz)
         {
             
-                if (NAJLEPSZE.Liczba_wykorzystanych_matryc > roz.Liczba_wykorzystanych_matryc)
+           if (NAJLEPSZE.Liczba_wykorzystanych_matryc > roz.Liczba_wykorzystanych_matryc)
+           {
+              NAJLEPSZE = roz;
+           }
+           else if (NAJLEPSZE.Liczba_wykorzystanych_matryc == roz.Liczba_wykorzystanych_matryc)
+           {
+                if (NAJLEPSZE.NajPowProNr < roz.NajPowProNr)
                 {
-                NAJLEPSZE = roz;
+                    NAJLEPSZE = roz;
                 }
-                else if (NAJLEPSZE.Liczba_wykorzystanych_matryc == roz.Liczba_wykorzystanych_matryc)
+                else if (NAJLEPSZE.NajPowProNr == roz.NajPowProNr)
                 {
-                    if (NAJLEPSZE.NajPowProNr < roz.NajPowProNr)
-                    {
-                        NAJLEPSZE = roz;
-                    }
-                    else if (NAJLEPSZE.NajPowProNr == roz.NajPowProNr)
-                    {
-                        if (NAJLEPSZE.WolPowNrMat < roz.WolPowNrMat)
-                        {
-                            NAJLEPSZE = roz;
-                        }
-                        else if (NAJLEPSZE.WolPowNrMat == roz.WolPowNrMat)
-                        {
-                            if (NAJLEPSZE.SumNajPowPro < roz.SumNajPowPro)
-                                NAJLEPSZE = roz;
-                        }
-                    }
-
+                     if (NAJLEPSZE.WolPowNrMat < roz.WolPowNrMat)
+                     {
+                         NAJLEPSZE = roz;
+                     }
+                     else if (NAJLEPSZE.WolPowNrMat == roz.WolPowNrMat)
+                     {
+                          if (NAJLEPSZE.SumNajPowPro < roz.SumNajPowPro)
+                              NAJLEPSZE = roz;
+                     }
                 }
 
-            
+           } 
         }
-
-
+        
         public void InfoBox()
         {
             InfoOkno = new informacyjne();
             InfoOkno.textBox.Text = ("\nRozmieszczenie, szczegóły: \n" +
                         "Liczba wykorzystanych matryc: " + NAJLEPSZE.Liczba_wykorzystanych_matryc +
-                        "\nNajwiększa wolna prostokatna powierzchnia: " + NAJLEPSZE.NajPowPro2 +
-                        "\nLiczba rozmieszczen: "+ licznik +
-                        "\nNowa miara: "+ NAJLEPSZE.miara +
+                        "\nNajwiększa wolna prostokatna powierzchnia: " + NAJLEPSZE.NajPowPro +
+                        "\nNajwięszka wolna prostokątna powierzchnia na ostatniej matrycy: " + NAJLEPSZE.NajPowProNr+
+                        "\nCałkowita wolna powierzchnia na ostatniej matrycy: " + NAJLEPSZE.WolPowNrMat +
+                        "\nLiczba rozmieszczen: " + licznik +
                         "\nEdytowane manualnie: " + NAJLEPSZE.czyZmienaneRecznie+
                         "\nSzerokość matrycy: "+Matka.rozmiar_x+
                         "\nWysokość matrycy: "+ Matka.rozmiar_y+
@@ -334,10 +322,6 @@ namespace Rozmieszczenie.Logika
             InfoOkno.textBox.Text += NAJLEPSZE.wypisz() + "\n";
             InfoOkno.Show();
         }
-
-
-        //Metody Michała służące całej logice rozmieszczania i wszystkiego innego narazie tutaj ale nie na zawsze
-
 
         public static void wygeneruj_indeksy(List<int[]> li, int liczba_figur, int liczba_indeksowan, List<int[]> proponowane)
         {
@@ -351,9 +335,15 @@ namespace Rozmieszczenie.Logika
                 for (int x = 0; x < liczba_figur; x++)
                     li[0][x] = x;
             }
-            
-            
-            if(liczba_figur > 1)
+
+            if (liczba_figur == 2)
+            {
+                li.RemoveAt(0);
+                for (int x = 0; x < proponowane.Count; x++)
+                    li.Add(proponowane[x]);
+                
+            }
+            else  if(liczba_figur > 2)
             {
                 for (int x = 0; x < proponowane.Count; x++)
                 {
@@ -384,36 +374,6 @@ namespace Rozmieszczenie.Logika
             }
             
 
-        }
-
-        //tutaj możemy ustalać indeksowania, które mają szanse być dobrymi
-        //zwracana jest lista, więc można dodawać jakiś kod wyliczający indeksowanie, a potem zwyczajnie dodać go do listy
-        //metoda generująca indeksowania kontroluje liczbę dodawanych ustalonych indeksowań, więc o nic więcej nie trzeba się martwić
-        public static List<int[]> indeksowania_poczatkowe(List<Prostokat> lp)
-        {
-            List<int[]> tmp_tab = new List<int[]>();
-
-            int[] tab = new int[lp.Count];
-            int tmp;
-
-            for (int i = 0; i < lp.Count; i++)
-                tab[i] = i;
-
-            for (int i = 0; i < lp.Count; i++)
-            {
-                for (int j = lp.Count - 1; j > i; j--)
-                {
-                    if (lp[j].Pole > lp[j - 1].Pole)
-                    {
-                        tmp = tab[j];
-                        tab[j] = tab[j - 1];
-                        tab[j - 1] = tmp;
-                    }
-                }
-            }
-
-            tmp_tab.Add(tab);
-            return tmp_tab;
         }
 
         //argumenty: lista prostokątów (porównujemy ich pola) oraz indeksowanie_startowe mogą dotyczyć niepełnej listy prostokątów
@@ -447,95 +407,59 @@ namespace Rozmieszczenie.Logika
                 odwrotna_kolejnosc[i] = tab[liczba_prostokatow-1-i];
 
             tmp_tab.Add(tab);
-            tmp_tab.Add(odwrotna_kolejnosc);
+          //  tmp_tab.Add(odwrotna_kolejnosc);
             return tmp_tab;
         }
 
-        public static void miksowanie_indeksow2(List<Rozmieszczenia> lista_roz, List<int[]> lista_ind, int liczba_nowych_indeksowan)
-        {
-            int liczba_rozmieszczen = lista_roz[0].lokalizacja_figur.Length;
-         
-            Random rand = new Random();
-            int[] prob_choice = new int[lista_roz.Count];
-            int j, k, suma = 0;
-            //gdzieś tu trzeba będzie robić sprawdzenie czy nie mamy jednego prostokąta na liście
-            for (int i = 0; i < lista_roz.Count; i++)
-            {
-                suma += lista_roz[i].NajPowPro2;
-                prob_choice[i] = suma;
-            }
-
-            for (int i = 0; i < liczba_nowych_indeksowan; i++)
-            {
-                lista_ind.Add(new int[liczba_rozmieszczen]);
-
-                do
-                {
-                    j = (rand.Next() % suma) + 1;
-                    k = (rand.Next() % suma) + 1;
-
-                } while (j == k);
-
-                int l = 0;
-                while (prob_choice[l] < j)
-                    l++;
-
-                int m = 0;
-                while (prob_choice[m] < k)
-                    m++;
-
-                lista_ind[i] = miksuj_dwa_roz(lista_roz[l], lista_roz[m]);
-
-            }
-        }
-
-        public static void miksowanie_indeksow3(List<Rozmieszczenia> lista_roz, List<int[]> lista_ind, int liczba_nowych_indeksowan)
+        public static void miksowanie_indeksow(List<Rozmieszczenia> lista_roz, List<int[]> lista_ind, int liczba_nowych_indeksowan)
         {
             int liczba_rozmieszczen = lista_roz[0].lokalizacja_figur.Length;
             int max_liczba_matryc = maksymalna_liczba_matryc(lista_roz);
             int rozmiar_matrycy = lista_roz[0].lista_matryc[0].rozmiar_x * lista_roz[0].lista_matryc[0].rozmiar_y;
 
-            Random rand = new Random();
-            int[] prob_choice = new int[lista_roz.Count];
-            int j, k, suma = 0;
-            //gdzieś tu trzeba będzie robić sprawdzenie czy nie mamy jednego prostokąta na liście
-            for (int i = 0; i < lista_roz.Count; i++)
+            if(lista_roz.Count > 1)
             {
-                int g = 0;
-
-                for (; g < lista_roz[i].Liczba_wykorzystanych_matryc; g++)
+                Random rand = new Random();
+                int[] prob_choice = new int[lista_roz.Count];
+                int j, k, suma = 0;
+               
+                for (int i = 0; i < lista_roz.Count; i++)
                 {
-                    suma += lista_roz[i].wolna_powierzchnia_matrycy(g);
+                    int g = 0;
+
+                    for (; g < lista_roz[i].Liczba_wykorzystanych_matryc; g++)
+                    {
+                        suma += lista_roz[i].wolna_powierzchnia_matrycy(g);
+                    }
+                    int roznica = max_liczba_matryc - lista_roz[i].Liczba_wykorzystanych_matryc;
+                    for (int h = 0; h < roznica; h++)
+                    {
+                        suma += roznica * rozmiar_matrycy;
+                    }
+                    prob_choice[i] = suma;
                 }
-                int roznica = max_liczba_matryc - lista_roz[i].Liczba_wykorzystanych_matryc;
-                for (int h = 0; h < roznica; h++)
+
+                for (int i = 0; i < liczba_nowych_indeksowan; i++)
                 {
-                    suma += roznica * rozmiar_matrycy;
+                    lista_ind.Add(new int[liczba_rozmieszczen]);
+
+                    do
+                    {
+                        j = (rand.Next() % suma) + 1;
+                        k = (rand.Next() % suma) + 1;
+
+                    } while (j == k);
+
+                    int l = 0;
+                    while (prob_choice[l] < j)
+                        l++;
+
+                    int m = 0;
+                    while (prob_choice[m] < k)
+                        m++;
+
+                    lista_ind[i] = miksuj_dwa_roz(lista_roz[l], lista_roz[m]);
                 }
-                prob_choice[i] = suma;
-            }
-
-            for (int i = 0; i < liczba_nowych_indeksowan; i++)
-            {
-                lista_ind.Add(new int[liczba_rozmieszczen]);
-
-                do
-                {
-                    j = (rand.Next() % suma) + 1;
-                    k = (rand.Next() % suma) + 1;
-
-                } while (j == k);
-
-                int l = 0;
-                while (prob_choice[l] < j)
-                    l++;
-
-                int m = 0;
-                while (prob_choice[m] < k)
-                    m++;
-
-                lista_ind[i] = miksuj_dwa_roz(lista_roz[l], lista_roz[m]);
-
             }
         }
         
@@ -549,54 +473,6 @@ namespace Rozmieszczenie.Logika
             }
 
             return liczba_matryc;
-        }
-
-        public static void selekcja(List<Rozmieszczenia> lista, int liczba_wybieranych)
-        {
-            Rozmieszczenia tmp;
-
-            if (liczba_wybieranych < lista.Count)
-            {
-
-                for (int j = 0; j < liczba_wybieranych; j++)
-                {
-                    for (int i = lista.Count - 1; i > j; i--)
-                    {
-                        if (lista[i].NajPowPro > lista[i - 1].NajPowPro)
-                        {
-                            tmp = lista[i];
-                            lista[i] = lista[i - 1];
-                            lista[i - 1] = tmp;
-                        }
-                    }
-                }
-
-                for (int i = lista.Count - 1; i >= liczba_wybieranych; i--)
-                    lista.RemoveAt(i);
-
-            }
-        }
-        //lalalala
-        public static void miksowanie_indeksow(List<Rozmieszczenia> lista_roz, List<int[]> lista_ind, int liczba_nowych_indeksowan)
-        {
-            int liczba_rozmieszczen = lista_roz.Count;
-            Random rand = new Random();
-            int j, k;
-
-            for (int i = 0; i < liczba_nowych_indeksowan; i++)
-            {
-                lista_ind.Add(new int[liczba_rozmieszczen]);
-
-                do
-                {
-                    j = rand.Next() % liczba_rozmieszczen;
-                    k = rand.Next() % liczba_rozmieszczen;
-
-                } while (j == k);
-
-                lista_ind[i] = miksuj_dwa_roz(lista_roz[k], lista_roz[j]);
-
-            }
         }
 
         public static int[] miksuj_dwa_roz(Rozmieszczenia r1, Rozmieszczenia r2)
@@ -631,8 +507,7 @@ namespace Rozmieszczenie.Logika
                         break;
                     }
                 }
-
-                
+        
                 j++;
             }
 
@@ -640,54 +515,6 @@ namespace Rozmieszczenie.Logika
 
             return nowe_indeksowanie;
         }
-
-        public static int[] miksuj_dwa_roz2(Rozmieszczenia r1, Rozmieszczenia r2)
-        {
-            int liczba_figur = r1.indeksy.Length;
-            int[] nowe_indeksowanie = new int[liczba_figur];
-            Random rand = new Random();
-
-            
-            int x = rand.Next() % liczba_figur;
-
-            for (int i = 0; i < x; i++)
-                nowe_indeksowanie[i] = r1.indeksy[i];
-
-            int j = 0;
-
-            for (int i = x; i < liczba_figur; i++)
-            {
-                for (; j < liczba_figur; j++)
-                {
-                    bool dodaj = true;
-
-                    for (int k = 0; k < x; k++)
-                    {
-
-                        if (r2.indeksy[j] == nowe_indeksowanie[k])
-                        {
-                            dodaj = false;
-                            break;
-                        }
-                    }
-
-                    if (dodaj == true)
-                    {
-                        nowe_indeksowanie[i] = r2.indeksy[j];
-                        break;
-                    }
-                }
-
-
-                j++;
-            }
-
-           // mutacja_indeksowania(nowe_indeksowanie);
-
-            return nowe_indeksowanie;
-        }
-
-
 
         public static void mutacja_indeksowania(int[] indeksowanie)
         {
@@ -711,104 +538,85 @@ namespace Rozmieszczenie.Logika
             }
         }
         
-                public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y,int odstep)
-                {
-                    var sync = new Object();
+        public static void generuj_rozmieszczenia(List<Prostokat> lista_figur, List<int[]> lista_indeksow, List<Rozmieszczenia> lista_rozmieszczen, int liczba_figur, int m_rozmiar_x, int m_rozmiar_y,int odstep)
+          {
+               var sync = new Object();
 
-                    Parallel.For(0, lista_indeksow.Count, (int k) =>
+               Parallel.For(0, lista_indeksow.Count, (int k) =>
+               {
+                  Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y),odstep,lista_indeksow[k]);
+
+                  lock (sync)
+                  {
+                       lista_rozmieszczen.Add(roz);
+                  }
+
+                  bool czy_aktualizowac_indeksy = false;
+
+                  for (int i = 0; i < liczba_figur; i++)
                    {
-                       Rozmieszczenia roz = new Rozmieszczenia(liczba_figur, new Matryca(m_rozmiar_x, m_rozmiar_y),odstep,lista_indeksow[k]);
+                      int j = 0;
+                      roz.lokalizacja_figur[i] = new MatrycaFiguraPunkt(j, lista_figur[lista_indeksow[k][i]], new Punkt());
 
-                       lock (sync)
+                      while (!lista_figur[lista_indeksow[k][i]].ustal_pozycje(roz.lokalizacja_figur[i].p, roz.lista_matryc[j],odstep))
                        {
-                           lista_rozmieszczen.Add(roz);
+                            if (j == roz.lista_matryc.Count - 1) roz.lista_matryc.Add(new Matryca(m_rozmiar_x, m_rozmiar_y));
+
+                            j++;
+                            czy_aktualizowac_indeksy = true;
                        }
 
-                       bool czy_aktualizowac_indeksy = false;
+                       roz.lokalizacja_figur[i].nr_matrycy = j;
+                   }
 
-                       for (int i = 0; i < liczba_figur; i++)
-                       {
-                           int j = 0;
-                           roz.lokalizacja_figur[i] = new MatrycaFiguraPunkt(j, lista_figur[lista_indeksow[k][i]], new Punkt());
-
-                           while (!lista_figur[lista_indeksow[k][i]].ustal_pozycje(roz.lokalizacja_figur[i].p, roz.lista_matryc[j],odstep))
-                           {
-                               if (j == roz.lista_matryc.Count - 1) roz.lista_matryc.Add(new Matryca(m_rozmiar_x, m_rozmiar_y));
-
-                               j++;
-                               czy_aktualizowac_indeksy = true;
-                           }
-
-                           roz.lokalizacja_figur[i].nr_matrycy = j;
-                       }
-
-                       if (czy_aktualizowac_indeksy)
-                       {
-                           roz.zaktualizuj_liste_indeksow();
-                       }
-                       roz.wolna_powierzchnia_ostatnia_matryca();
-                       roz.najwieksza_prostokatna_powierzchnia();
-                       roz.najwieksza_prostokatna_powierzchnia_nr_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
-                       roz.suma_NajPowPro();
-                   }) ;
-                }
+                  if (czy_aktualizowac_indeksy) roz.zaktualizuj_liste_indeksow();
+                   
+                  roz.wolna_powierzchnia_ostatnia_matryca();
+                  roz.najwieksza_prostokatna_powierzchnia();
+                  roz.najwieksza_prostokatna_powierzchnia_nr_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
+                  roz.suma_NajPowPro();
+              }) ;
+        }
         
-
-
-
-    
         public static void go(object tab_arg)
         {
             List<int> arg = (List<int>)tab_arg;
             int m_x = arg[0];
             int m_y = arg[1];
             int odstep = arg[2];
-            int ile_sekund = arg[3];
+        
             var sync = new Object();
             int[] pierwsze_indeksowanie = new int[lista_obiektow.Count];
             for (int i = 0; i < lista_obiektow.Count; i++)
                 pierwsze_indeksowanie[i] = i;
 
             int liczba_indeksowan = ile_roznych_prostokatow(lista_obiektow,pierwsze_indeksowanie);
-
-            if (lista_obiektow.Count > 3)
-                    liczba_indeksowan *= 30;
+            
+            if (lista_obiektow.Count < 10)
+                liczba_indeksowan *= liczba_indeksowan;
+            else
+                liczba_indeksowan *= (liczba_indeksowan + liczba_indeksowan);
 
             List<int[]> lista_indeksow = new List<int[]>();  
             wygeneruj_indeksy(lista_indeksow, lista_obiektow.Count, liczba_indeksowan, indeksowania_proponowane(lista_obiektow,pierwsze_indeksowanie));
-            
-         //   bool zaleznosc_od_t = true;
-            var startTime = DateTime.UtcNow; //tutaj pobieramy aktualny czas
             List<Rozmieszczenia> lista_roz2;
 
-   
-                do
-                {
+            do
+            {
                 lista_roz2 = new List<Rozmieszczenia>();
-                //     rozmieszczanie(lista_roz2, lista_obiektow, lista_indeksow, lista_obiektow.Count, m_x, m_y, odstep);
                 generuj_rozmieszczenia(lista_obiektow, lista_indeksow, lista_roz2, lista_obiektow.Count, m_x, m_y, odstep);
-                Rozmieszczenia best = znajdz_najlepsze2(lista_roz2);
+                Rozmieszczenia best = znajdz_najlepsze(lista_roz2);
                 if (status)
                 {
                     lock (sync)
                     {
-                        if (NAJLEPSZE == null)
-                        {
-                            NAJLEPSZE = best;
-                        }
-                        else
-                        {
-                            //czy_najlepsze(best);
-                            ustal_najlepsze(best);
-                        }
-
-                            
+                        if (NAJLEPSZE == null) NAJLEPSZE = best;
+                        else ustal_najlepsze(best);
                     }
                 }
                 
                 lista_indeksow.Clear();
-                //miksowanie_indeksow2(lista_roz2, lista_indeksow, liczba_indeksowan);
-                miksowanie_indeksow3(lista_roz2, lista_indeksow, liczba_indeksowan);
+                miksowanie_indeksow(lista_roz2, lista_indeksow, liczba_indeksowan);
 
                 licznik++; //pomocniczy licznik żeby wiedzieć ile pętli się wykonuje w określonym czasie
             } while (status);
@@ -816,25 +624,6 @@ namespace Rozmieszczenie.Logika
         }
 
         public static Rozmieszczenia znajdz_najlepsze(List<Rozmieszczenia> lista)
-        {
-            Rozmieszczenia najlepsze = lista[0];
-            
-            for (int i = 0; i < lista.Count; i++)
-            {
-                if (najlepsze.Liczba_wykorzystanych_matryc > lista[i].Liczba_wykorzystanych_matryc)
-                    najlepsze = lista[i];
-                else if (najlepsze.Liczba_wykorzystanych_matryc == lista[i].Liczba_wykorzystanych_matryc)
-                {
-                    if (najlepsze.SumNajPowPro < lista[i].SumNajPowPro)
-                        najlepsze = lista[i];
-                }
-
-            }
-
-            return najlepsze;
-        }
-
-        public static Rozmieszczenia znajdz_najlepsze2(List<Rozmieszczenia> lista)
         {
             Rozmieszczenia najlepsze = lista[0];
 
@@ -869,25 +658,6 @@ namespace Rozmieszczenie.Logika
             return najlepsze;
         }
 
-
-
-        public static void rozmieszczanie(List<Rozmieszczenia> lista_rozmieszczen,List<Prostokat> lista_figur,List<int[]> lista_indeksow,int liczba_figur,int m_rozmiar_x,int m_rozmiar_y,int odstep)
-        {
-            var sync = new Object();
-
-            Parallel.For(0, lista_indeksow.Count, (int k) =>
-            {
-                
-                Rozmieszczenia r;
-                r = start(lista_figur,liczba_figur,lista_indeksow[k],m_rozmiar_x,m_rozmiar_y,odstep);
-                lock (sync)
-                {
-                    lista_rozmieszczen.Add(r);
-                }
-            });
-
-        }
-
         public static int ile_roznych_prostokatow(List<Prostokat> lp,int [] tab_indeksow)
         {
             int[] liczydlo = new int[tab_indeksow.Length];
@@ -916,77 +686,6 @@ namespace Rozmieszczenie.Logika
 
             return ile_roznych;
         }
-
-        public static Rozmieszczenia start(List<Prostokat> lista_prostokatow,int liczba_figur,int[] indeksowanie,int m_rozmiar_x,int m_rozmiar_y,int odstep)
-        {
-            int nr_matrycy = 0;
-            int liczba_prostokatow = liczba_figur;
-            int nr_pierwszego_prostokata = 0;
-            
-
-            Rozmieszczenia roz = new Rozmieszczenia(liczba_prostokatow, new Matryca(m_rozmiar_x, m_rozmiar_y), odstep);
-
-            List<int> indeksy_kolejna_matryca = new List<int>();
-            List<int[]> lista_indeksowan = new List<int[]>();
-
-            do
-            {
-                indeksy_kolejna_matryca = roz.generowanie_rozmieszczenia(liczba_prostokatow,lista_prostokatow, indeksowanie,nr_matrycy,nr_pierwszego_prostokata);
-                
-                if(indeksy_kolejna_matryca.Count != 0)
-                {
-                    roz.lista_matryc.Add(new Matryca(m_rozmiar_x, m_rozmiar_y));
-                    nr_matrycy++;
-                    nr_pierwszego_prostokata = liczba_figur - indeksy_kolejna_matryca.Count;
-                    liczba_prostokatow = indeksy_kolejna_matryca.Count;
-                    indeksowanie = new int[liczba_prostokatow];
-                    for (int i = 0; i < liczba_prostokatow; i++)
-                        indeksowanie[i] = indeksy_kolejna_matryca[i];
-
-                    int liczba_indeksowan = ile_roznych_prostokatow(lista_obiektow, indeksowanie);
-
-                    lista_indeksowan.Clear();
-                    lista_indeksowan.Add(indeksowanie);
-                    wygeneruj_indeksy(lista_indeksowan, liczba_prostokatow, liczba_indeksowan, indeksowania_proponowane(lista_obiektow,indeksowanie));
-                    var startTime = DateTime.UtcNow;
-                    List<Rozmieszczenia> lista_roz2 = new List<Rozmieszczenia>();
-                    do
-                    {
-                        lista_roz2.Clear();
-                        rozmieszczanie(lista_roz2,lista_prostokatow, lista_indeksowan,liczba_prostokatow, m_rozmiar_x, m_rozmiar_y, odstep);
-                        lista_indeksowan.Clear();
-                        miksowanie_indeksow2(lista_roz2, lista_indeksowan, liczba_indeksowan);
-                    
-                    } while ((DateTime.UtcNow - startTime < TimeSpan.FromSeconds(30)) && status ); //tutaj czas jest ustalony ręcznie, ale będzie to zmienione
-
-                    Rozmieszczenia NAJLEPSZE = lista_roz2[0];
-
-                    for (int i = 0; i < lista_roz2.Count; i++)
-                    {
-                        if(NAJLEPSZE.Liczba_wykorzystanych_matryc > lista_roz2[i].Liczba_wykorzystanych_matryc)
-                            NAJLEPSZE = lista_roz2[i];
-                        else if(NAJLEPSZE.Liczba_wykorzystanych_matryc == lista_roz2[i].Liczba_wykorzystanych_matryc)
-                        {
-                            if (NAJLEPSZE.SumNajPowPro < lista_roz2[i].SumNajPowPro)
-                                NAJLEPSZE = lista_roz2[i];
-                        }
-                        
-                    }
-
-                    for (int i = 0; i < liczba_prostokatow; i++)
-                        indeksowanie[i] = NAJLEPSZE.indeksy[i];
-                    
-                }
-            } while (indeksy_kolejna_matryca.Count != 0);
-
-
-            roz.wolna_powierzchnia_matrycy(roz.Liczba_wykorzystanych_matryc - 1);
-            roz.najwieksza_prostokatna_powierzchnia();
-            roz.suma_NajPowPro();
-
-            return roz;
-        }
-
         
 
     //Inne

@@ -245,7 +245,7 @@ namespace Rozmieszczenie
                         }          
 
                         XElement Info = new XElement("Info");
-                        Info.Add(new XElement("NajWolPow",Jądro.NAJLEPSZE.NajPowPro2));
+                        Info.Add(new XElement("NajWolPow",Jądro.NAJLEPSZE.NajPowPro));
                         Info.Add(new XElement("LiczbaRozmieszczeń",Jądro.licznik));
                         Info.Add(new XElement("EdytowaneManualnie",Jądro.NAJLEPSZE.czyZmienaneRecznie));
                         Projekt.Add(Info);
@@ -389,7 +389,7 @@ namespace Rozmieszczenie
                         J.R.Rysuj(J.wm, roz, int.Parse(xml.Root.Element("Matryca").Element("Liczba").Value) - 1);
                        
 
-                        roz.NajPowPro2 = int.Parse(xml.Root.Element("Info").Element("NajWolPow").Value);
+                        roz.NajPowPro = int.Parse(xml.Root.Element("Info").Element("NajWolPow").Value);
                         Jądro.licznik = int.Parse(xml.Root.Element("Info").Element("LiczbaRozmieszczeń").Value);
                         roz.czyZmienaneRecznie = bool.Parse(xml.Root.Element("Info").Element("EdytowaneManualnie").Value);
 
