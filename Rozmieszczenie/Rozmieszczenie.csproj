@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cp.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
@@ -198,6 +201,12 @@
   <ItemGroup>
     <Resource Include="Resources\ikona_minimalizuj.png" />
     <Resource Include="Resources\ikona_zamknij.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cp.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

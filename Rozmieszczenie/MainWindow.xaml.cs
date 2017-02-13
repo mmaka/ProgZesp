@@ -10,6 +10,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Rozmieszczenie.Widoki;
+using System.Text.RegularExpressions;
 
 namespace Rozmieszczenie
 {
@@ -395,6 +396,9 @@ namespace Rozmieszczenie
 
                         J.InfoBox();
                         J.prz  = new Przeciaganie(roz,J.wm,J);
+                        J.nm = new nowa_matryca(J);
+                        J.nm.textBox_matryca_szerokość.Text = xml.Root.Element("Matryca").Element("W").Value;
+                        J.nm.textBox_matryca_wysokość.Text =  xml.Root.Element("Matryca").Element("H").Value;
                         button_rozmiesc_Copy1.IsEnabled = true;
                         button_rozmiesc_Copy.IsEnabled = true;
                     }
@@ -484,6 +488,16 @@ namespace Rozmieszczenie
                 J.wm.Show();
                 J.R.Rysuj(J.wm, Jądro.NAJLEPSZE);
             }
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        private void dataGrid_SelectedCellsChanged(object sender, System.Windows.Controls.SelectedCellsChangedEventArgs e)
+        {
+            J.Sprawdź1();
         }
     }
 }

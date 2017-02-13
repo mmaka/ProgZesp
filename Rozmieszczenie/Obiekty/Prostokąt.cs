@@ -12,7 +12,8 @@ namespace Rozmieszczenie
         string nazwa;
         int id;
 
-        public int ID { get { return id; } set { id = value; } } 
+        public int ID { get { return id; }  }
+        public int SETID { set { id = value; } }
         public string Nazwa {   get { return nazwa; }  }
         public int W { get { return szerokosc; } set { szerokosc = value; } } 
         public int H { get { return wysokosc; } set { wysokosc = value; } }        

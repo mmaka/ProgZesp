@@ -12,10 +12,10 @@ namespace Rozmieszczenie.Logika
     public class Jądro
     {
         nowa_prostokat np;
-        nowa_matryca nm;
         MainWindow MW;
         Zła_MatrycaFigura zMF;
 
+        public nowa_matryca nm;
         public pasek Pasek;
         public int odstep; //tutaj ręcznie możemy ustawić rozmiar odstępu
         public widok_matryca wm;
@@ -154,9 +154,15 @@ namespace Rozmieszczenie.Logika
         public void usuń_prostokąt(Prostokat prostokat)
         {
             lista_obiektow.Remove(prostokat);
+
+            foreach (var item in lista_obiektow)
+            {
+                if (item.ID > prostokat.ID)
+                    item.SETID = item.ID - 1;
+            }
+            Prostokat.licznik = lista_obiektow.Count;
             MW.dataGrid.DataContext = lista_obiektow;
             MW.dataGrid.Items.Refresh();
-
         }
         public void usuń_prostokąt(int id)
         {
@@ -169,7 +175,7 @@ namespace Rozmieszczenie.Logika
             foreach (var item in lista_obiektow)
             {
                 if (item.ID > id)
-                    item.ID = item.ID - 1;
+                    item.SETID = item.ID - 1;
             }
             Prostokat.licznik = lista_obiektow.Count;
             MW.dataGrid.DataContext = lista_obiektow;

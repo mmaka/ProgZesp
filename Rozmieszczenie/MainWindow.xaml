@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rozmieszczenie"
         mc:Ignorable="d"
-        Title="Rozmieszczanie figur"  Height="450" Width="450" MinHeight="450" MinWidth="450" Style="{StaticResource StylWindow}">
+        Title="Rozmieszczanie figur"  Height="450" Width="450" MinHeight="450" MinWidth="450" Icon="Resources\cp.ico" Style="{StaticResource StylWindow}">
 
     <Grid  MouseDown="Grid_MouseDown_1"  >
 
@@ -19,7 +19,7 @@
         <DataGrid x:Name="dataGrid" Margin="136,67,10,84" ItemsSource="{Binding}" SelectionChanged="dataGrid_SelectionChanged" PreviewKeyDown="DataGridPreviewKeyDown"
                   Background="#00000000" BorderBrush="#CC707070" Foreground="White" Padding="5,0,0,0"
                   CellStyle="{StaticResource CellStyl }" RowStyle="{StaticResource RowStyl}"
-                 ColumnHeaderStyle="{StaticResource HeaderStyl}" RowHeaderStyle="{StaticResource DataGridKolumna1Styl}" >
+                 ColumnHeaderStyle="{StaticResource HeaderStyl}" RowHeaderStyle="{StaticResource DataGridKolumna1Styl}" SelectedCellsChanged="dataGrid_SelectedCellsChanged" >
             <DataGrid.ContextMenu>
                 <ContextMenu Style="{StaticResource MenuContext}" Width="auto" Height="auto"  Background="#CC00A6F3" >
                     <MenuItem Header="_Dodaj prostokąt" Click="button_Click" Style="{StaticResource MenuItem}"/>
@@ -46,7 +46,7 @@
         <Label x:Name="labelcza" Content="Czas (sekund):" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,203,0,0" Height="25" Width="101" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070"/>
 
         <TextBox x:Name="textBox_komunikat" TextWrapping="Wrap" Text="Witaj!" Margin="10,0,10,61" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070" SelectionBrush="{x:Null}"/>
-        <TextBox x:Name="textBox_Czas" TextWrapping="Wrap" Text="10" Margin="23,0,369,205" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070" SelectionBrush="{x:Null}" Height="17"/>
+        <TextBox x:Name="textBox_Czas" TextWrapping="Wrap" Text="10" Margin="23,0,369,205" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" Foreground="White" Background="{x:Null}" BorderBrush="#CC707070" SelectionBrush="{x:Null}" Height="17" PreviewTextInput="NumberValidationTextBox"/>
 
 
 
