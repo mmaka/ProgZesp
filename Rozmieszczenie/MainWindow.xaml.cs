@@ -51,7 +51,10 @@ namespace Rozmieszczenie
 
         private void button_rozmiesc_Click(object sender, RoutedEventArgs e)
         {
+            Jądro.NAJLEPSZE = null;
+            Jądro.status = true;
             J.rozmiesc();
+            
                 
             
         }
