@@ -17,7 +17,7 @@ namespace Rozmieszczenie.Logika
 
         public nowa_matryca nm;
         public pasek Pasek;
-        public int odstep; //tutaj ręcznie możemy ustawić rozmiar odstępu
+        public int odstep;
         public widok_matryca wm;
         public Matryca Matka;
         public informacyjne InfoOkno;
@@ -25,7 +25,6 @@ namespace Rozmieszczenie.Logika
         public static Rozmieszczenia NAJLEPSZE = null;
         public Przeciaganie prz;
         public static List<Prostokat> lista_obiektow;
-        public static int licznik = 0;
         public List<Rozmieszczenia> lista_rozmieszczen;
         volatile public static bool status = true;
         //Konstruktor
@@ -218,7 +217,7 @@ namespace Rozmieszczenie.Logika
            ParameterizedThreadStart pts = new ParameterizedThreadStart(go);
            Thread thr = new Thread(pts);
 
-           if (lista_obiektow.Count < 4)
+           if (lista_obiektow.Count < 3)
                 zaleznosc_od_t = false;
 
            int m_x = Matka.rozmiar_x;
@@ -232,9 +231,8 @@ namespace Rozmieszczenie.Logika
            tab_arg.Add(m_x);
            tab_arg.Add(m_y);
            tab_arg.Add(odstep);
-       //    tab_arg.Add(sekundCzas);
            thr.Start(tab_arg);
-
+           
            var startTime = DateTime.UtcNow;
            do
            {
@@ -245,7 +243,7 @@ namespace Rozmieszczenie.Logika
 
            status = false; //tutaj kończymy działanie rozmieszczania i blokujemy możliwość dostępu do blokady
            startTime = DateTime.UtcNow; 
-           while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(1)){ }; //odczekujemy sekunde
+           while (DateTime.UtcNow - startTime < TimeSpan.FromSeconds(2)){ }; //odczekujemy sekunde
 
            try
            {
@@ -319,7 +317,6 @@ namespace Rozmieszczenie.Logika
                         "\nNajwiększa wolna prostokatna powierzchnia: " + NAJLEPSZE.NajPowPro +
                         "\nNajwięszka wolna prostokątna powierzchnia na ostatniej matrycy: " + NAJLEPSZE.NajPowProNr+
                         "\nCałkowita wolna powierzchnia na ostatniej matrycy: " + NAJLEPSZE.WolPowNrMat +
-                        "\nLiczba rozmieszczen: " + licznik +
                         "\nEdytowane manualnie: " + NAJLEPSZE.czyZmienaneRecznie+
                         "\nSzerokość matrycy: "+Matka.rozmiar_x+
                         "\nWysokość matrycy: "+ Matka.rozmiar_y+
@@ -624,7 +621,6 @@ namespace Rozmieszczenie.Logika
                 lista_indeksow.Clear();
                 miksowanie_indeksow(lista_roz2, lista_indeksow, liczba_indeksowan);
 
-                licznik++; //pomocniczy licznik żeby wiedzieć ile pętli się wykonuje w określonym czasie
             } while (status);
 
         }

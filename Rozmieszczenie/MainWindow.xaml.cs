@@ -54,9 +54,7 @@ namespace Rozmieszczenie
             Jądro.NAJLEPSZE = null;
             Jądro.status = true;
             J.rozmiesc();
-            
-                
-            
+
         }
        
         private void _Usuń_prostokąt_Click(object sender, RoutedEventArgs e)
@@ -250,7 +248,6 @@ namespace Rozmieszczenie
 
                         XElement Info = new XElement("Info");
                         Info.Add(new XElement("NajWolPow",Jądro.NAJLEPSZE.NajPowPro));
-                        Info.Add(new XElement("LiczbaRozmieszczeń",Jądro.licznik));
                         Info.Add(new XElement("EdytowaneManualnie",Jądro.NAJLEPSZE.czyZmienaneRecznie));
                         Projekt.Add(Info);
                     }
@@ -394,7 +391,6 @@ namespace Rozmieszczenie
                        
 
                         roz.NajPowPro = int.Parse(xml.Root.Element("Info").Element("NajWolPow").Value);
-                        Jądro.licznik = int.Parse(xml.Root.Element("Info").Element("LiczbaRozmieszczeń").Value);
                         roz.czyZmienaneRecznie = bool.Parse(xml.Root.Element("Info").Element("EdytowaneManualnie").Value);
 
                         J.InfoBox();

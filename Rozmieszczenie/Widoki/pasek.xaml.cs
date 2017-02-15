@@ -20,7 +20,9 @@ namespace Rozmieszczenie.Widoki
         }
         private void Zamknij(object sender, RoutedEventArgs e)
         {
-            Close();
+            MessageBox.Show("Trwa rozmieszczanie prostokątów...", "Błąd",
+                         MessageBoxButton.OK, MessageBoxImage.Warning);
+            
         }
 
         private void Minimalizuj(object sender, RoutedEventArgs e)

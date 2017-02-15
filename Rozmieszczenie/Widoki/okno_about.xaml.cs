@@ -11,7 +11,7 @@ namespace Rozmieszczenie.Widoki
         public okno_about()
         {
             InitializeComponent();
-            text.Text = "Program umożliwiający optymalny rozkład figur prostokątnych na matrycy określonej wielkosci. \n\n";
+            text.Text = "Program wspomagający optymalny rozkład figur prostokątnych na matrycy określonej wielkosci. \n\n";
             text.Text += "Wykorzystując algorytm genetyczny szukana jest najlepsza możliwa konfiguracja rozłożenia prostokątów. \n\n\n\n";
             text.Text += "Zastosowania: zarówno do wycinania jak i układania prostokątnych obiektów w ramach zadanej prostokątnej powierzchni. \n\n Autorzy:\n -Dawid Gruszczyński \n -Michał Makaś \n -Jakub Reszka \n\n UMK WFAiIS Rok 2016/2017";
         }
